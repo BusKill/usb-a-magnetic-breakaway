@@ -4,6 +4,7 @@ CC BY-NC 3.0 License
 Author: Melanie Allen
 */
 
+//pogosource borrowed from 
 module pogosource() {
   $fn=20;
 /*
@@ -132,137 +133,10 @@ openlog_clone_programmer_jig();
 }
 
 
-
-//input block variables
-i_h = 14;
-i_w = 6.5;
-i_d = 24;
-
-//output block variables
-o_h = 14;
-o_w = 6.5;
-o_d = 12;
-
-//pogo variables
+//variables
 //TBD
 
-//USB_female variables
-//uf_h =
-//uf_w =
-//uf_d =
-
-//USB_male variables
-//um_h =
-//um_w =
-//uf_d =
-
-
 // modules
-
-//create input block
-module input(){
-    color( "Green", 0.5 ){
-    rotate([90,0,0]){
-        translate([52,0,0]){
-        cube(size = [i_h, i_w, i_d], center = false);   
-            }
-        }
-    }
-}
-//input();
-
-//create output block
-module output(){
-    color( "Green", 0.5 ){
-       rotate([90,0,0]){
-        translate([33,0,0]){
-        cube(size = [o_h, o_w, o_d], center = false);
-            }
-        }
-    }
-}            
-//output();
-
-//create magnet
-module magnet(){
-    color( "SlateGrey", 1.0 )
-    rotate([0,90,0]){
-        import("magnet2.stl");
-    }
-}
-//magnet();
-
-//create two magnets for input
-module input_magnet(){
-translate([52.25,-27.15,-4.5]){
-    magnet();
-
-    translate([9.5,0,0]){
-        magnet();
-        }
-    }
-}
-
-//create two magnets for output
-module output_magnet(){
-translate([33.25,-15.15,-4.25]){
-    magnet();
-translate([9.5,0,0]){
-    magnet();
-        }
-    }
-}
-
-//add magnet void to input
-module input_add_magnet(){
-
-difference(){
-    input();
-    input_magnet();
-    }
-}
-
-//input_add_magnet();
-
-//add magnet void to output
-module output_add_magnet(){
-    difference(){
-        output();
-        output_magnet();
-    }
-}
-
-//output_add_magnet();
-
-//create usb_female
-module usb_female(){
-    translate([52.5,-9,1]){cube(size=[12,10,4], center = false);
-    }
-}
-
-//usb_female();
-
-//subtract usb_female
-difference(){
-input_add_magnet();
-usb_female();
-}
-
-//create usb_male
-module usb_male(){
-    translate([34,-10,1]){cube(size=[12,10,4], center = false);
-    }
-}
-//usb_male();
-
-//subtract usb_male
-difference(){
-output_add_magnet();
-usb_male();
-}
-
-
-//create pogo pin
 module pogopin() {
    color("Purple",1.0)translate([0,0,2.5]){
     pogosource();
@@ -271,42 +145,22 @@ module pogopin() {
     }
         }
     }
-    
-   // pogopin();
 
 
-/*module intersection_output(){
-    intersection(){
-    output_add_magnet(); 
-    translate([36.5,-12.1,0]){
-    pogopin();
-        }
+module magnet(){
+    color( "SlateGrey", 1.0 )
+    rotate([0,90,0]){
+        import("magnet2.stl");
     }
 }
 
-*/
-
-/*module intersection_input(){
-    intersection(){
-        input_add_magnet();
-        translate([55.5,-24.1,0]){
-        pogopin();
-        } 
-    }
-}
-*/
-
-/*difference(){
-    input();
-    intersection_input();    
-    }
-difference(){
-    output();
-    intersection_output();    
+module usb_female(){
+    cube(size=[4,10,2], center = false);
 }
 
-*/
-
+module usb_male(){
+    cube(size=[4,10,2], center = false);
+}
     
 module screw(){
     //for differencing
@@ -315,3 +169,93 @@ module screw(){
 module nut(){
     //for differencing
 }
+
+module input(){
+    color( "Green", 0.5 ){
+    rotate([90,0,0]){
+        translate([52,0,0]){
+        cube(size = [14, 6.5, 24], center = false);   
+        }
+    }
+}
+}
+
+module output(){
+    color( "Green", 0.5 ){
+       rotate([90,0,0]){
+        translate([33,0,0]){
+    cube(size = [14, 6.5, 12], center = false);
+        }
+    }
+}
+}            
+
+
+module output_magnet(){
+translate([33.25,-15.15,-4.25]){
+    magnet();
+translate([9.5,0,0]){
+    magnet();
+}
+}
+}
+
+//output bottom
+
+
+module output_sans_pogo(){
+  
+difference(){
+    output();
+    output_magnet();
+}
+
+}
+
+module intersection_output(){
+intersection(){
+output_sans_pogo(); 
+translate([36.5,-12.1,0]){
+pogopin();
+}
+
+}
+}
+
+module input_magnet(){
+translate([52.25,-27.15,-4.5]){
+    magnet();
+
+translate([9.5,0,0]){
+    magnet();
+}
+}
+}
+
+//input bottom
+module input_sans_pogo(){
+difference(){
+input();
+input_magnet();
+}
+}
+
+module intersection_input(){
+intersection(){
+input_sans_pogo();
+translate([55.5,-24.1,0]){
+pogopin();
+} 
+}
+}
+
+difference(){
+input();
+intersection_input();    
+}
+difference(){
+output();
+intersection_output();    
+}
+
+translate([0,40,0]){difference(){input_sans_pogo(); translate([56,-24,0]){pogopin();}}}
