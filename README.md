@@ -7,6 +7,3 @@ Directory contains engineering drawings for the magnets which you can provide to
 ## CAD
 Directory contains CAD filesmagnetic breakway case if you want to edit the files. 
 
-## gcode, STL
-Directories contain 3D printable versions of the magnetic breakway case. 
-This directory is currently empty as development is in progress.
