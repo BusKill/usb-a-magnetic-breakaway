@@ -29,7 +29,7 @@ echo(ppdiaoutset);
 /* Castellated Module Pin Spacing and count */
 
 // Pin Count
-ppc = 1;
+ppc = 2;
 
 // Pin Spacing
 pps = 2.54;

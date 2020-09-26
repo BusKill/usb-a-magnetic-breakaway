@@ -7,23 +7,19 @@ Author: Melanie Allen
 
 // modules
 module pogopin() {
-   color("Purple",1.0)translate([0,0,3.25]){
+   color("Purple",1.0)translate([0,0,2.5]){
     import("pogo_pin.stl");
-    translate([3,0,0]){
-    import("pogo_pin.stl");
-        rotate([0,180,0])translate([-4,0,0]){
+        rotate([0,180,0])translate([-6.6,0,-1]){
                import("pogo_pin.stl");
-    translate([3,0,0]){
-    import("pogo_pin.stl"); 
     }
         }
     }
-}
-}
+
+
 
 module magnet(){
     color( "SlateGrey", 1.0 )
-    rotate([0,0,0]){
+    rotate([0,90,0]){
         import("magnet2.stl");
     }
 }
@@ -59,23 +55,24 @@ module top_output(){
 }
 */
 module bottom_input(){
-    color( "Green", 0.5 )
+    color( "Green", 0.5 ){
     rotate([90,0,0]){
         translate([52,0,0]){
         cube(size = [14, 6.25, 24], center = false);   
         }
     }
 }
+}
 
 module bottom_output(){
-    color( "Green", 0.5 )
+    color( "Green", 0.5 ){
        rotate([90,0,0]){
         translate([33,0,0]){
     cube(size = [14, 6.25, 12], center = false);
         }
     }
 }
-            
+}            
 
 //input top
 /* difference(){
@@ -94,21 +91,22 @@ bottom_input();
 translate([36.5,-12.1,0]){
 pogopin();
 }
-translate([42.25,-15.1,.5]){
+translate([33.25,-15.15,-4.25]){
     magnet();
 translate([9.5,0,0]){
     magnet();
 }
 }
 //output bottom
-    color( "Green", 0.5 )
-    bottom_output();
-
     translate([55.5,-24.1,0]){
         pogopin();
         }
-translate([62,-27.1,.5]){
+
+    bottom_output();
+
+translate([52.25,-27.15,-4.5]){
     magnet();
+
 translate([9.5,0,0]){
     magnet();
 }
