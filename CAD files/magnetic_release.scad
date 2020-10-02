@@ -61,27 +61,34 @@ translate([0,0,pogo_diameter*2]){pogo_cut();
 
 //create input block
 module input(){
-    color( "Green", 0.5 ){
+    difference(){
     rotate([90,0,0]){
         translate([52,0,0]){
         cube(size = [i_h, i_w, i_d], center = false);   
             }
         }
-    }
-}
+            translate([59,-24,2]){
+cube(size= [4,2,4]);
+            }
+    }   
+    };
+      
 
 //input();
 
 //create output block
 module output(){
-    color( "Green", 0.5 ){
        rotate([90,0,0]){
         translate([33,0,0]){
         cube(size = [o_h, o_w, o_d], center = false);
             }
         }
-    }
-}            
+     translate([38,-13,1]){
+cube(size= [4,2,4]);
+    }   
+    };       
+
+
 //output();
 
 //create magnet
@@ -95,7 +102,7 @@ module magnet(){
 
 //create two magnets for input
 module input_magnet(){
-translate([55,-27.15,-4.5]){
+translate([54.4,-27.15,-3.5]){
     magnet();
 
     translate([9,0,0]){
@@ -145,6 +152,7 @@ module usb_female(){
 //usb_female();
 
 //subtract usb_female
+
 module subtract_usb_f() {
 difference(){
 input_add_magnet();
@@ -152,13 +160,14 @@ usb_female();
 }
 }
 
+color("pink"){
 difference(){
 subtract_usb_f();
-    translate([21.5,-12,0]){
+    translate([21,-11,1]){
         pogo_assemble();
         };
 }
-
+}
 
 //create usb_male
 module usb_male(){
@@ -176,12 +185,12 @@ usb_male();
 }
 
 //subtract_usb_m();
-
+color("blue"){
 difference(){
     subtract_usb_m();
     pogo_assemble();
 }
-
+}
 
 
 /*module intersection_output(){
