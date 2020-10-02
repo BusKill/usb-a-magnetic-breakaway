@@ -134,8 +134,8 @@ openlog_clone_programmer_jig();
 
 
 //input block variables
-i_h = 14;
-i_w = 6.5;
+i_h = 18;
+i_w = 8.5;
 i_d = 24;
 
 //output block variables
@@ -143,21 +143,50 @@ o_h = 14;
 o_w = 6.5;
 o_d = 12;
 
+//input lid variables
+
+//output lid variables
+
 //pogo variables
-//TBD
+pogo_length=15;
+pogo_tip=3;
+pogo_diameter=1;
 
 //USB_female variables
-//uf_h =
-//uf_w =
-//uf_d =
+uf_h = 16;
+uf_w = 13;
+uf_d = 6;
 
 //USB_male variables
-//um_h =
-//um_w =
-//uf_d =
+um_h = 12;
+um_w = 10;
+um_d = 4;
 
 
 // modules
+
+//create pogo pin 
+module pogo_cut(){
+rotate([90,90,0]) {
+    cylinder(h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+    translate([0,0,pogo_length]) {
+        cylinder(h=pogo_tip, r1=pogo_diameter*0.55, r2=pogo_diameter*0.55, center = false);
+        }
+}
+}
+
+module pogo_assemble(){
+translate([39,4.5,2]){pogo_cut();
+translate([pogo_diameter*2,0,0]){pogo_cut();
+    translate([0,0,pogo_diameter*2]){pogo_cut();
+    };
+    };
+translate([0,0,pogo_diameter*2]){pogo_cut();
+    };
+}
+};
+
+//pogo_assemble();
 
 //create input block
 module input(){
@@ -169,6 +198,7 @@ module input(){
         }
     }
 }
+
 //input();
 
 //create output block
@@ -194,10 +224,10 @@ module magnet(){
 
 //create two magnets for input
 module input_magnet(){
-translate([52.25,-27.15,-4.5]){
+translate([55,-27.15,-4.5]){
     magnet();
 
-    translate([9.5,0,0]){
+    translate([9,0,0]){
         magnet();
         }
     }
@@ -236,31 +266,50 @@ module output_add_magnet(){
 
 //create usb_female
 module usb_female(){
-    translate([52.5,-9,1]){cube(size=[12,10,4], center = false);
+    translate([53,-9,1]){
+        cube(size=[uf_h,uf_w,uf_d], center = false);
     }
 }
 
 //usb_female();
 
 //subtract usb_female
+module subtract_usb_f() {
 difference(){
 input_add_magnet();
 usb_female();
 }
+}
+
+difference(){
+subtract_usb_f();
+    translate([21.5,-12,0]){
+        pogo_assemble();
+        };
+}
+
 
 //create usb_male
 module usb_male(){
-    translate([34,-10,1]){cube(size=[12,10,4], center = false);
+    translate([34,-10,1]){cube(size=[um_h,um_w,um_d], center = false);
     }
 }
 //usb_male();
 
 //subtract usb_male
+module subtract_usb_m(){
 difference(){
 output_add_magnet();
 usb_male();
 }
+}
 
+//subtract_usb_m();
+
+difference(){
+    subtract_usb_m();
+    pogo_assemble();
+}
 
 //create pogo pin
 module pogopin() {
