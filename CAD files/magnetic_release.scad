@@ -6,7 +6,7 @@ Author: Melanie Allen
 
 //input block variables
 i_h = 18;
-i_w = 8.5;
+i_w = 6.5;
 i_d = 24;
 
 //output block variables
@@ -26,7 +26,7 @@ pogo_diameter=1;
 //USB_female variables
 uf_h = 16;
 uf_w = 13;
-uf_d = 6;
+uf_d = 4.75;
 
 //USB_male variables
 um_h = 12;
@@ -67,12 +67,11 @@ module input(){
         cube(size = [i_h, i_w, i_d], center = false);   
             }
         }
-            translate([59,-24,2]){
-cube(size= [4,2,4]);
+            translate([59,-24,1]){
+cube(size= [4,2,5]);
             }
     }   
-    };
-      
+    };  
 
 //input();
 
@@ -84,7 +83,7 @@ module output(){
             }
         }
      translate([38,-13,1]){
-cube(size= [4,2,4]);
+cube(size= [4,2,5]);
     }   
     };       
 
@@ -102,10 +101,10 @@ module magnet(){
 
 //create two magnets for input
 module input_magnet(){
-translate([54.4,-27.15,-3.5]){
+translate([54.4,-27.15,-4.25]){
     magnet();
 
-    translate([9,0,0]){
+    translate([9.5,0,0]){
         magnet();
         }
     }
@@ -163,7 +162,7 @@ usb_female();
 color("pink"){
 difference(){
 subtract_usb_f();
-    translate([21,-11,1]){
+    translate([21,-10,-0]){
         pogo_assemble();
         };
 }
