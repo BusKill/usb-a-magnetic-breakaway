@@ -1,6 +1,6 @@
 /*                      
-Buskill USB-A Magnetic Release Shell Assembly                 
-CC BY-SA 4.0 License     
+Buskill USB-A Magnetic Release Shell Assembly     
+GNU General Public License v3.0 
 Author: Melanie Allen
 */
 
