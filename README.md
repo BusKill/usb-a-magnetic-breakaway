@@ -2,19 +2,19 @@
 
 Design requirements for an open-source USB-A magnetic breakaway connector used in the BusKill laptop kill cord 
 
-## CAD
+### CAD
 
 Directory contains CAD files for the magnetic breakway case if you want to edit the files. *(in development)*
 
-## Print files
+### Print files
 
 Directory contains 3D print files for the magnetic breakaway case. *(blocked by completion of CAD files)*
 
-## Engineering drawings
+### Engineering drawings
 
 Directory contains engineering drawings for the magnets which you can provide to a manufacturer for the purpose of ordering the magnets for the magnetic breakway.
 
-## Magnet_and_PP_Vendor_List.ods
+### Magnet_and_PP_Vendor_List.ods
 
 File contains a list of manufacturers that sell magnets, pogo pins, and pogo receptors. 
 
