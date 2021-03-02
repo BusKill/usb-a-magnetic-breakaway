@@ -10,7 +10,8 @@ Directory contains CAD filesmagnetic breakway case if you want to edit the files
 ## Contributing
 
 Please see Contributing to BusKill to learn how you can help the BusKill project.
-Attribution
+
+## Attribution
 
 Thank you to the countless individuals and other open-source projects that have contributed to to the BusKill project!
 
