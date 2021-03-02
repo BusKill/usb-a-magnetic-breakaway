@@ -54,6 +54,7 @@ ppr_top_h=1.5; // top cylinder height
 ppr_bottom_d=2; //bottom cylinder diameter
 ppr_bottom_r=1;
 ppr_bottom_h1=2; //bottom cyclinder height
+ppr_d=1; //distance between pogo recepticles
 
 /* * Output * */
 
@@ -79,10 +80,12 @@ um_w = 10;
 um_d = 4;
 
 //screw and nut variables
-s_h=6;
-s_d=1;
-n_s=1;
-
+s_h=6; // screw length
+s_r1=.5; // screw shaft radius
+s_r2=1; // screw top radius
+n_r=1; //nut radius
+n_h=1; //nut height
+n_d=5; //distance between nuts
 
 /* * * * Modules * * * */
 
@@ -153,17 +156,18 @@ module pogo_rec(){
     };
     pogo_rec_bottom();
 }
+//pogo_rec();
 
 module two_pogo_recs(){
     rotate([90,0,0]){
-pogo_rec();
+        pogo_rec();
     
-translate([pogo_distance+1,0,0]){
-pogo_rec();
+        translate([pogo_distance+1,0,0]){
+        pogo_rec();
+        }
+    }
 }
-}
-}
-//two_pogo_recs();
+two_pogo_recs();
 
 //create input base
 module input(){
@@ -345,7 +349,7 @@ rotate([180,0,0]){
 
 module make_screws(){    
     module screw(){
-        cylinder(h=s_h, r1=s_d, r2=s_d, center = false);
+        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
 
     module two_screws(){
@@ -369,9 +373,20 @@ module make_screws(){
 //make_screws();
 
 module make_nuts(){
-    //for differencing
+  module nut(){
+    cylinder(h=1, r1=n_r, r2=n_r, center= false);
+  }
+  nut();
+  
+  translate([n_d,0,0]){
+      nut();
+  }
 }
-//make_nuts();
+rotate([90,0,0]){
+translate([n_d,0,0]){
+    make_nuts();
+}
+}
 
 module done(){
     difference(){
