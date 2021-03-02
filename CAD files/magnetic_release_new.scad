@@ -4,31 +4,58 @@ GNU General Public License v3.0
 Author: Melanie Allen
 */
 
-//input block variables
-i_h = 18;
-i_w = 8.5;
-i_d = 24;
+/*Description
+BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, severing a USB connection. This design is for USB-A.
 
-//output block variables
-o_h = 14;
-o_w = 6.5;
-o_d = 12;
+The user will have a USB, a USB extension cable, and the magnetic breakaway. 
+
+The magnetic breakaway device should be sized so that it doesn't base other USB ports on the user's computer.
+
+The "input" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. 
+
+The "output" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets. 
+
+When the magnets on the input and output connect, the pogo pins and pogo receptors must meet and establish the USB connection.
+
+The input and output plugs must be designed asymmetrically to prevent the connection from happening the wrong way. 
+
+The case must be designed so that the user can completely dissemble it and ensure there has been no tampering. No glue must be required. The base and lid connect together with tiny screws and embedded nuts. 
+*/
+
+/*Variables*/
+
+//input base variables
+i_h = 18; //z
+i_w = 6.5; //x
+i_d = 24; //y
+
+//output base variables
+o_h = 14; //z
+o_w = 6.5; //x
+o_d = 12; //y
 
 //input lid variables
-i_l_h =18;
-i_l_w = 6.25;
-i_l_d = 24;
+i_l_h =18; //z
+i_l_w = 8.5; //x
+i_l_d = 24; //y
 
 //output lid variables
-o_l_h =14;
-o_l_w = 3.25;
-o_l_d = 13;
+o_l_h =14; //z
+o_l_w = 3.25; //x
+o_l_d = 13; //y
 
 //pogo variables
 pogo_length=15;
 pogo_tip=3;
 pogo_diameter=1.6;
-pogo_distance=1;
+pogo_distance=2.3; //distance between pins (x=z)
+
+//pogo recepticle variables
+//Pogo recepticle is shaped like two cylinders, one bigger than the other.
+ppr_bigger_d=1; // bigger cyclinder diameter
+ppr_bigger_h=1; // bigger cylinder height
+ppr_smaller_d=1; //smaller cylinder diameter
+ppr_smaller_h1=1; //smaller cyclinder height
 
 //USB_female variables
 uf_h = 16;
@@ -45,7 +72,8 @@ s_h=6;
 s_d=1;
 n_s=1;
 
-// modules
+
+/* Modules */
 
 //create input lid
 module input_lid(){
@@ -87,11 +115,11 @@ module pogo_assemble(){
         pogo_cut();
         translate([pogo_diameter*1.5,0,0]){
             pogo_cut();
-            translate([0,0,pogo_diameter*1.5]){
+            translate([0,0,pogo_distance]){
                 pogo_cut();
                 };
         };
-    translate([0,0,pogo_diameter*1.5]){
+    translate([0,0,pogo_distance]){
         pogo_cut();
         };
     }
@@ -99,7 +127,10 @@ module pogo_assemble(){
 
 //pogo_assemble();
 
-//create input block
+//create pogo recepticle
+
+
+//create input base
 module input(){
     difference(){
     rotate([90,0,0]){
@@ -107,25 +138,25 @@ module input(){
         cube(size = [i_h, i_w, i_d], center = false);   
             }
         }
-            translate([58.5,-24,1]){
-cube(size= [4.5,2,5]);
+            translate([58,-24,1]){
+cube(size= [6,2,5]);
             }
     }   
     };  
 
 //input();
 
-//create output block
+//create output base
 module output(){
        rotate([90,0,0]){
-        translate([33,0,0]){
-        cube(size = [o_h, o_w, o_d], center = false);
+            translate([33,0,0]){
+                cube(size = [o_h, o_w, o_d], center = false);
             }
         }
-     translate([38,-13,1]){
-cube(size= [4,2,5]);
-    }   
-    };       
+        translate([37,-13,1]){
+            cube(size= [6,2,5]);
+        }   
+};       
 
 
 //output();
@@ -141,9 +172,9 @@ module magnet(){
 
 //create two magnets for input
 module input_magnet(){
-    translate([54.4,-27.15,-4.25]){
+    translate([52.4,-27.15,-4.25]){
         magnet();
-        translate([9.5,0,0]){
+        translate([13.1,0,0]){
             magnet();
         }
     }
@@ -192,40 +223,42 @@ module usb_female(){
 //subtract usb_female
 module final_female(){
 
-module subtract_usb_f() {
-    difference(){
-    input_add_magnet();
-    usb_female();
-    }
-}
-
-module almost_done_input() {
-    color("pink"){
+    module subtract_usb_f() {
         difference(){
-        subtract_usb_f();
-            translate([21,-10,-0]){
-            pogo_assemble();
-            };
+            input_add_magnet();
+            usb_female();
         }
     }
-}
 
-difference(){
-    almost_done_input();
-    input_lid();
-}
-
-rotate([180,00,0]){
-    translate([60,0,-8.5]){
-    difference(){
-        almost_done_input();
-        translate([0,0,-6.25]){
-            input_lid();
+    module almost_done_input() {
+        color("pink"){
+            difference(){
+                subtract_usb_f();
+                translate([21,-10,-0]){
+                    pogo_assemble();
+                };
             }
         }
     }
+
+    difference(){
+        almost_done_input();
+        input_lid();
     }
-}
+
+    rotate([180,00,0]){
+        translate([60,0,-8.5]){
+            difference(){
+                    almost_done_input();
+                    translate([0,0,-6.25]){
+                        input_lid();
+                    }
+            }
+        }
+    }
+};
+
+//final_female();
 
 //create usb_male
 module usb_male(){
@@ -270,36 +303,38 @@ rotate([180,0,0]){
 }
 
 module add_screws(){    
-module screw(){
-    cylinder(h=s_h, r1=s_d, r2=s_d, center = false);
-}
+    module screw(){
+        cylinder(h=s_h, r1=s_d, r2=s_d, center = false);
+    }
 
-module two_screws(){
-translate([0,-17,0]){
-    screw();
-}
+    module two_screws(){
+        translate([0,-17,0]){
+        screw();
+    }
 
-translate([10,-17,0]){
-    screw();}
-}
+    translate([10,-17,0]){
+        screw();
+        }
+    }
 
+    translate([56,0,0]){
+        two_screws();
+    }
 
-translate([56,0,0]){
-    two_screws();
-}
+    translate([116,34,0]){
+        two_screws();
+    }
+};
+//add_screws();
 
-
-translate([116,34,0]){
-    two_screws();
+module add_nuts(){
+    //for differencing
 }
-}
+//add_nuts();
 
 difference(){
     final_female();
     add_screws();
+    //add_nuts();
 }
 
-module nut(){
-    //for differencing
-}
-//nut();
