@@ -50,13 +50,13 @@ n_s=1;
 //create input lid
 module input_lid(){
     difference(){
-    rotate([90,0,0]){
-        translate([52,3.25,0]){
-        cube(size = [i_l_h, i_l_w, i_l_d], center = false);   
+        rotate([90,0,0]){
+            translate([52,3.25,0]){
+            cube(size = [i_l_h, i_l_w, i_l_d], center = false);   
             }
         }
     }   
-    };  
+};  
     
  //   input_lid();
 
@@ -72,29 +72,29 @@ module output_lid(){
 
 //create pogo pin 
 module pogo_cut(){
-rotate([90,90,0]) {
-    cylinder(h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
-    translate([0,0,pogo_length]) {
-        cylinder(h=pogo_tip, r1=1, r2=1, center = false);
+    rotate([90,90,0]) {
+        cylinder(h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+        translate([0,0,pogo_length]) {
+            cylinder(h=pogo_tip, r1=1, r2=1, center = false);
         }
-}
+    }
 }
 
 //pogo_cut();
 
 module pogo_assemble(){
-translate([38.5,4.5,2]){
-    pogo_cut();
-translate([pogo_diameter*1.5,0,0]){
-    pogo_cut();
+    translate([38.5,4.5,2]){
+        pogo_cut();
+        translate([pogo_diameter*1.5,0,0]){
+            pogo_cut();
+            translate([0,0,pogo_diameter*1.5]){
+                pogo_cut();
+                };
+        };
     translate([0,0,pogo_diameter*1.5]){
         pogo_cut();
-    };
-    };
-translate([0,0,pogo_diameter*1.5]){
-    pogo_cut();
-    };
-}
+        };
+    }
 };
 
 //pogo_assemble();
@@ -141,21 +141,20 @@ module magnet(){
 
 //create two magnets for input
 module input_magnet(){
-translate([54.4,-27.15,-4.25]){
-    magnet();
-
-    translate([9.5,0,0]){
+    translate([54.4,-27.15,-4.25]){
         magnet();
+        translate([9.5,0,0]){
+            magnet();
         }
     }
 }
 
 //create two magnets for output
 module output_magnet(){
-translate([33.25,-15.15,-4.25]){
-    magnet();
-translate([9.5,0,0]){
-    magnet();
+    translate([33.25,-15.15,-4.25]){
+        magnet();
+        translate([9.5,0,0]){
+            magnet();
         }
     }
 }
@@ -163,9 +162,9 @@ translate([9.5,0,0]){
 //add magnet void to input
 module input_add_magnet(){
 
-difference(){
-    input();
-    input_magnet();
+    difference(){
+        input();
+        input_magnet();
     }
 }
 
@@ -194,21 +193,21 @@ module usb_female(){
 module final_female(){
 
 module subtract_usb_f() {
-difference(){
-input_add_magnet();
-usb_female();
-}
+    difference(){
+    input_add_magnet();
+    usb_female();
+    }
 }
 
 module almost_done_input() {
-color("pink"){
-difference(){
-subtract_usb_f();
-    translate([21,-10,-0]){
-        pogo_assemble();
-        };
-}
-}
+    color("pink"){
+        difference(){
+        subtract_usb_f();
+            translate([21,-10,-0]){
+            pogo_assemble();
+            };
+        }
+    }
 }
 
 difference(){
@@ -222,10 +221,10 @@ rotate([180,00,0]){
         almost_done_input();
         translate([0,0,-6.25]){
             input_lid();
+            }
         }
     }
-}
-}
+    }
 }
 
 //create usb_male
@@ -238,20 +237,20 @@ module usb_male(){
 
 //subtract usb_male
 module subtract_usb_m(){
-difference(){
-output_add_magnet();
-usb_male();
-}
+    difference(){
+        output_add_magnet();
+        usb_male();
+    }
 }
 
 //subtract_usb_m();
 module almost_done_output(){
-color("blue"){
-difference(){
-    subtract_usb_m();
-    pogo_assemble();
-}
-}
+    color("blue"){
+        difference(){
+            subtract_usb_m();
+            pogo_assemble();
+        }
+    }
 }
 
 difference(){
@@ -261,13 +260,13 @@ difference(){
 
 rotate([180,0,0]){
     translate([50,0,-6.5]){
-    difference(){
-        almost_done_output();
-        translate([0,0,-3.25]){
-            output_lid();
+        difference(){
+            almost_done_output();
+            translate([0,0,-3.25]){
+                output_lid();
             }
+        }
     }
-}
 }
 
 module add_screws(){    
