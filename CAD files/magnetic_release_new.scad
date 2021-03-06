@@ -11,7 +11,7 @@ BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, sev
 
 The user will have a USB, a USB extension cable, and the magnetic breakaway. 
 
-The magnetic breakaway device should be sized so that it doesn't base other USB ports on the user's computer.
+The magnetic breakaway device should be sized so that it doesn't block other USB ports on the user's computer.
 
 The "input" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. 
 
@@ -27,7 +27,18 @@ docs.buskill.in
 buskill.in
 */
 
+/* * * * TO DO * * * */
+
+//add z-fighter where applicable 
+//make rendering each part individually easy
+//adjust pogo distance or magnet? to resolve not manifold error
+//move nut slot and screw voids in place
+//move pogo_recs in place
+//add notch
+
 /* * * * Variables* * * */
+
+zfighter = 0.01; //value to prevent z-fighting
 
 /* * Input * */
 
@@ -53,7 +64,7 @@ ppr_top_r=1.5;
 ppr_top_h=1.5; // top cylinder height
 ppr_bottom_d=2; //bottom cylinder diameter
 ppr_bottom_r=1;
-ppr_bottom_h1=2; //bottom cyclinder height
+ppr_bottom_h=2; //bottom cyclinder height
 ppr_d=1; //distance between pogo recepticles
 
 /* * Output * */
@@ -167,7 +178,7 @@ module two_pogo_recs(){
         }
     }
 }
-two_pogo_recs();
+//two_pogo_recs();
 
 //create input base
 module input(){
@@ -288,7 +299,7 @@ module create_output(){
     }
 
     rotate([180,00,0]){
-        translate([60,0,-8.5]){
+        translate([0,60,-8.5]){
             difference(){
                     almost_done_input();
                     translate([0,0,-6.25]){
@@ -319,26 +330,31 @@ module subtract_usb_m(){
 
 //subtract_usb_m();
 
-module almost_done_output(){
+module cut_receptors(){
     color("blue"){
         difference(){
             subtract_usb_m();
-            pogo_assemble(); 
+            translate([0,0,0]){
+                two_pogo_recs(); 
+            }
         }
     }
 }
 
-
+            translate([38,-38,0]){
+                two_pogo_recs(); 
+            }
+            
 module create_input(){
 difference(){
-    almost_done_output();
+    cut_receptors();
     output_lid();
 }
 
 rotate([180,0,0]){
-    translate([50,0,-6.5]){
+    translate([00,50,-6.5]){
         difference(){
-            almost_done_output();
+            subtract_usb_m();
             translate([0,0,-3.25]){
                 output_lid();
             }
