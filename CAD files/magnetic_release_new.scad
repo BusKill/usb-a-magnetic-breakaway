@@ -73,12 +73,12 @@ module notch(){
 
 //breakaway base variables
 i_h = 18; //z
-i_w = 6.5; //x
+i_w = 3.25; //x
 i_d = 24; //y
  
-i2_h = 6; //z
-i2_w = 2; //x
-i2_d = 5; //y
+i2_h = 8; //x
+i2_w = 2; //y
+i2_d = 2.5; //z
 
 //breakaway lid variables
 i_l_h =i_h; //z
@@ -105,32 +105,32 @@ pogo_distance=3.2+zfighter; //distance between pins (x=z)
 /* *  Modules * */
 
 module breakaway_base(){
-    color("pink"){
+    color("pink", .5){
     difference(){
     rotate([90,0,0]){
         translate([52,0,zfighter]){
         cube(size = [i_h, i_w, i_d], center = false);   
             }
         }
-            translate([58,-24,1+zfighter]){
+            translate([57,-24,1+zfighter]){
 cube(size= [i2_h,i2_w,i2_d], center = false);
             }
     }   
 }
     };  
 
-// breakaway_base();
+ //breakaway_base();
 
 module breakaway_lid(){
-            color("red"){
+            color("red", .5){
     rotate([90,0,0]){
-       translate([52,3.25,zfighter]){
+       translate([114,0,0]){
             cube(size = [i_l_h, i_l_w, i_l_d], center = false);   
             }
      }
 }     
 }
-// breakaway_lid();
+ breakaway_lid();
     
 module pogo_pin(){
     color("yellow"){
@@ -144,7 +144,14 @@ module pogo_pin(){
 }
 //pogo_pin();
 
+
 module subtract_pogo_pin(){
+    difference(){
+        breakaway_base();
+        translate([59.5,-13,1.625]){
+            pogo_pin();
+        }
+    }
 }
 //subtract_pogo_pin();
 
@@ -153,18 +160,20 @@ module breakaway_add_notch(){
 }
 //add_notch();
 
+
 module breakaway_subtract_magnets(){
         module breakaway_magnet(){
-        translate([33.25,-15.15,-4.25-zfighter]){
+        translate([54,-27.17,-5.25-zfighter]){
             magnet();
             translate([magnet_distance,0,-zfighter]){
                 magnet();
             }
         }
     }
-//breakaway_magnet();
+    //breakaway_magnet();
+
     difference(){
-        breakaway_base();
+        subtract_pogo_pin();
         breakaway_magnet();
     }
 }
@@ -174,17 +183,17 @@ module breakaway_subtract_magnets(){
 
 module subtract_usb_f(){
         module usb_female(){
-    translate([0,0,0]){
+    translate([53,-uf_w,0]){
         cube(size=[uf_h,uf_w,uf_d], center = false);
     }
 }
-usb_female();
+//usb_female();
     difference(){
         breakaway_subtract_magnets();
         usb_female();
     }
 }
-//subtract_usb_f();
+subtract_usb_f();
 
 /* * * Create release * * */
 
@@ -227,8 +236,7 @@ n_d=5; //distance between nuts
 
 /* * Modules * */
 
-//create release base
-module release(){
+module release_base(){
        rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [o_h, o_w, o_d], center = false);
@@ -238,16 +246,12 @@ module release(){
             cube(size= [6,2,5]);
         }   
 }; 
-//release();
+//release_base();
 
-module create_release_lid(){
-       rotate([90,0,0]){
-        translate([33,3.25,zfighter]){
-        cube(size = [o_l_h, o_l_w, o_l_d], center = false);
-            }
-        } 
-    };     
-//create_release_lid();
+module release_lid(){
+  release_base();
+}
+//release_lid();
 
 module two_pogo_recs(){  
     module pogo_rec(){
@@ -286,38 +290,12 @@ module release_subtract_magnet(){
     }
 //release_magnet();
     difference(){
-        release();
+        release_base();
         release_magnet();
     }
 }
 
 //release_subtract_magnet();
-
-module create_release(){
-
-    module subtract_usb_f() {
-        //create usb_female
-        module usb_female(){
-            translate([53,-9,1]){
-            cube(size=[uf_h,uf_w,uf_d], center = false);
-            }
-        }
-        //usb_female();
-        difference(){
-            release_subtract_magnet();
-            usb_female();
-        }
-    }
-
-
-    difference(){
-        pogo_recs();
-        release_lid();
-    }
-
-};
-
-//create_release();
 
 module subtract_usb_m(){
     module usb_male(){
