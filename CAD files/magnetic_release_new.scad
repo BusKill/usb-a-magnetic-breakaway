@@ -65,6 +65,14 @@ module notch(){
 }
 //notch();
 
+/* * Screw and Nut * */
+s_h=6; // screw length
+s_r1=.5; // screw shaft radius
+s_r2=1; // screw top radius
+n_l=6; //nut channel length
+n_h=1; //nut height
+n_d=14; //distance between nuts
+
 /* * * Create breakaway * * */
  
  //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets.
@@ -103,7 +111,7 @@ pogo_diameter=1.6;
 pogo_distance=3.2+zfighter; //distance between pins (x=z)
 
 /* *  Modules * */
-
+module create_breakaway(){
 module breakaway_base(){
     color("pink", .5){
     difference(){
@@ -183,7 +191,7 @@ module breakaway_subtract_magnets(){
 
 module subtract_usb_f(){
         module usb_female(){
-    translate([53,-uf_w,0]){
+    translate([53,-uf_w,.5]){
         cube(size=[uf_h,uf_w,uf_d], center = false);
     }
 }
@@ -193,7 +201,68 @@ module subtract_usb_f(){
         usb_female();
     }
 }
-subtract_usb_f();
+//subtract_usb_f();
+
+module make_screw_tops_breakaway(){    
+    module screw_tops_breakaway(){
+        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
+    }
+
+    module two_screws_tops_breakaway(){
+        translate([0,-17,0]){
+        screw_tops_breakaway();
+    }
+
+    translate([10,-17,0]){
+        screw_tops_breakaway();
+        }
+    }
+
+    translate([56,0,0]){
+        two_screws_tops_breakaway(); //for breakaway base
+    }
+
+    translate([116,0,0]){
+        two_screws_tops_breakaway(); // for breakaway lid
+    }
+};
+//make_screw_tops_breakaway();
+
+module subtract_screw_tops_breakaway(){
+    difference(){
+        subtract_usb_f();
+        make_screw_tops_breakaway();
+    }
+}
+//subtract_screw_tops_breakaway();
+
+module make_nuts_breakaway(){
+  module nut_breakaway(){
+    rotate([90,90,0]){
+        translate([0,0,0]){
+        cube(size=[n_h,n_l,n_h], center = false);
+            }
+        }
+    }
+  nut_breakaway(); //make one nut
+    translate([n_d,0,0]){
+      nut_breakaway(); //make one nut n_d distance from the first nut
+    }
+
+}
+
+
+module subtract_nuts_breakaway_base(){
+    difference(){
+        subtract_screw_tops_breakaway();
+        translate([51,-16.5,1.5]){
+            make_nuts_breakaway(); //two nuts
+            }
+    }
+}
+subtract_nuts_breakaway_base();
+}
+//create_breakaway();
 
 /* * * Create release * * */
 
@@ -226,13 +295,6 @@ um_h = 12;
 um_w = 10;
 um_d = 4;
 
-//screw and nut variables
-s_h=6; // screw length
-s_r1=.5; // screw shaft radius
-s_r2=1; // screw top radius
-n_r=1; //nut radius
-n_h=1; //nut height
-n_d=5; //distance between nuts
 
 /* * Modules * */
 
@@ -331,71 +393,71 @@ module release_subtract_notch(){
 }
 //release_subtract_notch();
 
-module make_screw_tops(){    
-    module screw(){
+module make_screw_tops_release(){    
+    module screw_tops_release(){
         cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
 
-    module two_screws(){
+    module two_screws_tops_release(){
         translate([0,-17,0]){
-        screw();
+        screw_tops_release();
     }
 
     translate([10,-17,0]){
-        screw();
+        screw_tops_release();
         }
     }
 
     translate([56,0,0]){
-        two_screws(); //for release base
+        two_screws_tops_release(); //for release base
     }
 
     translate([116,34,0]){
-        two_screws(); // for release lid
+        two_screws_tops_release(); // for release lid
     }
 };
-//make_screws_tops();
+//make_screws_tops_release();
 
-module make_screw_bottoms(){    
-    module screw(){
+module make_screw_bottoms_release(){    
+    module screw_release(){
         cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
 
-    module two_screws(){
+    module two_screws_release(){
         translate([0,-17,0]){
-        screw();
+        screw_release();
     }
 
     translate([10,-17,0]){
-        screw();
+        screw_release();
         }
     }
 
     translate([56,0,0]){
-        two_screws(); //for release base
+        two_screws_release(); //for release base
     }
 
     translate([116,34,0]){
-        two_screws(); // for release lid
+        two_screws_release(); // for release lid
     }
 };
-//make_screws_bottoms();
+//make_screws_bottoms_release();
 
-module make_nuts(){
-  module nut(){
-    rotate([90,0,0]){
-        translate([n_d,0,0]){
-        cylinder(h=1, r1=n_r, r2=n_r, center= false);
+module make_nuts_release(){
+  module nut_release(){
+    rotate([90,90,0]){
+        translate([0,0,0]){
+        cube(size=[n_h,n_l,n_h], center = false);
             }
         }
     }
-  nut(); //make one nut
+  nut_release(); //make one nut
     translate([n_d,0,0]){
       nut(); //make one nut n_d distance from the first nut
     }
 }
 
-//make_nuts(); //two nuts
+//make_nuts_release(); //two nuts
 
 
 /* * * RENDER THE PARTS * * */
@@ -418,7 +480,7 @@ module create_all(){
 
 /* * * RENDER A PART * * */
 
-//create_breakaway();
+create_breakaway();
 //create_breakaway_lid();
 //create_release();
 //create_release_lid();
