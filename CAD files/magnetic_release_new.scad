@@ -39,7 +39,7 @@ zpascifier = 0.02; //value to prevent z-fighting
 
 //Download magnet2.stl from repo into the same folder as this .scad file
 
-magnet_distance=11.5;
+magnet_distance=9.8;
 
 module magnet(){
     color( "SlateGrey", 1.0 )
@@ -116,9 +116,9 @@ uf_d = 6.75;
 //pogo pins are shaped like a cylinder.
 
 pogo_length=12;
-pogo_tip=3;
-pogo_diameter=1.6;
-pogo_distance=3.2+zpascifier; //distance between pins (x=z)
+pogo_tip=1.5;
+pogo_diameter=1.5;
+pogo_distance=2.8+zpascifier; //distance between pins (x=z)
 
 /* *  Modules * */
         module usb_female(){
@@ -150,7 +150,7 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
     module subtract_pogo_pin(){
     difference(){
         breakaway_base();
-        translate([59.5,-13,1.625]){
+        translate([58.8,-13,1.625]){
             pogo_pin();
         }
     }
@@ -353,8 +353,8 @@ create_breakaway_lid();
 /* * Variables * */
     
 //release base variables
-o_h = 14; //z
-o_w = 6.5; //x
+o_h = 14.5; //x
+o_w = 6.5; //z
 o_d = 12; //y
 
 //release lid variables
