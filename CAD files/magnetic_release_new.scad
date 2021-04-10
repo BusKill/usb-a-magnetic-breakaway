@@ -28,9 +28,11 @@ buskill.in
 */
 
 /* * * * TO DO * * * */
-// fix release end code
 // refine proper distances and sizes
+// fix small holes
+// fix lids and bases so that they're not just duplicates with nut holes but actual top and bottom
 // create middle wall pieces
+// fix asymmetry 
 
 
 zpascifier = 0.02; //value to prevent z-fighting
@@ -342,9 +344,11 @@ module create_breakaway_lid(){
         make_screw_tops_breakaway_lid();
     }
 }
-subtract_screw_tops_breakaway_lid();
+translate([-35,0,0]){
+    subtract_screw_tops_breakaway_lid();
 }
-create_breakaway_lid();
+}
+//create_breakaway_lid();
 
 /* * * Create release * * */
 
@@ -477,12 +481,8 @@ create_pogo_recs();
     }
 
         
-subtract_receptors();
+//subtract_receptors();
             
-//subtract notch
-module release_subtract_notch(){
-}
-//release_subtract_notch();
 
 module make_screw_tops_release(){    
     module screw_tops_release(){
@@ -490,72 +490,120 @@ module make_screw_tops_release(){
     }
 
     module two_screws_tops_release(){
-        translate([0,-17,0]){
+        translate([0,-7.5,0]){
         screw_tops_release();
     }
 
-    translate([10,-17,0]){
+    translate([10,-7.5,0]){
         screw_tops_release();
         }
     }
 
-    translate([56,0,0]){
+    translate([35,0,0]){
         two_screws_tops_release(); //for release base
     }
 
-    translate([116,34,0]){
+    translate([35,0,3]){
         two_screws_tops_release(); // for release lid
     }
 };
-//make_screws_tops_release();
+//make_screw_tops_release();
 
-module make_screw_bottoms_release(){    
-    module screw_release(){
-        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-
-    module two_screws_release(){
-        translate([0,-17,0]){
-        screw_release();
-    }
-
-    translate([10,-17,0]){
-        screw_release();
-        }
-    }
-
-    translate([56,0,0]){
-        two_screws_release(); //for release base
-    }
-
-    translate([116,34,0]){
-        two_screws_release(); // for release lid
-    }
-};
-//make_screws_bottoms_release();
+module subtract_screw_tops_release(){
+    difference(){
+    subtract_receptors();
+    make_screw_tops_release();
+}
+}
+//subtract_screw_tops_release();
 
 module make_nuts_release(){
   module nut_release(){
-    rotate([90,90,0]){
-        translate([0,0,0]){
-        cube(size=[n_h,n_l,n_h], center = false);
+        translate([32.5,-7.5,1.5]){
+            rotate([90,90,0]){
+                cube(size=[n_h,n_l,n_h], center = false);
             }
         }
     }
   nut_release(); //make one nut
-    translate([n_d,0,0]){
-      nut(); //make one nut n_d distance from the first nut
+    translate([n_d/1.5,0,0]){
+      nut_release(); //make one nut n_d distance from the first nut
     }
 }
 
 //make_nuts_release(); //two nuts
+
+module subtract_nuts_release(){
+    difference(){
+        subtract_screw_tops_release();
+        make_nuts_release();
+    }
+}
+//subtract_nuts_release();
+
+//cut away lid
+
+module cut_away_lid(){
+   //cut block
+        module cut_release_base(){
+
+            translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
+                rotate([90,0,0]){
+                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2], center = false);
+            }
+        }
+        translate([37,-13-zpascifier,4]){
+            cube(size= [6+zpascifier,2,5+zpascifier]);
+        }   
+}; 
+
+// cut away release lid
+difference(){
+    subtract_nuts_release();
+    cut_release_base();
+}
+}
+cut_away_lid();
+
 }
 //create_release();
 
 module create_release_lid(){
+    module almost_done(){
+    //cut block
+        module cut_release_lid(){
+
+            translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
+                rotate([90,0,0]){
+                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2], center = false);
+            }
+        }
+        translate([37,-13-zpascifier,4]){
+            cube(size= [6+zpascifier,2,5+zpascifier]);
+        }   
+}; 
+//cut_release_lid();
+    //cut release lid
+    difference(){
+        create_release();
+        cut_release_lid();
+    }
+
 
 }
-create_release_lid();
+
+translate([-20,0,0]){
+    almost_done();
+}
+}
+//create_release_lid();
+
+module create_release_m(){
+    //cut block
+
+    //cut release middle wall
+}
+//create_release_m();
 
 /* * * RENDER ALL THE PARTS * * */
 
