@@ -15,26 +15,23 @@ The magnetic breakaway device should be sized so that it doesn't block other USB
 
 The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
 
-The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets. 
+The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets.
 
 When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
 
 The breakaway and release plugs must be designed asymmetrically to prevent the connection from happening the wrong way. 
 
-The case must be designed so that the user can completely dissemble it and ensure there has been no tampering. No glue must be required. The base and lid connect together with tiny screws and embedded nuts. 
+The case must be designed so that the user can completely dissemble it and ensure there has been no tampering. No glue must be required. The base and lid connect together with tiny screws and embedded nuts. There will be a middle wall piece for both ends that separates top and bottom components.
 
 docs.buskill.in
 buskill.in
 */
 
 /* * * * TO DO * * * */
+// fix release end code
+// refine proper distances and sizes
+// create middle wall pieces
 
-//add z-fighter where applicable 
-//make rendering each part individually easy
-//adjust pogo distance or magnet? to resolve not manifold error
-//move nut slot and screw voids in place
-//move pogo_recs in place
-//add notch
 
 zpascifier = 0.02; //value to prevent z-fighting
 
@@ -454,19 +451,33 @@ module subtract_usb_m(){
 //subtract_usb_m();
 
 module subtract_receptors(){
+    module create_pogo_recs(){
+        color("yellow"){
+       translate([38.5,-12.25,4.5]){
+            rotate([180,0,0]){
+                two_pogo_recs(); 
+                 }
+              }   
+              
+        translate([38.5,-12.25,2.5]){
+            rotate([180,0,0]){
+                two_pogo_recs(); 
+                 }
+              }
+         }
+     }
+     //create_pogo_recs();
+     
     color("blue"){
         difference(){
             subtract_usb_m();
-            translate([0,0,0]){
-                two_pogo_recs(); 
+create_pogo_recs();
             }
         }
     }
-    translate([38,-38,0]){
-                two_pogo_recs(); 
-            }
-            }
-//subtract_receptors();
+
+        
+subtract_receptors();
             
 //subtract notch
 module release_subtract_notch(){
@@ -542,14 +553,11 @@ module make_nuts_release(){
 //create_release();
 
 module create_release_lid(){
-    module release_lid(){
-    release_base();
-    }
-    //release_lid();
-}
-//create_release_lid();
 
-/* * * RENDER THE PARTS * * */
+}
+create_release_lid();
+
+/* * * RENDER ALL THE PARTS * * */
 
 module create_all(){
 
@@ -567,9 +575,11 @@ module create_all(){
 }
 create_all();
 
-/* * * RENDER A PART * * */
+/* * * RENDER AN INDIVIDUAL PART * * */
 
 //create_breakaway();
 //create_breakaway_lid();
+//create_breakaway_m();
 //create_release();
 //create_release_lid();
+//create_release_m();
