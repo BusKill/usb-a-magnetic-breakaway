@@ -30,7 +30,7 @@ buskill.in
 /* * * * TO DO * * * */
 // refine proper distances and sizes
 // fix small holes
-// fix lids and bases so that they're not just duplicates with nut holes but actual top and bottom
+// fix modules
 // create middle wall pieces
 // fix asymmetry 
 
@@ -41,7 +41,7 @@ zpascifier = 0.02; //value to prevent z-fighting
 
 //Download magnet2.stl from repo into the same folder as this .scad file
 
-magnet_distance=9.8;
+magnet_distance=10;
 
 module magnet(){
     color( "SlateGrey", 1.0 )
@@ -85,15 +85,15 @@ n_l=6; //nut channel length
 n_h=1; //nut height
 n_d=14; //distance between nuts
 
-/* * * Create breakaway * * */
+/* * * Create Breakaway * * */
  
  //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets.
 
 /* * Variables * */
 
 //breakaway base variables
-i_h = 18; //z
-i_w = 3.25; //x
+i_h = 17.5; //x
+i_w = 2.4; //z
 i_d = 24; //y
  
 i2_h = 8; //x
@@ -350,7 +350,7 @@ translate([-35,0,0]){
 }
 //create_breakaway_lid();
 
-/* * * Create release * * */
+/* * * Create Release * * */
 
 //The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets.
 
@@ -368,13 +368,13 @@ o_l_d = 13; //y
 
 //pogo receptor variables
 //Pogo receptor is shaped like two cylinders, a larger one on top of a smaller one
-ppr_top_d=3.1; // top cyclinder diameter
-ppr_top_r=1.5;
+ppr_top_d=3.2; // top cyclinder diameter
+ppr_top_r=1.6;
 ppr_top_h=1.5; // top cylinder height
-ppr_bottom_d=2; //bottom cylinder diameter
-ppr_bottom_r=1;
+ppr_bottom_d=2.1; //bottom cylinder diameter
+ppr_bottom_r=1.2;
 ppr_bottom_h=2; //bottom cyclinder height
-ppr_d=1; //distance between pogo receptors
+ppr_d=1.2; //distance between pogo receptors
 
 //USB_male variables
 um_h = 12;
@@ -405,8 +405,10 @@ module two_pogo_recs(){
     pogo_rec_top();   
         module pogo_rec_bottom(){
             translate([0,0,-1]){
+                rotate([0,0,0]){
                 cylinder(h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
+        }
         };
     pogo_rec_bottom();
 }
@@ -457,13 +459,13 @@ module subtract_usb_m(){
 module subtract_receptors(){
     module create_pogo_recs(){
         color("yellow"){
-       translate([38.5,-12.25,4.5]){
+       translate([38.5,-12.25,4.55]){
             rotate([180,0,0]){
                 two_pogo_recs(); 
                  }
               }   
               
-        translate([38.5,-12.25,2.5]){
+        translate([38.5,-12.25,2]){
             rotate([180,0,0]){
                 two_pogo_recs(); 
                  }
@@ -472,12 +474,12 @@ module subtract_receptors(){
      }
      //create_pogo_recs();
      
-    color("blue"){
+
         difference(){
             subtract_usb_m();
 create_pogo_recs();
             }
-        }
+        
     }
 
         
@@ -549,12 +551,10 @@ module cut_away_lid(){
 
             translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
                 rotate([90,0,0]){
-                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2], center = false);
+                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2+4], center = false);
             }
         }
-        translate([37,-13-zpascifier,4]){
-            cube(size= [6+zpascifier,2,5+zpascifier]);
-        }   
+
 }; 
 
 // cut away release lid
@@ -563,40 +563,47 @@ difference(){
     cut_release_base();
 }
 }
-cut_away_lid();
+color("blue"){
+    cut_away_lid();
+} //is the base
 
-}
-//create_release();
 
 module create_release_lid(){
     module almost_done(){
     //cut block
         module cut_release_lid(){
 
-            translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
+            translate([0,0,0]){
                 rotate([90,0,0]){
-                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2], center = false);
+                    
+                    
             }
         }
-        translate([37,-13-zpascifier,4]){
-            cube(size= [6+zpascifier,2,5+zpascifier]);
-        }   
+
 }; 
+//cut_release_lid();  //broken code
 //cut_release_lid();
     //cut release lid
     difference(){
-        create_release();
+        subtract_nuts_release();
         cut_release_lid();
     }
 
 
 }
 
-translate([-20,0,0]){
+translate([0,-14,6.5]){
+    rotate([180,0,0]){
+        translate([-20,0,0]){
     almost_done();
+    }
 }
 }
-//create_release_lid();
+}
+
+color("lightblue"){
+   // create_release_lid();
+}
 
 module create_release_m(){
     //cut block
@@ -604,6 +611,10 @@ module create_release_m(){
     //cut release middle wall
 }
 //create_release_m();
+
+}
+//create_release();
+
 
 /* * * RENDER ALL THE PARTS * * */
 
@@ -616,18 +627,22 @@ module create_all(){
    create_breakaway();
 
 //render release lid
-   create_release_lid(); 
+   //create_release_lid(); 
 
  //render release base   
    create_release();
 }
-create_all();
+//create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
-//create_breakaway();
+create_breakaway();
 //create_breakaway_lid();
 //create_breakaway_m();
-//create_release();
+create_release();
 //create_release_lid();
 //create_release_m();
+
+//translate([25,0,0]){create_breakaway();}
+
+//translate([-25,0,0]){create_release();}
