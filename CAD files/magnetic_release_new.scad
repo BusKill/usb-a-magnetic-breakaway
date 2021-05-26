@@ -34,6 +34,10 @@ buskill.in
 // create middle wall pieces
 // fix asymmetry 
 
+module logo(){
+   import("/home/goldishlaser/usb-a-magnetic-breakaway/digitalAssets/logo/2020_raster/buskill_wordsonly.svg"); 
+}
+logo();
 
 zpascifier = 0.02; //value to prevent z-fighting
 
