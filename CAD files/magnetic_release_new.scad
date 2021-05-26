@@ -37,7 +37,7 @@ buskill.in
 module logo(){
    import("/home/goldishlaser/usb-a-magnetic-breakaway/digitalAssets/logo/2020_raster/buskill_wordsonly.svg"); 
 }
-logo();
+logo(); //dimensions are approx 14mm x 5 mm
 
 zpascifier = 0.02; //value to prevent z-fighting
 
