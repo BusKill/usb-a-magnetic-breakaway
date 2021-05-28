@@ -98,11 +98,11 @@ n_d=14; //distance between nuts
 
 //breakaway base variables
 i_h = 17.5; //x
-i_w = 2.4; //z
+i_w = 2.5; //z
 i_d = 24; //y
  
 i2_h = 8; //x
-i2_w = 2; //y
+i2_w = 0; //y
 i2_d = 2.5; //z
 
 //breakaway lid variables
@@ -193,7 +193,7 @@ module subtract_cut_f(){
 //cut_female();
     difference(){
         breakaway_subtract_magnets();
-        translate([0,0,-1])cut_female();
+        translate([0,0,-.7])cut_female();
         
     }
 }
@@ -378,7 +378,7 @@ ppr_top_r=1.6;
 ppr_top_h=1.5; // top cylinder height
 ppr_bottom_d=2.1; //bottom cylinder diameter
 ppr_bottom_r=1.2;
-ppr_bottom_h=2; //bottom cyclinder height
+ppr_bottom_h=4; //bottom cyclinder height
 ppr_d=1.2; //distance between pogo receptors
 
 //USB_male variables
@@ -409,8 +409,8 @@ module two_pogo_recs(){
         };
     pogo_rec_top();   
         module pogo_rec_bottom(){
-            translate([0,0,-1]){
-                rotate([0,0,0]){
+            translate([0,0,-1.2]){
+                rotate([0,0,-18]){
                 cylinder(h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
         }
@@ -482,7 +482,7 @@ module subtract_receptors(){
 
         difference(){
             subtract_usb_m();
-create_pogo_recs();
+    create_pogo_recs();
             }
         
     }
@@ -544,6 +544,7 @@ module subtract_nuts_release(){
     difference(){
         subtract_screw_tops_release();
         make_nuts_release();
+       translate([0,1.25,0]) make_nuts_release();
     }
 }
 //subtract_nuts_release();
