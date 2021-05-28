@@ -35,9 +35,10 @@ buskill.in
 // fix asymmetry 
 
 module logo(){
-   import("/home/goldishlaser/usb-a-magnetic-breakaway/digitalAssets/logo/2020_raster/buskill_wordsonly.svg"); 
+   
+    linear_extrude(height=7) translate([10,-7,13]) scale(.5) import("/home/goldishlaser/usb-a-magnetic-breakaway/digitalAssets/logo/2020_raster/buskill_wordsonly.svg"); 
 }
-logo(); //dimensions are approx 14mm x 5 mm
+ //logo(); //dimensions are approx 14mm x 5 mm
 
 zpascifier = 0.02; //value to prevent z-fighting
 
@@ -82,11 +83,11 @@ module notch(){
 //pogo_pin();
 
 /* * Screw and Nut * */
-s_h=6; // screw length
+s_h=7; // screw length
 s_r1=.5; // screw shaft radius
-s_r2=1; // screw top radius
+s_r2=2; // screw top radius
 n_l=6; //nut channel length
-n_h=1; //nut height
+n_h=1.3; //nut height
 n_d=14; //distance between nuts
 
 /* * * Create Breakaway * * */
@@ -113,10 +114,10 @@ i2_l_h =i2_h; //z
 i2_l_w = i2_w; //x
 i2_l_d = i2_d; //y
 
-//USB_female variables
-uf_h = 16;
-uf_w = 13;
-uf_d = 6.75;
+//cut_female variables
+cf_h = 19; //the width for some reason
+cf_w = 13; //the height 
+cf_d = 5.75; // the same as cf_w for some reason... 
 
 //pogo variables
 //pogo pins are shaped like a cylinder.
@@ -127,12 +128,12 @@ pogo_diameter=1.5;
 pogo_distance=2.8+zpascifier; //distance between pins (x=z)
 
 /* *  Modules * */
-        module usb_female(){
-    translate([53,-uf_w,.5]){
-        cube(size=[uf_h,uf_w,uf_d], center = false);
+        module cut_female(){
+    translate([51,-cf_w,-1.5]){
+        cube(size=[cf_h,cf_w,cf_d], center = false);
     }
 }
-//usb_female();
+//cut_female();
 
 module create_breakaway(){
     
@@ -156,7 +157,7 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
     module subtract_pogo_pin(){
     difference(){
         breakaway_base();
-        translate([58.8,-13,1.625]){
+        translate([59.2,-13,1.625]){
             pogo_pin();
         }
     }
@@ -187,16 +188,16 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
 
 //breakaway_subtract_magnets();
 
-module subtract_usb_f(){
+module subtract_cut_f(){
 
-//usb_female();
+//cut_female();
     difference(){
         breakaway_subtract_magnets();
-        usb_female();
+        translate([0,0,-1])cut_female();
         
     }
 }
-//subtract_usb_f();
+//subtract_cut_f();
 
     module make_screw_tops_breakaway(){    
     module screw_tops_breakaway(){
@@ -225,7 +226,7 @@ module subtract_usb_f(){
 
     module subtract_screw_tops_breakaway(){
     difference(){
-        subtract_usb_f();
+        subtract_cut_f();
         make_screw_tops_breakaway();
     }
 }
@@ -287,7 +288,7 @@ module create_breakaway_lid(){
 
     module breakaway_subtract_magnets_lid(){
         module breakaway_magnet_lid(){
-        translate([115.5,-27.17,-5]){
+        translate([115.9,-27.17,-5]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -305,17 +306,17 @@ module create_breakaway_lid(){
 
 //breakaway_subtract_magnets_lid();
 
-    module subtract_usb_f_lid(){
-//usb_female();
+    module subtract_cut_f_lid(){
+//cut_female();
     difference(){
         breakaway_subtract_magnets_lid();
         translate([62,zpascifier,-zpascifier]){
-            usb_female();
+            cut_female();
             }
     }
 }
 
-//subtract_usb_f_lid();
+//subtract_cut_f_lid();
 
     module make_screw_tops_breakaway_lid(){    
     module screw_tops_breakaway(){
@@ -344,7 +345,7 @@ module create_breakaway_lid(){
 
     module subtract_screw_tops_breakaway_lid(){
     difference(){
-        subtract_usb_f_lid();
+        subtract_cut_f_lid();
         make_screw_tops_breakaway_lid();
     }
 }
@@ -565,7 +566,7 @@ module cut_away_lid(){
 difference(){
     subtract_nuts_release();
     cut_release_base();
-}
+    }
 }
 color("blue"){
     cut_away_lid();
@@ -573,40 +574,14 @@ color("blue"){
 
 
 module create_release_lid(){
-    module almost_done(){
-    //cut block
-        module cut_release_lid(){
-
-            translate([0,0,0]){
-                rotate([90,0,0]){
-                    
-                    
-            }
-        }
-
-}; 
-//cut_release_lid();  //broken code
-//cut_release_lid();
-    //cut release lid
-    difference(){
-        subtract_nuts_release();
-        cut_release_lid();
-    }
-
-
-}
-
-translate([0,-14,6.5]){
-    rotate([180,0,0]){
-        translate([-20,0,0]){
-    almost_done();
-    }
-}
+  difference(){
+    translate([-25,0,0])cut_away_lid();
+      logo();
 }
 }
 
 color("lightblue"){
-   // create_release_lid();
+    create_release_lid();
 }
 
 module create_release_m(){
@@ -631,19 +606,19 @@ module create_all(){
    create_breakaway();
 
 //render release lid
-   //create_release_lid(); 
+   create_release_lid(); 
 
  //render release base   
    create_release();
 }
-//create_all();
+create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
-create_breakaway();
+//create_breakaway();
 //create_breakaway_lid();
 //create_breakaway_m();
-create_release();
+//create_release();
 //create_release_lid();
 //create_release_m();
 
