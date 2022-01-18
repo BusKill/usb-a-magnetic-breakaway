@@ -13,9 +13,11 @@ The user will have a USB, a USB extension cable, and the magnetic breakaway.
 
 The magnetic breakaway device should be sized so that it doesn't block other USB ports on the user's computer.
 
-The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
+The "breakaway" receives the USB from the USB cable with a female USB port. It is in three parts, the base, the middle, and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
 
-The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets.
+The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle, and the lid. It contains pogo receptors and magnets.
+
+The middle piece is created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
 
 When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
 
@@ -46,7 +48,7 @@ zpascifier = 0.02; //value to prevent z-fighting
 
 //Download magnet2.stl from repo into the same folder as this .scad file
 
-magnet_distance=10;
+magnet_distance=12.5;
 
 module magnet(){
     color( "SlateGrey", 1.0 )
@@ -84,9 +86,9 @@ module notch(){
 
 /* * Screw and Nut * */
 s_h=7; // screw length
-s_r1=.5; // screw shaft radius
+s_r1=1.1; // screw shaft radius
 s_r2=2; // screw top radius
-n_l=6; //nut channel length
+n_l=7; //nut channel length
 n_h=1.3; //nut height
 n_d=14; //distance between nuts
 
@@ -125,7 +127,7 @@ cf_d = 5.75; // the same as cf_w for some reason...
 pogo_length=12;
 pogo_tip=1.5;
 pogo_diameter=1.5;
-pogo_distance=2.8+zpascifier; //distance between pins (x=z)
+pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 
 /* *  Modules * */
         module cut_female(){
@@ -170,7 +172,7 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
 
     module breakaway_subtract_magnets(){
         module breakaway_magnet(){
-        translate([53.5,-27.17,-5]){
+        translate([52.5,-27.17,-5]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -288,7 +290,7 @@ module create_breakaway_lid(){
 
     module breakaway_subtract_magnets_lid(){
         module breakaway_magnet_lid(){
-        translate([115.9,-27.17,-5]){
+        translate([114.5,-27.17,-5]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -362,9 +364,9 @@ translate([-35,0,0]){
 /* * Variables * */
     
 //release base variables
-o_h = 14.5; //x
+o_h = 17.5; //x
 o_w = 6.5; //z
-o_d = 12; //y
+o_d = 13; //y
 
 //release lid variables
 o_l_h =14; //z
@@ -395,9 +397,7 @@ module release_base(){
                 cube(size = [o_h, o_w, o_d], center = false);
             }
         }
-        translate([37,-13,1]){
-            cube(size= [6,2,5]);
-        }   
+  
 }; 
 //release_base();
 
@@ -409,7 +409,7 @@ module two_pogo_recs(){
         };
     pogo_rec_top();   
         module pogo_rec_bottom(){
-            translate([0,0,-1.2]){
+            translate([2,0,-1.2]){
                 rotate([0,0,-18]){
                 cylinder(h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
@@ -607,10 +607,10 @@ module create_all(){
    create_breakaway();
 
 //render release lid
-   create_release_lid(); 
+  // create_release_lid(); 
 
  //render release base   
-   create_release();
+  create_release();
 }
 create_all();
 
