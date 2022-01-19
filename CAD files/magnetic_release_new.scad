@@ -13,11 +13,11 @@ The user will have a USB, a USB extension cable, and the magnetic breakaway.
 
 The magnetic breakaway device should be sized so that it doesn't block other USB ports on the user's computer.
 
-The "breakaway" receives the USB from the USB cable with a female USB port. It is in three parts, the base, the middle, and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
+The "breakaway" receives the USB from the USB cable with a female USB port. It is in four parts, the base, two middle pieces, and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
 
 The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle, and the lid. It contains pogo receptors and magnets.
 
-The middle piece is created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
+The middle pieces are created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
 
 When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
 
@@ -586,7 +586,12 @@ module create_release_m(){
                 cube(size = [o_h, o_w/2, o_d], center = false);
             }
         }  
-    //cut 
+    //cut magnets
+        
+    //cut pogos
+    
+    //cut holes    
+
 };
 
 create_release_m();
@@ -602,7 +607,11 @@ module create_breakaway_m(){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
         }  
-    //cut
+    //cut magnets
+        
+    //cut pogos
+    
+    //cut holes
     
 }
 
