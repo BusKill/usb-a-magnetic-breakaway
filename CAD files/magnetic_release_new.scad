@@ -489,7 +489,7 @@ module subtract_receptors(){
 
         
 //subtract_receptors();
-            
+
 
 module make_screw_tops_release(){    
     module screw_tops_release(){
@@ -586,11 +586,16 @@ color("lightblue"){
 }
 
 module create_release_m(){
-    //cut block
-
-    //cut release middle wall
+    //block
+        translate([0,-20,0])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [o_h, o_w, o_d], center = false);
+            }
+        }  
+    //cut 
 }
-//create_release_m();
+
+create_release_m();
 
 }
 //create_release();
