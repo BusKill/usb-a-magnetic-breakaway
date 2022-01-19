@@ -36,12 +36,6 @@ buskill.in
 // create middle wall pieces
 // fix asymmetry 
 
-module logo(){
-   
-    linear_extrude(height=7) translate([10,-7,13]) scale(.5) import("/home/goldishlaser/usb-a-magnetic-breakaway/digitalAssets/logo/2020_raster/buskill_wordsonly.svg"); 
-}
- //logo(); //dimensions are approx 14mm x 5 mm
-
 zpascifier = 0.02; //value to prevent z-fighting
 
 /* * Magnet * */
@@ -575,9 +569,8 @@ color("blue"){
 
 
 module create_release_lid(){
-  difference(){
+{
     translate([-25,0,0])cut_away_lid();
-      logo();
 }
 }
 
@@ -586,20 +579,32 @@ color("lightblue"){
 }
 
 module create_release_m(){
+    color("DeepPink")
     //block
         translate([0,-20,0])  rotate([90,0,0]){
             translate([33,0,0]){
-                cube(size = [o_h, o_w, o_d], center = false);
+                cube(size = [o_h, o_w/2, o_d], center = false);
             }
         }  
     //cut 
-}
+};
 
 create_release_m();
 
 }
 //create_release();
 
+module create_breakaway_m(){
+    color("aquamarine")
+    //block
+    translate([-25,-20,0])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
+            }
+        }  
+    //cut
+    
+}
 
 /* * * RENDER ALL THE PARTS * * */
 
@@ -610,12 +615,19 @@ module create_all(){
 
 //render breakaway base
    create_breakaway();
+    
+//render breakaway midpiece
+create_breakaway_m();    
 
 //render release lid
   // create_release_lid(); 
 
  //render release base   
   create_release();
+    
+//render release midpiece
+//create_release_m();    
+    
 }
 create_all();
 
