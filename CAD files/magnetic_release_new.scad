@@ -123,7 +123,8 @@ pogo_tip=1.5;
 pogo_diameter=1.5;
 pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 
-/* *  Modules * */
+
+/* *  Build Modules * */
         module cut_female(){
     translate([51,-cf_w,-1.5]){
         cube(size=[cf_h,cf_w,cf_d], center = false);
@@ -600,18 +601,29 @@ create_release_m();
 //create_release();
 
 module create_breakaway_m(){
-    color("aquamarine")
+
     //block
+    module block(){
+    color("aquamarine",.55)
     translate([-25,-20,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
-        }  
+        } 
+    } 
+
+    difference(){
+        block();
+            translate([16,-20,-.8]) pogo_pin();
+    translate([16,-20,2.1]) pogo_pin(); //cut pogos 
+        //cut usb    
+        //cut holes
     //cut magnets
-        
-    //cut pogos
+
+    }
+
     
-    //cut holes
+
     
 }
 
