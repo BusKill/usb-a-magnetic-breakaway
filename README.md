@@ -1,6 +1,6 @@
 #  What's New?
 
-Development of the 3D printed case is back in progress. Prior to this week, little work had been done constructing the middle piece. Rework of the code was and is necessary to allow proper code reuse and variable setting. Now we have the middle pieces under construction and much progress on the rework has been completed. In the next sessions, I will be fixing the pogo receptor code, and defining more variables to ensure that the voids for parts line up properly and centered in all three of each end of the magnetic release. 
+Development of the 3D printed case is back in progress. Prior to this week, little work had been done constructing the middle piece. Rework of the code was and is necessary to allow proper code reuse and variable setting. Now we have the middle pieces under construction and much progress on the rework has been completed. In the next sessions, I will be fixing the pogo receptor code, and defining more variables to ensure that the voids for parts line up properly and centered in all three pieces of each end of the magnetic release. 
 
 # usb-a-magnetic-breakaway
 
