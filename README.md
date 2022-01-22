@@ -26,7 +26,7 @@ File contains a list of manufacturers that sell magnets, pogo pins, and pogo rec
 
 ## Contributing
 
-Please see Contributing to BusKill to learn how you can help the BusKill project.
+Please see [Contributing to BusKill](https://docs.buskill.in/buskill-app/en/stable/contributing.html) to learn how you can help the BusKill project.
 
 ## Attribution
 
