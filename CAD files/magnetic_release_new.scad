@@ -580,7 +580,7 @@ color("lightblue"){
 }
 
 module create_release_m(){
-    color("DeepPink")
+    color("aquamarine",.55)
     //block
         translate([0,-20,0])  rotate([90,0,0]){
             translate([33,0,0]){
@@ -590,7 +590,7 @@ module create_release_m(){
     //cut magnets
         
     //cut pogos
-    
+
     //cut holes    
 
 };
@@ -604,8 +604,8 @@ module create_breakaway_m(){
 
     //block
     module block(){
-    color("aquamarine",.55)
-    translate([-25,-20,0])  rotate([90,0,0]){
+    color("DeepPink",.55)
+    translate([46,-30,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
@@ -614,15 +614,14 @@ module create_breakaway_m(){
 
     difference(){
         block();
-            translate([16,-20,-.8]) pogo_pin();
-    translate([16,-20,2.1]) pogo_pin(); //cut pogos 
+    translate([86,-30,-.8]) pogo_pin();
+    translate([86,-30,2.1]) pogo_pin(); //cut pogos 
         //cut usb    
         //cut holes
     //cut magnets
-
     }
 
-    
+      // translate([86,-30,0])pogo_pin(); 
 
     
 }
