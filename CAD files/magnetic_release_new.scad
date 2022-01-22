@@ -456,23 +456,18 @@ module subtract_usb_m(){
 }
 //subtract_usb_m();
 
-module subtract_receptors(){
     module create_pogo_recs(){
-        color("yellow"){
-       translate([38.5,-12.25,4.55]){
-            rotate([180,0,0]){
-                two_pogo_recs(); 
-                 }
-              }   
-              
-        translate([38.5,-12.25,2]){
+        color("yellow") 
+            translate([38.5,-12.25,2.1]){
             rotate([180,0,0]){
                 two_pogo_recs(); 
                  }
               }
          }
-     }
+     
      //create_pogo_recs();
+module subtract_receptors(){
+
      
 
         difference(){
@@ -597,7 +592,7 @@ difference(){
         //cut magnets
 
     //cut pogos
-
+two_pogo_recs();
     //cut holes    
 
 };
