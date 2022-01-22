@@ -123,7 +123,16 @@ pogo_tip=1.5;
 pogo_diameter=1.5;
 pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 
-
+        module breakaway_magnet(){
+        translate([52.5,-27.17,-5]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();
+            }
+        }
+    }
+    //breakaway_magnet();
+    
 /* *  Build Modules * */
         module cut_female(){
     translate([51,-cf_w,-1.5]){
@@ -131,9 +140,6 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
     }
 }
 //cut_female();
-
-module create_breakaway(){
-    
     module breakaway_base(){
     color("pink", .5){
     difference(){
@@ -150,7 +156,7 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
     };  
 
 //breakaway_base();
-    
+module create_breakaway(){
     module subtract_pogo_pin(){
     difference(){
         breakaway_base();
@@ -161,20 +167,13 @@ cube(size= [i2_h,i2_w,i2_d], center = false);
 }
 //subtract_pogo_pin();
 
+    
     module breakaway_add_notch(){
 }
 //add_notch();
 
     module breakaway_subtract_magnets(){
-        module breakaway_magnet(){
-        translate([52.5,-27.17,-5]){
-            magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();
-            }
-        }
-    }
-    //breakaway_magnet();
+
 
     difference(){
         subtract_pogo_pin();
@@ -588,12 +587,13 @@ module create_release_m(){
 difference(){
     release_block();
         translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
+            //cut magnets
+translate([35,-28,-zpascifier]) two_pogo_recs() //cut pogos
+        //cut holes  make_screw_tops_release();
 }
-        //cut magnets
 
-    //cut pogos
-two_pogo_recs();
-    //cut holes    
+translate([35,-28,-zpascifier]) two_pogo_recs();  // visible work in progress
+  
 
 };
 
@@ -620,14 +620,14 @@ module create_breakaway_m(){
         block();
     translate([86,-30,-.8]) pogo_pin();
     translate([86,-30,2.1]) pogo_pin(); //cut pogos    
-        //cut holes
+        //cut holes make_screw_tops_release();
     //cut magnets
+        
     }
-
-      // translate([86,-30,0])pogo_pin(); 
 
     
 }
+
 
 /* * * RENDER ALL THE PARTS * * */
 
