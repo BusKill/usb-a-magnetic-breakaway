@@ -51,5 +51,6 @@ The contents of this repo are dual-licensed. All code is GPLv3 and all other con
 * What is Buskill? https://tech.michaelaltfield.net/2020/01/02/buskill-laptop-kill-cord-dead-man-switch/
 * Buskill YouTube https://www.youtube.com/channel/UC5Njxb027m2OmrocrH33oew
 * Buskill Crowdsupply https://www.crowdsupply.com/alt-shift/buskill
+* Buskill Open Collective https://opencollective.com/buskill
 
 
