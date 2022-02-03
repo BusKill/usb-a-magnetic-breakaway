@@ -374,7 +374,7 @@ ppr_top_r=1.6;
 ppr_top_h=1.5; // top cylinder height
 ppr_bottom_d=2.1; //bottom cylinder diameter
 ppr_bottom_r=1.2;
-ppr_bottom_h=4; //bottom cyclinder height
+ppr_bottom_h=2; //bottom cyclinder height
 ppr_d=1.2; //distance between pogo receptors
 
 //USB_male variables
@@ -399,13 +399,13 @@ module two_pogo_recs(){
     module pogo_rec(){
         //variables: ppr_top_r, ppr_top_h, ppr_bottom_r, ppr_bottom_h
         module pogo_rec_top(){
-            cylinder(h=ppr_top_h, r1=ppr_top_r, r2=ppr_top_r, center = false);
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=ppr_top_h, r1=ppr_top_r, r2=ppr_top_r, center = false); 
         };
     pogo_rec_top();   
         module pogo_rec_bottom(){
-            translate([2,0,-1.2]){
+            translate([.05,0,-1.2]){
                 rotate([0,0,-18]){
-                cylinder(h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
+                cylinder($fn = 30, $fa = 30, $fs = 2,h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
         }
         };
@@ -421,7 +421,7 @@ module two_pogo_recs(){
         }
     }
 }
-//two_pogo_recs();
+two_pogo_recs();
 
 module release_subtract_magnet(){
     module release_magnet(){
@@ -588,7 +588,8 @@ difference(){
     release_block();
         translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
             //cut magnets
-translate([35,-28,-zpascifier]) two_pogo_recs() //cut pogos
+translate([35,-28,-zpascifier]) two_pogo_recs();
+    //cut pogos
         //cut holes  make_screw_tops_release();
 }
 
