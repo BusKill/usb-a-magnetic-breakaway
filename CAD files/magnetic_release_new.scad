@@ -59,7 +59,7 @@ module magnet(){
 module notch(){
     color("white"){
         rotate([90,0,0]){
-            cylinder(.5,.5,.5,$fn=3);
+            cylinder($fn = 30, $fa = 30, $fs = 2, .5,.5,.5,$fn=3);
         }
     }
 }
@@ -69,9 +69,9 @@ module notch(){
     module pogo_pin(){
     color("yellow"){
         rotate([90,0,0]){
-            cylinder(h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
         translate([pogo_distance,0,0]){
-            cylinder(h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
         }
     }
 }
@@ -316,7 +316,7 @@ module create_breakaway_lid(){
 
     module make_screw_tops_breakaway_lid(){    
     module screw_tops_breakaway(){
-        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
 
     module two_screws_tops_breakaway(){
@@ -403,7 +403,7 @@ module two_pogo_recs(){
         };
     pogo_rec_top();   
         module pogo_rec_bottom(){
-            translate([.05,0,-1.2]){
+            translate([.05,0,1]){
                 rotate([0,0,-18]){
                 cylinder($fn = 30, $fa = 30, $fs = 2,h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
@@ -421,7 +421,7 @@ module two_pogo_recs(){
         }
     }
 }
-two_pogo_recs();
+//two_pogo_recs();
 
 module release_subtract_magnet(){
     module release_magnet(){
