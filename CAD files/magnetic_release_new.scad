@@ -584,19 +584,23 @@ module create_release_m(){
             }
         }  
     }
+
 difference(){
     release_block();
         translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
             //cut magnets
 translate([35,-28,-zpascifier]) two_pogo_recs();
-    //cut pogos
-        //cut holes  make_screw_tops_release();
-}
+       
+}//cut pogos
+        
+translate([48,-28,-zpascifier]) make_screw_tops_release();
+//cut holes 
 
 translate([35,-28,-zpascifier]) two_pogo_recs();  // visible work in progress
   
 
 };
+
 
 
 create_release_m();
@@ -620,7 +624,7 @@ module create_breakaway_m(){
     difference(){
         block();
     translate([86,-30,-.8]) pogo_pin();
-    translate([86,-30,2.1]) pogo_pin(); //cut pogos    
+    translate([86,-30,2.5]) pogo_pin(); //cut pogos    
         //cut holes make_screw_tops_release();
     //cut magnets
         
