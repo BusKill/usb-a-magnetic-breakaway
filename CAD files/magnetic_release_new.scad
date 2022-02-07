@@ -579,7 +579,7 @@ module create_release_m(){
         color("aquamarine",.55)
         translate([0,-20,0])  rotate([90,0,0]){
             translate([33,0,0]){
-                cube(size = [o_h, o_w/2, o_d], center = false);
+                cube(size = [o_h, o_w/4, o_d], center = false);
             }
         }  
     }
@@ -594,15 +594,15 @@ difference(){
  
 
 module void(){
-    translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33.25,-36.15,-5.55-zpascifier]){
+    translate([35.5,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
+                    translate([33.25,-36.15,-6-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
             }
         }//cut magnets
-translate([40,-30,3-zpascifier]) two_pogo_recs(); 
-translate([40,-30,-.25-zpascifier]) two_pogo_recs();// cut pogo recs
+translate([40,-31,3-zpascifier]) two_pogo_recs(); 
+translate([40,-31,-.25-zpascifier]) two_pogo_recs();// cut pogo recs
 }
 
 //void();
@@ -624,16 +624,19 @@ module create_breakaway_m(){
     color("DeepPink",.55)
     translate([46,-30,0])  rotate([90,0,0]){
             translate([33,0,0]){
-                cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
+                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
             }
         } 
     } 
 
     module void(){
-        translate([86,-30,-.8]) pogo_pin();
-        translate([86,-30,2.5]) pogo_pin(); //cut pogos    
-        translate([48,-28,-zpascifier]) make_screw_tops_release();
-//cut holes //cut holes 
+        translate([86,-30,-1.2]) pogo_pin();
+        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
+        
+//cut holes  translate([48,-28,-zpascifier])
+            translate([79.5,-45.25,-6]){magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();  }}
 //cut magnets 
     }
     
