@@ -79,7 +79,7 @@ module notch(){
 
 /* * Screw and Nut * */
 s_h=7; // screw length
-s_r1=1.1; // screw shaft radius
+s_r1=.75; // screw shaft radius
 s_r2=2; // screw top radius
 n_l=7; //nut channel length
 n_h=1.3; //nut height
@@ -122,7 +122,7 @@ pogo_tip=1.5;
 pogo_diameter=1.5;
 pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 
-        module breakaway_magnet(){
+module breakaway_magnet(){
         translate([52.5,-27.17,-5]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
@@ -133,7 +133,7 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
     //breakaway_magnet();
     
 /* *  Build Modules * */
-        module cut_female(){
+ module cut_female(){
     translate([51,-cf_w,-1.5]){
         cube(size=[cf_h,cf_w,cf_d], center = false);
     }
@@ -424,7 +424,7 @@ module two_pogo_recs(){
 
 module release_subtract_magnet(){
     module release_magnet(){
-        translate([33.25,-15.15,-4.25-zpascifier]){
+        translate([33.25,-16.15,-4.25-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -442,7 +442,7 @@ module release_subtract_magnet(){
 
 module subtract_usb_m(){
     module usb_male(){
-    translate([34,-10,1]){
+    translate([35.5,-10,1]){
         cube(size=[um_h,um_w,um_d], center = false);
     }
 }
@@ -456,17 +456,15 @@ module subtract_usb_m(){
 
     module create_pogo_recs(){
         color("yellow") 
-            translate([38.5,-12.25,2.1]){
-            rotate([180,0,0]){
+            translate([39.5,-10,2.1]){
+            rotate([0,0,0]){
                 two_pogo_recs(); 
                  }
               }
          }
      
-     //create_pogo_recs();
+    // create_pogo_recs();
 module subtract_receptors(){
-
-     
 
         difference(){
             subtract_usb_m();
@@ -481,24 +479,24 @@ module subtract_receptors(){
 
 module make_screw_tops_release(){    
     module screw_tops_release(){
-        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
 
     module two_screws_tops_release(){
-        translate([0,-7.5,0]){
+        translate([-.7,-7.5,0]){
         screw_tops_release();
     }
 
-    translate([10,-7.5,0]){
+    translate([14.1,-7.5,0]){
         screw_tops_release();
         }
     }
 
-    translate([35,0,0]){
+    translate([35,3,0]){
         two_screws_tops_release(); //for release base
     }
 
-    translate([35,0,3]){
+    translate([10,3,3]){
         two_screws_tops_release(); // for release lid
     }
 };
@@ -514,9 +512,9 @@ module subtract_screw_tops_release(){
 
 module make_nuts_release(){
   module nut_release(){
-        translate([32.5,-7.5,1.5]){
+        translate([32.5,-4.5,1.5]){
             rotate([90,90,0]){
-                cube(size=[n_h,n_l,n_h], center = false);
+                cube(size=[n_h,n_l*1.25,n_h], center = false);
             }
         }
     }
@@ -537,7 +535,6 @@ module subtract_nuts_release(){
 }
 //subtract_nuts_release();
 
-//cut away lid
 
 module cut_away_lid(){
    //cut block
@@ -557,7 +554,7 @@ difference(){
     cut_release_base();
     }
 }
-color("blue"){
+color("blue",.8){
     cut_away_lid();
 } //is the base
 
@@ -601,8 +598,8 @@ module void(){
                 magnet();           
             }
         }//cut magnets
-translate([40,-31,3-zpascifier]) two_pogo_recs(); 
-translate([40,-31,-.25-zpascifier]) two_pogo_recs();// cut pogo recs
+translate([40,-31,2.5-zpascifier]) two_pogo_recs(); 
+translate([40,-31,-.8-zpascifier]) two_pogo_recs();// cut pogo recs
 }
 
 //void();
