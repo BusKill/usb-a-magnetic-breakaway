@@ -475,29 +475,30 @@ module subtract_receptors(){
 
         
 //subtract_receptors();
-
-
-module make_screw_tops_release(){    
-    module screw_tops_release(){
+    module screw(){
         cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
-
-    module two_screws_tops_release(){
+    
+      module two_screws(){
         translate([-.7,-7.5,0]){
-        screw_tops_release();
+        screw();
     }
 
     translate([14.1,-7.5,0]){
-        screw_tops_release();
+        screw();
         }
-    }
+    } 
+   
+   //two_screws(); 
+
+module make_screw_tops_release(){    
 
     translate([35,3,0]){
-        two_screws_tops_release(); //for release base
+        two_screws(); //for release base
     }
 
     translate([10,3,3]){
-        two_screws_tops_release(); // for release lid
+        two_screws(); // for release lid
     }
 };
 //make_screw_tops_release();
@@ -600,6 +601,7 @@ module void(){
         }//cut magnets
 translate([40,-31,2.5-zpascifier]) two_pogo_recs(); 
 translate([40,-31,-.8-zpascifier]) two_pogo_recs();// cut pogo recs
+translate([35,-16,0]) two_screws();
 }
 
 //void();
