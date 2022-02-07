@@ -596,7 +596,8 @@ translate([35,-28,-zpascifier]) two_pogo_recs();
 translate([48,-28,-zpascifier]) make_screw_tops_release();
 //cut holes 
 
-translate([35,-28,-zpascifier]) two_pogo_recs();  // visible work in progress
+translate([40,-28,3-zpascifier]) two_pogo_recs(); 
+translate([40,-28,-.25-zpascifier]) two_pogo_recs();// visible work in progress
   
 
 };
@@ -626,11 +627,22 @@ module create_breakaway_m(){
     translate([86,-30,-.8]) pogo_pin();
     translate([86,-30,2.5]) pogo_pin(); //cut pogos    
         //cut holes make_screw_tops_release();
-    //cut magnets
+    
         
     }
-
+        translate([33.25,-35.15,-4.25-zpascifier]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();           
+            }
+        }//cut  top magnets
     
+        translate([33.25,-35.15,-8.25-zpascifier]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();           
+            }
+        }//cut bottom magnets
 }
 
 
