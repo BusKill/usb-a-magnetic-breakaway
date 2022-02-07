@@ -13,9 +13,9 @@ The user will have a USB, a USB extension cable, and the magnetic breakaway.
 
 The magnetic breakaway device should be sized so that it doesn't block other USB ports on the user's computer.
 
-The "breakaway" receives the USB from the USB cable with a female USB port. It is in four parts, the base, two middle pieces, and the lid. It contains pogo pins and magnets. It separates from the release when the cord is pulled.
+The "breakaway" receives the USB from the USB cable with a female USB port. It is in four parts, the base, two middle pieces, and the lid. It contains 4 pogo pins and 2 magnets. It separates from the release when the cord is pulled.
 
-The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle, and the lid. It contains pogo receptors and magnets.
+The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.
 
 The middle pieces are created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
 
@@ -25,16 +25,15 @@ The breakaway and release plugs must be designed asymmetrically to prevent the c
 
 The case must be designed so that the user can completely dissemble it and ensure there has been no tampering. No glue must be required. The base and lid connect together with tiny screws and embedded nuts. There will be a middle wall piece for both ends that separates top and bottom components.
 
+The magnets are a custom hexagonal shape so that they can connect at the flat surface and be held in place by the plastic without requiring glue. The engineering document is available on the repo.
+
 docs.buskill.in
 buskill.in
 */
 
 /* * * * TO DO * * * */
-// refine proper distances and sizes
-// fix small holes
-// fix modules
-// create middle wall pieces
-// fix asymmetry 
+//figure out exact shapes so that magnets and pogos are secured during assembly
+//properly define variables instead of kludging values
 
 zpascifier = 0.02; //value to prevent z-fighting
 
@@ -585,20 +584,28 @@ module create_release_m(){
         }  
     }
 
+
 difference(){
     release_block();
-        translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-            //cut magnets
-translate([35,-28,-zpascifier]) two_pogo_recs();
+     void();
        
 }//cut pogos
         
-translate([48,-28,-zpascifier]) make_screw_tops_release();
-//cut holes 
+ 
 
-translate([40,-28,3-zpascifier]) two_pogo_recs(); 
-translate([40,-28,-.25-zpascifier]) two_pogo_recs();// visible work in progress
-  
+module void(){
+    translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
+                    translate([33.25,-36.15,-5.55-zpascifier]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();           
+            }
+        }//cut magnets
+translate([40,-30,3-zpascifier]) two_pogo_recs(); 
+translate([40,-30,-.25-zpascifier]) two_pogo_recs();// cut pogo recs
+}
+
+//void();
 
 };
 
@@ -622,27 +629,22 @@ module create_breakaway_m(){
         } 
     } 
 
-    difference(){
+    module void(){
+        translate([86,-30,-.8]) pogo_pin();
+        translate([86,-30,2.5]) pogo_pin(); //cut pogos    
+        translate([48,-28,-zpascifier]) make_screw_tops_release();
+//cut holes //cut holes 
+//cut magnets 
+    }
+    
+        difference(){
         block();
-    translate([86,-30,-.8]) pogo_pin();
-    translate([86,-30,2.5]) pogo_pin(); //cut pogos    
-        //cut holes make_screw_tops_release();
+        void();
     
         
     }
-        translate([33.25,-35.15,-4.25-zpascifier]){
-            magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();           
-            }
-        }//cut  top magnets
     
-        translate([33.25,-35.15,-8.25-zpascifier]){
-            magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();           
-            }
-        }//cut bottom magnets
+        //void();
 }
 
 
