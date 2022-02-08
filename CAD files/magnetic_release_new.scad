@@ -384,7 +384,7 @@ um_d = 4;
 /* * Modules * */
 module create_release(){
 
-module release_base(){
+module release_block(){
        rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [o_h, o_w, o_d], center = false);
@@ -392,7 +392,11 @@ module release_base(){
         }
   
 }; 
-//release_base();
+//release_block();
+
+module release_void(){
+    //fill with all the stuff below to make this code readable
+}
 
 module two_pogo_recs(){  
     module pogo_rec(){
@@ -433,7 +437,7 @@ module release_subtract_magnet(){
     }
 //release_magnet();
     difference(){
-        release_base();
+        release_block();
         release_magnet();
     }
 }
@@ -489,7 +493,7 @@ module subtract_receptors(){
         }
     } 
    
-   //two_screws(); 
+//two_screws(); 
 
 module make_screw_tops_release(){    
 
@@ -539,7 +543,7 @@ module subtract_nuts_release(){
 
 module cut_away_lid(){
    //cut block
-        module cut_release_base(){
+        module cut_release_block(){
 
             translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
                 rotate([90,0,0]){
@@ -552,7 +556,7 @@ module cut_away_lid(){
 // cut away release lid
 difference(){
     subtract_nuts_release();
-    cut_release_base();
+    cut_release_block();
     }
 }
 color("blue",.8){
@@ -617,7 +621,11 @@ create_release_m();
 
      
 module create_breakaway_m(){
-
+    module screw(){
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+    }
+    
     //block
     module block(){
     color("DeepPink",.55)
@@ -632,7 +640,7 @@ module create_breakaway_m(){
         translate([86,-30,-1.2]) pogo_pin();
         translate([86,-30,2.2]) pogo_pin(); //cut pogos    
         
-//cut holes  translate([48,-28,-zpascifier])
+translate([82,-33,-zpascifier]) screw();//cut holes  
             translate([79.5,-45.25,-6]){magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();  }}
