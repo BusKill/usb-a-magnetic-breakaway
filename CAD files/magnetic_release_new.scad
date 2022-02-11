@@ -35,6 +35,8 @@ buskill.in
 //figure out exact shapes so that magnets and pogos are secured during assembly
 //properly define variables instead of kludging values
 
+module main(){
+
 zpascifier = 0.02; //value to prevent z-fighting
 
 /* * Magnet * */
@@ -350,6 +352,44 @@ translate([-35,0,0]){
 }
 //create_breakaway_lid();
 
+module create_breakaway_m(){
+    module screw(){
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+    }
+    
+    //block
+    module block(){
+    color("DeepPink",.55)
+    translate([46,-30,0])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
+            }
+        } 
+    } 
+
+    module void(){
+        translate([86,-30,-1.2]) pogo_pin();
+        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
+        
+translate([82,-33,-zpascifier]) screw();//cut holes  
+            translate([79.5,-45.25,-6]){magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();  }}
+//cut magnets 
+    }
+    
+        difference(){
+        block();
+        void();
+    
+        
+    }
+    
+        //void();
+}
+
+
 /* * * Create Release * * */
 
 //The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets.
@@ -620,42 +660,6 @@ create_release_m();
 //create_release();
 
      
-module create_breakaway_m(){
-    module screw(){
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-    
-    //block
-    module block(){
-    color("DeepPink",.55)
-    translate([46,-30,0])  rotate([90,0,0]){
-            translate([33,0,0]){
-                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
-            }
-        } 
-    } 
-
-    module void(){
-        translate([86,-30,-1.2]) pogo_pin();
-        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
-        
-translate([82,-33,-zpascifier]) screw();//cut holes  
-            translate([79.5,-45.25,-6]){magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();  }}
-//cut magnets 
-    }
-    
-        difference(){
-        block();
-        void();
-    
-        
-    }
-    
-        //void();
-}
 
 
 /* * * RENDER ALL THE PARTS * * */
@@ -695,3 +699,7 @@ create_all();
 //translate([25,0,0]){create_breakaway();}
 
 //translate([-25,0,0]){create_release();}
+
+}
+
+main();
