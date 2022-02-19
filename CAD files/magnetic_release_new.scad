@@ -258,98 +258,53 @@ module subtract_cut_f(){
 subtract_nuts_breakaway_base();
 }
 //create_breakaway();
+part_loc_x=90;
 
 module create_breakaway_lid(){
     
-    module breakaway_lid(){
+    module breakaway_lid_block(){
             color("red", .5){
     rotate([90,0,0]){
-       translate([114,0,0]){
-            cube(size = [i_l_h, i_l_w, i_l_d], center = false);   
+       translate([part_loc_x,0,11.5]){
+            cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);   
             }
      }
 }     
 }
-//breakaway_lid();
-
-    
-    module subtract_pogo_pin_lid(){
-    difference(){
-        breakaway_lid();
-        translate([121.5,-13,1.625]){
+//breakaway_lid_block();
+screw_depth=-16;
+screw_distance=11;
+ 
+        module void(){
+        translate([7.5,-13.1,1.625]){
             pogo_pin();
-        }
-    }
-}
-//subtract_pogo_pin_lid();
-
-    module breakaway_subtract_magnets_lid(){
-        module breakaway_magnet_lid(){
-        translate([114.5,-27.17,-5]){
+            } //subtract pogo_pin
+        translate([.5,-27.17,-5]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
+            } //subtract magnets
+        }         
+            translate([62,zpascifier,-zpascifier]){
+            cut_female(); //subtract usb
             }
-        }
+              module screw(){
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([screw_distance,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
-//    breakaway_magnet_lid();
-    difference(){
-        subtract_pogo_pin_lid();
-        breakaway_magnet_lid();
-       
+  translate([3.5,screw_depth,1]){
+        screw();
     }
+  
+    };
+//translate([part_loc_x,0,0]) {void();}
+difference(){
+    breakaway_lid_block();
+    translate([part_loc_x,0,0]) {void();}
 }
+};
     
 
-//breakaway_subtract_magnets_lid();
-
-    module subtract_cut_f_lid(){
-//cut_female();
-    difference(){
-        breakaway_subtract_magnets_lid();
-        translate([62,zpascifier,-zpascifier]){
-            cut_female();
-            }
-    }
-}
-
-//subtract_cut_f_lid();
-
-    module make_screw_tops_breakaway_lid(){    
-    module screw_tops_breakaway(){
-        cylinder($fn = 30, $fa = 30, $fs = 2, h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-
-    module two_screws_tops_breakaway(){
-        translate([2,-17,0]){
-        screw_tops_breakaway();
-    }
-
-    translate([12,-17,0]){
-        screw_tops_breakaway();
-        }
-    }
-
-    translate([56,0,0]){
-        two_screws_tops_breakaway(); //for breakaway base
-    }
-
-    translate([116,0,0]){
-        two_screws_tops_breakaway(); // for breakaway lid
-    }
-};
-//make_screw_tops_breakaway_lid();
-
-    module subtract_screw_tops_breakaway_lid(){
-    difference(){
-        subtract_cut_f_lid();
-        make_screw_tops_breakaway_lid();
-    }
-}
-translate([-35,0,0]){
-    subtract_screw_tops_breakaway_lid();
-}
-}
 //create_breakaway_lid();
 
 module create_breakaway_m(){
