@@ -86,6 +86,8 @@ s_r2=2; // screw top radius
 n_l=7; //nut channel length
 n_h=1.3; //nut height
 n_d=14; //distance between nuts
+s_d_r=11; //distance between screws release
+s_d_b=10; //distance between screws breakaway
 
 /* * * Create Breakaway * * */
  
