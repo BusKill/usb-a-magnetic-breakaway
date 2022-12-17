@@ -66,25 +66,12 @@ module notch(){
 }
 //notch();
 
-/* * Pogo Pin * */
-    module pogo_pin(){
-    color("yellow"){
-        rotate([90,0,0]){
-            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
-        translate([pogo_distance,0,0]){
-            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
-        }
-    }
-}
-}
-//pogo_pin();
-
 /* * Screw and Nut * */
 s_h=7; // screw length
 s_r1=.75; // screw shaft radius
 s_r2=2; // screw top radius
-n_l=7; //nut channel length
-n_h=1.3; //nut height
+n_l=6; //nut channel length
+n_h=1.25; //nut height
 n_d=14; //distance between nuts
 s_d_r=11; //distance between screws release
 s_d_b=10; //distance between screws breakaway
@@ -104,7 +91,7 @@ i2_h = 8; //x
 i2_w = 0; //y
 i2_d = 2.5; //z
 
-//breakaway lid variables
+//breakaway top variables
 i_l_h =i_h; //z
 i_l_w = i_w; //x
 i_l_d = i_d; //y
@@ -122,9 +109,22 @@ cf_d = 5.75; // the same as cf_w for some reason...
 //pogo pins are shaped like a cylinder.
 
 pogo_length=12;
-pogo_tip=1.5;
-pogo_diameter=1.5;
+pogo_tip_diameter=1;
+pogo_diameter=1.25;
 pogo_distance=3.5+zpascifier; //distance between pins (x=z)
+
+/* * Pogo Pin * */
+    module pogo_pin(){
+    color("yellow"){
+        rotate([90,0,0]){
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+        translate([pogo_distance,0,0]){
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+        }
+    }
+}
+}
+//pogo_pin();
 
 module breakaway_magnet(){
         translate([52.5,-27.17,-5]){
@@ -137,7 +137,7 @@ module breakaway_magnet(){
     //breakaway_magnet();
     
 /* *  Build Modules * */
- module cut_female(){
+ module usb_female(){
     translate([51,-cf_w,-1.5]){
         cube(size=[cf_h,cf_w,cf_d], center = false);
     }
@@ -192,7 +192,7 @@ module subtract_cut_f(){
 //cut_female();
     difference(){
         breakaway_subtract_magnets();
-        translate([0,0,-.7])cut_female();
+        translate([0,0,-.7])usb_female();
         
     }
 }
@@ -218,7 +218,7 @@ module subtract_cut_f(){
     }
 
     translate([116,0,0]){
-        two_screws_tops_breakaway(); // for breakaway lid
+        two_screws_tops_breakaway(); // for breakaway top
     }
 };
 //make_screw_tops_breakaway();
@@ -262,7 +262,7 @@ subtract_nuts_breakaway_base();
 //create_breakaway();
 part_loc_x=90;
 
-module create_breakaway_lid(){
+module create_breakaway_top(){
     
     module breakaway_lid_block(){
             color("red", .5){
@@ -288,7 +288,7 @@ screw_distance=11;
             } //subtract magnets
         }         
             translate([62,zpascifier,-zpascifier]){
-            cut_female(); //subtract usb
+            usb_female(); //subtract usb
             }
               module screw(){
         cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
@@ -307,7 +307,7 @@ difference(){
 };
     
 
-//create_breakaway_lid();
+//create_breakaway_top();
 
 module create_breakaway_m(){
     module screw(){
@@ -354,7 +354,7 @@ translate([82,-33,-zpascifier]) screw();//cut holes
 /* * Variables * */
     
 //release base variables
-o_h = 17.5; //x
+o_h = 18.5; //x
 o_w = 6.5; //z
 o_d = 13; //y
 
@@ -373,28 +373,7 @@ ppr_bottom_r=1.2;
 ppr_bottom_h=2; //bottom cyclinder height
 ppr_d=1.2; //distance between pogo receptors
 
-//USB_male variables
-um_h = 12;
-um_w = 10;
-um_d = 4;
-
-/* * Modules * */
-module create_release(){
-
-module release_block(){
-       rotate([90,0,0]){
-            translate([33,0,0]){
-                cube(size = [o_h, o_w, o_d], center = false);
-            }
-        }
-  
-}; 
-//release_block();
-
-module release_void(){
-    //fill with all the stuff below to make this code readable
-}
-
+//pogo receptor
 module two_pogo_recs(){  
     module pogo_rec(){
         //variables: ppr_top_r, ppr_top_h, ppr_bottom_r, ppr_bottom_h
@@ -423,9 +402,27 @@ module two_pogo_recs(){
 }
 //two_pogo_recs();
 
-module release_subtract_magnet(){
+//USB_male variables
+um_h = 13;
+um_w = 10;
+um_d = 4;
+
+/* * Modules * */
+module create_release(){
+
+module release_block(){
+       rotate([90,0,0]){
+            translate([30,0,0]){
+                cube(size = [o_h, o_w, o_d], center = false);
+            }
+        }
+  
+}; 
+//release_block();
+
+
     module release_magnet(){
-        translate([33.25,-16.15,-4.25-zpascifier]){
+        translate([30.25,-16.15,-4.25-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -433,86 +430,49 @@ module release_subtract_magnet(){
         }
     }
 //release_magnet();
-    difference(){
-        release_block();
-        release_magnet();
-    }
-}
-
-//release_subtract_magnet();
-
-module subtract_usb_m(){
-    module usb_male(){
+    
+        module usb_male(){
     translate([35.5,-10,1]){
         cube(size=[um_h,um_w,um_d], center = false);
     }
 }
 //usb_male();
-    difference(){
-        release_subtract_magnet();
-        usb_male();
-    }
-}
-//subtract_usb_m();
 
-    module create_pogo_recs(){
-        color("yellow") 
-            translate([39.5,-10,2.1]){
-            rotate([0,0,0]){
-                two_pogo_recs(); 
-                 }
-              }
-         }
-     
-    // create_pogo_recs();
-module subtract_receptors(){
-
-        difference(){
-            subtract_usb_m();
-    create_pogo_recs();
-            }
-        
-    }
-
-        
-//subtract_receptors();
+//Screws
     module screw(){
         cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
+    };
+    //screw();
     
-      module two_screws(){
+    module two_screws(){
         translate([-.7,-7.5,0]){
         screw();
     }
 
-    translate([14.1,-7.5,0]){
+    translate([15.1,-7.5,0]){
         screw();
         }
-    } 
+    }; 
    
 //two_screws(); 
 
-module make_screw_tops_release(){    
+module two_top_screws(){    
 
     translate([35,3,0]){
         two_screws(); //for release base
     }
+};
+//two_top_screws();
+module two_bottom_screws(){    
 
     translate([10,3,3]){
         two_screws(); // for release lid
     }
 };
-//make_screw_tops_release();
+//two_bottom_screws; 
 
-module subtract_screw_tops_release(){
-    difference(){
-    subtract_receptors();
-    make_screw_tops_release();
-}
-}
-//subtract_screw_tops_release();
-
-module make_nuts_release(){
+//Nuts
+module two_nuts(){
   module nut_release(){
         translate([32.5,-4.5,1.5]){
             rotate([90,90,0]){
@@ -524,52 +484,57 @@ module make_nuts_release(){
     translate([n_d/1.5,0,0]){
       nut_release(); //make one nut n_d distance from the first nut
     }
+};
+
+//two_nuts(); 
+module release_top_block(){
+    release_block();
+    
 }
 
-//make_nuts_release(); //two nuts
+//release_top_block();
 
-module subtract_nuts_release(){
-    difference(){
-        subtract_screw_tops_release();
-        make_nuts_release();
-       translate([0,1.25,0]) make_nuts_release();
+module release_top_void(){
+    two_pogo_recs();
+    release_magnet();
+    usb_male();
+    two_top_screws();
+    two_nuts();
+    translate([30,0,0])rotate([90,0,0])cube(size = [o_h, o_w/4, o_d], center = false);
+}
+release_top_void();
+
+//create release top
+ module create_release_top(){
+     
+   color("lightblue") difference(){
+        release_top_block();
+        release_top_void();
     }
 }
-//subtract_nuts_release();
+create_release_top();
 
+//create release base
 
-module cut_away_lid(){
-   //cut block
-        module cut_release_block(){
+module release_base_block(){
+        color("blue") translate([-30,0,0])release_block();
+    
+};
+release_base_block();
 
-            translate([33-zpascifier,zpascifier,o_d/4-zpascifier]){
-                rotate([90,0,0]){
-                    cube(size = [o_h+zpascifier*2, o_w+zpascifier*2, o_d+zpascifier*2+4], center = false);
-            }
-        }
+module release_base_void(){
+translate([-30,0,0])release_top_void();
+    
+}
+release_base_void();
 
-}; 
-
-// cut away release lid
-difference(){
-    subtract_nuts_release();
-    cut_release_block();
+module create_release_base(){
+ difference(){
+        release_base_block();
+        release_base_void();
     }
-}
-color("blue",.8){
-    cut_away_lid();
-} //is the base
+//create_release_base();
 
-
-module create_release_lid(){
-{
-    translate([-25,0,0])cut_away_lid();
-}
-}
-
-color("lightblue"){
-    create_release_lid();
-}
 
 module create_release_m(){
 
@@ -577,7 +542,7 @@ module create_release_m(){
     module release_block(){
         color("aquamarine",.55)
         translate([0,-20,0])  rotate([90,0,0]){
-            translate([33,0,0]){
+            translate([30,0,0]){
                 cube(size = [o_h, o_w/4, o_d], center = false);
             }
         }  
@@ -594,7 +559,7 @@ difference(){
 
 module void(){
     translate([35.5,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33.25,-36.15,-6-zpascifier]){
+                    translate([30.25,-36.15,-6-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
@@ -611,10 +576,11 @@ translate([35,-16,0]) two_screws();
 
 
 
-create_release_m();
+//create_release_m();
 
 }
-//create_release();
+}
+create_release();
 
      
 
@@ -623,8 +589,8 @@ create_release_m();
 
 module create_all(){
 
-//render breakaway lid
-   create_breakaway_lid();
+//render breakaway top
+   create_breakaway_top();
 
 //render breakaway base
    create_breakaway();
@@ -633,10 +599,10 @@ module create_all(){
 create_breakaway_m();    
 
 //render release lid
-  // create_release_lid(); 
+ //  create_release_top(); 
 
  //render release base   
-  create_release();
+ // create_release_base();
     
 //render release midpiece
 //create_release_m();    
@@ -647,10 +613,10 @@ create_all();
 /* * * RENDER AN INDIVIDUAL PART * * */
 
 //create_breakaway();
-//create_breakaway_lid();
+//create_breakaway_top();
 //create_breakaway_m();
 //create_release();
-//create_release_lid();
+//create_release_top();
 //create_release_m();
 
 //translate([25,0,0]){create_breakaway();}
