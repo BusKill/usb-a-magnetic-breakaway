@@ -73,8 +73,8 @@ s_r2=2; // screw top radius
 n_l=6; //nut channel length
 n_h=1.25; //nut height
 n_d=14; //distance between nuts
-s_d_r=11; //distance between screws release
-s_d_b=10; //distance between screws breakaway
+s_d_r=13; //distance between screws release
+s_d_b=13; //distance between screws breakaway
 
 /* * * Create Breakaway * * */
  
@@ -83,7 +83,7 @@ s_d_b=10; //distance between screws breakaway
 /* * Variables * */
 
 //breakaway base variables
-i_h = 17.5; //x
+i_h = 20; //x
 i_w = 2.5; //z
 i_d = 24; //y
  
@@ -101,7 +101,7 @@ i2_l_w = i2_w; //x
 i2_l_d = i2_d; //y
 
 //cut_female variables
-cf_h = 19; //the width for some reason
+cf_h = 21; //the width for some reason
 cf_w = 13; //the height 
 cf_d = 5.75; // the same as cf_w for some reason... 
 
@@ -275,7 +275,7 @@ module create_breakaway_top(){
 }
 //breakaway_lid_block();
 screw_depth=-16;
-screw_distance=11;
+screw_distance=14;
  
         module void(){
         translate([7.5,-13.1,1.625]){
@@ -299,6 +299,7 @@ screw_distance=11;
     }
   
     };
+    //void();
 //translate([part_loc_x,0,0]) {void();}
 difference(){
     breakaway_lid_block();
@@ -354,7 +355,7 @@ translate([82,-33,-zpascifier]) screw();//cut holes
 /* * Variables * */
     
 //release base variables
-o_h = 18.5; //x
+o_h = 22; //x
 o_w = 6.5; //z
 o_d = 13; //y
 
@@ -378,11 +379,11 @@ module two_pogo_recs(){
     module pogo_rec(){
         //variables: ppr_top_r, ppr_top_h, ppr_bottom_r, ppr_bottom_h
         module pogo_rec_top(){
-            cylinder($fn = 30, $fa = 30, $fs = 2, h=ppr_top_h, r1=ppr_top_r, r2=ppr_top_r, center = false); 
+            translate([39.5,3,10])cylinder($fn = 30, $fa = 30, $fs = 2, h=ppr_top_h, r1=ppr_top_r, r2=ppr_top_r, center = false); 
         };
     pogo_rec_top();   
         module pogo_rec_bottom(){
-            translate([.05,0,1]){
+            translate([39.5,3,10])translate([.05,0,1]){
                 rotate([0,0,-18]){
                 cylinder($fn = 30, $fa = 30, $fs = 2,h=ppr_bottom_h, r1=ppr_bottom_r, r2=ppr_bottom_r, center = false);
             }
@@ -408,7 +409,7 @@ um_w = 10;
 um_d = 4;
 
 /* * Modules * */
-module create_release(){
+
 
 module release_block(){
        rotate([90,0,0]){
@@ -422,7 +423,7 @@ module release_block(){
 
 
     module release_magnet(){
-        translate([30.25,-16.15,-4.25-zpascifier]){
+        translate([33,-16.15,-4.25-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -440,16 +441,16 @@ module release_block(){
 
 //Screws
     module screw(){
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([-1.6,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
     };
     //screw();
     
     module two_screws(){
-        translate([-.7,-7.5,0]){
+        translate([-1,-7.5,0]){
         screw();
     }
 
-    translate([15.1,-7.5,0]){
+    translate([16.5,-7.5,0]){
         screw();
         }
     }; 
@@ -500,9 +501,9 @@ module release_top_void(){
     usb_male();
     two_top_screws();
     two_nuts();
-    translate([30,0,0])rotate([90,0,0])cube(size = [o_h, o_w/4, o_d], center = false);
+    translate([30,0,3.7])rotate([90,0,0])cube(size = [o_h+1, .3*o_w+1, o_d+1], center = false);
 }
-release_top_void();
+//release_top_void();
 
 //create release top
  module create_release_top(){
@@ -512,7 +513,7 @@ release_top_void();
         release_top_void();
     }
 }
-create_release_top();
+//create_release_top();
 
 //create release base
 
@@ -520,13 +521,13 @@ module release_base_block(){
         color("blue") translate([-30,0,0])release_block();
     
 };
-release_base_block();
+//release_base_block();
 
 module release_base_void(){
 translate([-30,0,0])release_top_void();
     
 }
-release_base_void();
+//release_base_void();
 
 module create_release_base(){
  difference(){
@@ -534,6 +535,7 @@ module create_release_base(){
         release_base_void();
     }
 //create_release_base();
+
 
 
 module create_release_m(){
@@ -553,21 +555,21 @@ difference(){
     release_block();
      void();
        
-}//cut pogos
+}
+//cut pogos
         
  
 
 module void(){
-    translate([35.5,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([30.25,-36.15,-6-zpascifier]){
+    translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
+                    translate([33,-36.15,-6-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
             }
         }//cut magnets
-translate([40,-31,2.5-zpascifier]) two_pogo_recs(); 
-translate([40,-31,-.8-zpascifier]) two_pogo_recs();// cut pogo recs
-translate([35,-16,0]) two_screws();
+translate([0,-20,-2-zpascifier]) two_pogo_recs(); 
+translate([35,-16,-1]) two_screws();
 }
 
 //void();
@@ -576,11 +578,18 @@ translate([35,-16,0]) two_screws();
 
 
 
-//create_release_m();
+create_release_m();
 
 }
+
+module create_release(){
+create_release_top();
+create_release_base();
+create_release_m();
+    
 }
-create_release();
+
+//create_release();
 
      
 
@@ -599,25 +608,25 @@ module create_all(){
 create_breakaway_m();    
 
 //render release lid
- //  create_release_top(); 
+  create_release_top(); 
 
  //render release base   
- // create_release_base();
+  create_release_base();
     
 //render release midpiece
-//create_release_m();    
+create_release_m();    
     
 }
-create_all();
+//create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
 //create_breakaway();
 //create_breakaway_top();
 //create_breakaway_m();
-//create_release();
-//create_release_top();
-//create_release_m();
+create_release();
+create_release_top();
+create_release_m();
 
 //translate([25,0,0]){create_breakaway();}
 
