@@ -11,11 +11,9 @@ BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, sev
 
 The user will have a USB, a USB extension cable, and the magnetic breakaway. 
 
-The magnetic breakaway device should be sized so that it doesn't block other USB ports on the user's computer.
-
 The "breakaway" receives the USB from the USB cable with a female USB port. It is in four parts, the base, two middle pieces, and the lid. It contains 4 pogo pins and 2 magnets. It separates from the release when the cord is pulled.
 
-The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.
+The "release" is attached to a cord ending in a male USB. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.
 
 The middle pieces are created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
 
