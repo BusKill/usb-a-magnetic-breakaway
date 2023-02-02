@@ -1,3 +1,14 @@
+/*
+
+__________ ____ ___  _____________  __.___.____    .____     
+\______   \    |   \/   _____/    |/ _|   |    |   |    |    
+ |    |  _/    |   /\_____  \|      < |   |    |   |    |    
+ |    |   \    |  / /        \    |  \|   |    |___|    |___ 
+ |______  /______/ /_______  /____|__ \___|_______ \_______ \
+        \/                 \/        \/           \/       \/
+
+
+*/
 /*                      
 Buskill USB-A Magnetic breakaway Shell Assembly     
 GNU General Public License v3.0 
@@ -74,277 +85,15 @@ n_d=14; //distance between nuts
 s_d_r=13; //distance between screws release
 s_d_b=13; //distance between screws breakaway
 
-/* * * Create Breakaway * * */
- 
- //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets.
+/*
+__________       .__                               
+\______   \ ____ |  |   ____ _____    ______ ____  
+ |       _// __ \|  | _/ __ \\__  \  /  ___// __ \ 
+ |    |   \  ___/|  |_\  ___/ / __ \_\___ \\  ___/ 
+ |____|_  /\___  >____/\___  >____  /____  >\___  >
+        \/     \/          \/     \/     \/     \/ 
 
-/* * Variables * */
-
-//breakaway base variables
-i_h = 20; //x
-i_w = 2.5; //z
-i_d = 24; //y
- 
-i2_h = 8; //x
-i2_w = 0; //y
-i2_d = 2.5; //z
-
-//breakaway top variables
-i_l_h =i_h; //z
-i_l_w = i_w; //x
-i_l_d = i_d; //y
-
-i2_l_h =i2_h; //z
-i2_l_w = i2_w; //x
-i2_l_d = i2_d; //y
-
-//cut_female variables
-cf_h = 21; //the width for some reason
-cf_w = 13; //the height 
-cf_d = 5.75; // the same as cf_w for some reason... 
-
-//pogo variables
-//pogo pins are shaped like a cylinder.
-
-pogo_length=12;
-pogo_tip_diameter=1;
-pogo_diameter=1.25;
-pogo_distance=3.5+zpascifier; //distance between pins (x=z)
-
-/* * Pogo Pin * */
-    module pogo_pin(){
-    color("yellow"){
-        rotate([90,0,0]){
-            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
-        translate([pogo_distance,0,0]){
-            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
-        }
-    }
-}
-}
-//pogo_pin();
-
-module breakaway_magnet(){
-        translate([52.5,-27.17,-5]){
-            magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();
-            }
-        }
-    }
-    //breakaway_magnet();
-    
-/* *  Build Modules * */
- module usb_female(){
-    translate([51,-cf_w,-1.5]){
-        cube(size=[cf_h,cf_w,cf_d], center = false);
-    }
-}
-//cut_female();
-    module breakaway_base(){
-    color("pink", .5){
-    difference(){
-    rotate([90,0,0]){
-        translate([52,0,zpascifier]){
-        cube(size = [i_h, i_w, i_d], center = false);   
-            }
-        }
-            translate([57,-24,1+zpascifier]){
-cube(size= [i2_h,i2_w,i2_d], center = false);
-            }
-    }   
-}
-    };  
-
-//breakaway_base();
-module create_breakaway(){
-    module subtract_pogo_pin(){
-    difference(){
-        breakaway_base();
-        translate([59.2,-13,1.625]){
-            pogo_pin();
-        }
-    }
-}
-//subtract_pogo_pin();
-
-    
-    module breakaway_add_notch(){
-}
-//add_notch();
-
-    module breakaway_subtract_magnets(){
-
-
-    difference(){
-        subtract_pogo_pin();
-        breakaway_magnet();
-    }
-}
-    
-
-//breakaway_subtract_magnets();
-
-module subtract_cut_f(){
-
-//cut_female();
-    difference(){
-        breakaway_subtract_magnets();
-        translate([0,0,-.7])usb_female();
-        
-    }
-}
-//subtract_cut_f();
-
-    module make_screw_tops_breakaway(){    
-    module screw_tops_breakaway(){
-        cylinder(h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-
-    module two_screws_tops_breakaway(){
-        translate([0,-17,0]){
-        screw_tops_breakaway();
-    }
-
-    translate([10,-17,0]){
-        screw_tops_breakaway();
-        }
-    }
-
-    translate([56,0,0]){
-        two_screws_tops_breakaway(); //for breakaway base
-    }
-
-    translate([116,0,0]){
-        two_screws_tops_breakaway(); // for breakaway top
-    }
-};
-//make_screw_tops_breakaway();
-
-    module subtract_screw_tops_breakaway(){
-    difference(){
-        subtract_cut_f();
-        make_screw_tops_breakaway();
-    }
-}
-//subtract_screw_tops_breakaway();
-
-    module make_nuts_breakaway(){
-        
-  module nut_breakaway(){
-    rotate([90,90,0]){
-        translate([0,0,0]){
-        cube(size=[n_h,n_l,n_h], center = false);
-            }
-        }
-    }
-  nut_breakaway(); //make one nut
-    translate([n_d,0,0]){
-      nut_breakaway(); //make one nut n_d distance from the first nut
-    }
-
-}
-
-
-    module subtract_nuts_breakaway_base(){
-        
-    difference(){
-        subtract_screw_tops_breakaway();
-        translate([51,-16.5,1.5]){
-            make_nuts_breakaway(); //two nuts
-            }
-    }
-}
-subtract_nuts_breakaway_base();
-}
-//create_breakaway();
-part_loc_x=90;
-
-module create_breakaway_top(){
-    
-    module breakaway_lid_block(){
-            color("red", .5){
-    rotate([90,0,0]){
-       translate([part_loc_x,0,11.5]){
-            cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);   
-            }
-     }
-}     
-}
-//breakaway_lid_block();
-screw_depth=-16;
-screw_distance=14;
- 
-        module void(){
-        translate([7.5,-13.1,1.625]){
-            pogo_pin();
-            } //subtract pogo_pin
-        translate([.5,-27.17,-5]){
-            magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();
-            } //subtract magnets
-        }         
-            translate([62,zpascifier,-zpascifier]){
-            usb_female(); //subtract usb
-            }
-              module screw(){
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-        translate([screw_distance,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-  translate([3.5,screw_depth,1]){
-        screw();
-    }
-  
-    };
-    //void();
-//translate([part_loc_x,0,0]) {void();}
-difference(){
-    breakaway_lid_block();
-    translate([part_loc_x,0,0]) {void();}
-}
-};
-    
-
-//create_breakaway_top();
-
-module create_breakaway_m(){
-    module screw(){
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-    
-    //block
-    module block(){
-    color("DeepPink",.55)
-    translate([46,-30,0])  rotate([90,0,0]){
-            translate([33,0,0]){
-                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
-            }
-        } 
-    } 
-
-    module void(){
-        translate([86,-30,-1.2]) pogo_pin();
-        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
-        
-translate([82,-33,-zpascifier]) screw();//cut holes  
-            translate([79.5,-45.25,-6]){magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();  }}
-//cut magnets 
-    }
-    
-        difference(){
-        block();
-        void();
-    
-        
-    }
-    
-        //void();
-}
-
+*/
 
 /* * * Create Release * * */
 
@@ -543,7 +292,7 @@ module create_release_m(){
         color("aquamarine",.55)
         translate([0,-20,0])  rotate([90,0,0]){
             translate([30,0,0]){
-                cube(size = [o_h, o_w/4, o_d], center = false);
+                cube(size = [o_h, o_w/2.5, o_d], center = false);
             }
         }  
     }
@@ -589,7 +338,167 @@ create_release_m();
 
 //create_release();
 
-     
+
+/*  
+
+\______   \_______   ____ _____  |  | _______ __  _  _______  ___.__.
+ |    |  _/\_  __ \_/ __ \\__  \ |  |/ /\__  \\ \/ \/ /\__  \<   |  |
+ |    |   \ |  | \/\  ___/ / __ \|    <  / __ \\     /  / __ \\___  |
+ |______  / |__|    \___  >____  /__|_ \(____  /\/\_/  (____  / ____|
+        \/              \/     \/     \/     \/             \/\/     
+
+*/
+
+/* * * Create Breakaway * * */
+ 
+ //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets.
+
+/* * Variables * */
+
+//breakaway base variables
+i_h = 20; //x
+i_w = 2.5; //z
+i_d = 24; //y
+ 
+i2_h = 8; //x
+i2_w = 0; //y
+i2_d = 2.5; //z
+
+//breakaway top variables
+i_l_h =i_h; //z
+i_l_w = i_w; //x
+i_l_d = i_d; //y
+
+i2_l_h =i2_h; //z
+i2_l_w = i2_w; //x
+i2_l_d = i2_d; //y
+
+//cut_female variables
+cf_h = 21; //the width for some reason
+cf_w = 13; //the height 
+cf_d = 5.75; // the same as cf_w for some reason... 
+
+//pogo variables
+//pogo pins are shaped like a cylinder.
+
+pogo_length=12;
+pogo_tip_diameter=1;
+pogo_diameter=1.25;
+pogo_distance=3.5+zpascifier; //distance between pins (x=z)
+
+/* * Breakaway Blocks * */
+
+
+/* * Breakaway Void */
+
+/* * Pogo Pin * */
+    module pogo_pin(){
+    color("yellow"){
+        rotate([90,0,0]){
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+        translate([pogo_distance,0,0]){
+            cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter, center = false);
+        }
+    }
+}
+}
+//pogo_pin();
+
+/* * Magnet * */
+
+module breakaway_magnet(){
+        translate([52.5,-27.17,-5]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();
+            }
+        }
+    }
+//breakaway_magnet();
+    
+        module void(){
+        translate([97.5,-13.1,1.625]){
+            pogo_pin();
+            } //subtract pogo_pin
+        translate([90.5,-27.17,-5]){
+            magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();
+            } //subtract magnets
+        }         
+              module screw(){translate([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([100,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+    }
+  translate([3.5,0,1]){
+        screw();
+    }
+  
+    };
+    //void();
+
+module create_breakaway_top(){
+    void();
+};
+    
+//create_breakaway_top();
+
+module create_breakaway_base(){
+   translate([40,0,0]) void();
+};
+//create_breakaway_base();
+
+module create_breakaway_m(){
+    module screw(){
+        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
+    }
+    
+    //block
+    module block(){
+    color("DeepPink",.55)
+    translate([46,-30,0])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
+            }
+        } 
+    } 
+
+    module void(){
+        translate([86,-30,-1.2]) pogo_pin();
+        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
+        
+translate([82,-33,-zpascifier]) screw();//cut holes  
+            translate([79.5,-45.25,-6]){magnet();
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();  }}
+//cut magnets 
+    }
+    
+        difference(){
+        block();
+        void();
+    
+        
+    }
+    
+        //void();
+}
+
+/*
+
+ _______   ________  __    __  _______   ________  _______  
+/       \ /        |/  \  /  |/       \ /        |/       \ 
+$$$$$$$  |$$$$$$$$/ $$  \ $$ |$$$$$$$  |$$$$$$$$/ $$$$$$$  |
+$$ |__$$ |$$ |__    $$$  \$$ |$$ |  $$ |$$ |__    $$ |__$$ |
+$$    $$< $$    |   $$$$  $$ |$$ |  $$ |$$    |   $$    $$< 
+$$$$$$$  |$$$$$/     $$ $$ $$ |$$ |  $$ |$$$$$/    $$$$$$$  |
+$$ |  $$ |$$ |_____ $$ |$$$$ |$$ |__$$ |$$ |_____ $$ |  $$ |
+$$ |  $$ |$$       |$$ | $$$ |$$    $$/ $$       |$$ |  $$ |
+$$/   $$/ $$$$$$$$/ $$/   $$/ $$$$$$$/  $$$$$$$$/ $$/   $$/
+
+
+*/
 
 
 /* * * RENDER ALL THE PARTS * * */
@@ -600,7 +509,7 @@ module create_all(){
    create_breakaway_top();
 
 //render breakaway base
-   create_breakaway();
+   create_breakaway_base();
     
 //render breakaway midpiece
 create_breakaway_m();    
@@ -615,20 +524,21 @@ create_breakaway_m();
 create_release_m();    
     
 }
-//create_all();
+create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
 //create_breakaway();
+//create_breakaway_base();
 //create_breakaway_top();
 //create_breakaway_m();
-create_release();
-create_release_top();
-create_release_m();
 
-//translate([25,0,0]){create_breakaway();}
 
-//translate([-25,0,0]){create_release();}
+//create_release();
+//create_release_base();
+//create_release_top();
+//create_release_m();
+
 
 }
 
