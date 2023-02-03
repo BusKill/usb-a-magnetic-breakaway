@@ -97,7 +97,7 @@ __________       .__
 
 /* * * Create Release * * */
 
-//The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets.
+//The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets. (blue)
 
 /* * Variables * */
     
@@ -351,7 +351,7 @@ create_release_m();
 
 /* * * Create Breakaway * * */
  
- //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets.
+ //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. (red)
 
 /* * Variables * */
 
@@ -372,11 +372,6 @@ i_l_d = i_d; //y
 i2_l_h =i2_h; //z
 i2_l_w = i2_w; //x
 i2_l_d = i2_d; //y
-
-//cut_female variables
-cf_h = 21; //the width for some reason
-cf_w = 13; //the height 
-cf_d = 5.75; // the same as cf_w for some reason... 
 
 //pogo variables
 //pogo pins are shaped like a cylinder.
@@ -417,7 +412,7 @@ module breakaway_magnet(){
 //breakaway_magnet();
     
         module void(){
-        translate([97.5,-13.1,1.625]){
+        translate([97.1,-13.1,1.625]){
             pogo_pin();
             } //subtract pogo_pin
         translate([90.5,-27.17,-5]){
@@ -426,11 +421,11 @@ module breakaway_magnet(){
                 magnet();
             } //subtract magnets
         }         
-              module screw(){translate([90,0,0])
+              module screw(){translate([88,0,0])
         cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
         translate([100,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
     }
-  translate([3.5,0,1]){
+  translate([4.75,-15,-2]){
         screw();
     }
   
