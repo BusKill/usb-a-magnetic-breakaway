@@ -121,15 +121,11 @@ __________       .__
 
 /* * Variables * */
     
-//release base variables
-o_h = 22; //x
-o_w = 6.5; //z
-o_d = 13; //y
+//release block variables
+o_h = 24; //x
+o_w = 3; //z
+o_d = 16; //y
 
-//release lid variables
-o_l_h =14; //z
-o_l_w = 3.25; //x
-o_l_d = 13; //y
 
 //pogo receptor variables
 //Pogo receptor is shaped like two cylinders, a larger one on top of a smaller one
@@ -180,7 +176,7 @@ um_d = 4;
 
 module release_block(){
        rotate([90,0,0]){
-            translate([30,0,0]){
+            translate([30,0,-4]){
                 cube(size = [o_h, o_w, o_d], center = false);
             }
         }
@@ -218,7 +214,7 @@ module release_top_void(){
     two_pogo_recs();
     release_magnet();
     usb_male();
-    translate([30,0,3.7])rotate([90,0,0])cube(size = [o_h+1, .3*o_w+1, o_d+1], center = false);
+   
 }
 //release_top_void();
 
@@ -228,7 +224,7 @@ module release_top_void(){
    color("lightblue") difference(){
         release_top_block();
         release_top_void();
-       translate([32.5,0,0])M3Screw();translate([50,0,0])M3Screw(); 
+       translate([32.5,0,0])M3Screw();translate([51,0,0])M3Screw(); 
     }
 }
 //create_release_top();
@@ -251,7 +247,7 @@ module create_release_base(){
  difference(){
         release_base_block();
         release_base_void();
-     translate([2.5,0,6.75])M3HexNut();translate([20,0,6.75])M3HexNut(); 
+     translate([3,0,6.75])M3HexNut();translate([21.5,0,6.75])M3HexNut(); 
     }
 //create_release_base();
 
@@ -263,23 +259,24 @@ module create_release_m(){
         color("aquamarine",.55)
         translate([0,-20,0])  rotate([90,0,0]){
             translate([30,0,0]){
-                cube(size = [o_h, o_w*.3, o_d], center = false);
+                cube(size = [o_h, o_w, o_d], center = false);
             }
         }  
     }   
 
 module mid_void(){
     translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33,-36.15,-6-zpascifier]){
+                    translate([33,-40.15,-6-zpascifier]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
             }
         }//cut magnets
-translate([0,-20,-.75-zpascifier]) two_pogo_recs(); 
-translate([0,-20,-3.5-zpascifier]) two_pogo_recs(); 
-translate([35,-16,-1]) two_screws();
+translate([0,-26,-.75-zpascifier]) two_pogo_recs(); 
+translate([0,-26,-3.5-zpascifier]) two_pogo_recs(); 
+translate([32.5,-22.5,6.75])M3HexNut();translate([51,-22.5,6.75])M3HexNut(); 
 }
+
 
 //mid_void();
 
