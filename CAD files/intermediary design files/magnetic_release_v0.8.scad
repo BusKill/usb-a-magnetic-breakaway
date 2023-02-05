@@ -76,14 +76,37 @@ module notch(){
 //notch();
 
 /* * Screw and Nut * */
-s_h=7; // screw length
-s_r1=.75; // screw shaft radius
-s_r2=2; // screw top radius
-n_l=6; //nut channel length
-n_h=1.25; //nut height
-n_d=14; //distance between nuts
-s_d_r=13; //distance between screws release
-s_d_b=13; //distance between screws breakaway
+
+module M3HexNut() {
+  height = 6;
+  size = 3.2;
+  sides = 6;
+  hex = hexagon(d=size, h=height);
+  nut = linear_extrude(height, hex);
+  translate([0, 0, -height/2]) 
+    difference() {
+      nut();
+      cylinder(d=size + 1, h=height + 1, center=true);
+    }
+}
+
+translate([95,100,0])M3HexNut();
+
+
+module M3Screw() {
+s_h =7; // screw length
+s_r1 = 0.75; // screw shaft radius
+s_r2 = 2; // screw top radius
+
+// create the screw body
+cylinder(r = s_r1, h = 8, center = true);
+
+// create the screw head
+translate([0, 0, s_h - s_r2]) {
+cylinder(r = s_r2, h = s_r2, center = true);
+}
+}
+translate([100,100,0])M3Screw();
 
 /*
 __________       .__                               
@@ -328,7 +351,7 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 /* * Breakaway Blocks * */
     module top_block(){
     color("Red",.55)
-    translate([56.1,-13.1,0])  rotate([90,0,0]){
+    translate([56.1,-12,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
@@ -338,7 +361,7 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
     
         module base_block(){
     color("Pink",.55)
-    translate([96.1,-13.1,0])  rotate([90,0,0]){
+    translate([96.1,-12,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
