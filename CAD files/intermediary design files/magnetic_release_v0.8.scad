@@ -297,15 +297,7 @@ module create_release_m(){
         }  
     }
 
-
-difference(){
-    release_block();
-     void();
-       
-}
-//cut pogos
-        
- 
+      
 
 module void(){
     translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
@@ -320,6 +312,13 @@ translate([35,-16,-1]) two_screws();
 }
 
 //void();
+
+difference(){
+    release_block();
+     void();
+       
+}
+
 
 };
 
@@ -382,9 +381,37 @@ pogo_diameter=1.25;
 pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 
 /* * Breakaway Blocks * */
+    module top_block(){
+    color("Red",.55)
+    translate([56.1,-13.1,-1])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
+            }
+        } 
+    } 
+  //  top_block();
+    
+        module base_block(){
+    color("Pink",.55)
+    translate([96.1,-13.1,-1])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
+            }
+        } 
+    } 
+   // base_block();
+    
+    module mid_block(){
+    color("DeepPink",.55)
+    translate([46,-30,0])  rotate([90,0,0]){
+            translate([33,0,0]){
+                cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
+            }
+        } 
+    }
+//mid_block();    
 
-
-/* * Breakaway Void */
+/* * Breakaway Top and Base Void */
 
 /* * Pogo Pin * */
     module pogo_pin(){
@@ -433,13 +460,23 @@ module breakaway_magnet(){
     //void();
 
 module create_breakaway_top(){
+    difference(){
+    top_block();
     void();
+    }
 };
     
 //create_breakaway_top();
 
+//Base
+
+
 module create_breakaway_base(){
-   translate([40,0,0]) void();
+    difference(){
+   base_block();
+     translate([40,0,0])void();
+    }
+
 };
 //create_breakaway_base();
 
@@ -450,16 +487,13 @@ module create_breakaway_m(){
     }
     
     //block
-    module block(){
-    color("DeepPink",.55)
-    translate([46,-30,0])  rotate([90,0,0]){
-            translate([33,0,0]){
-                cube(size = [i_l_h, i_l_w/2, i_l_d/2], center = false);
-            }
-        } 
-    } 
 
+/* Breakaway Mid Void */
+
+// unlike the base and lid voids, this void has the bottom of base pogo pin and the top of the lid pogo pins, allowing for the pins to be in place during assembly
+    
     module void(){
+        translate([1,0,0]){
         translate([86,-30,-1.2]) pogo_pin();
         translate([86,-30,2.2]) pogo_pin(); //cut pogos    
         
@@ -469,9 +503,10 @@ translate([82,-33,-zpascifier]) screw();//cut holes
                 magnet();  }}
 //cut magnets 
     }
+}
     
         difference(){
-        block();
+        mid_block();
         void();
     
         
