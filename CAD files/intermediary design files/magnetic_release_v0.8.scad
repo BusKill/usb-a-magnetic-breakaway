@@ -120,7 +120,7 @@ __________       .__
 
 /* * * Create Release * * */
 
-//The "release" plugs into the computer with a male USB. It is in two parts, the base and the lid. It contains pogo receptors and magnets. (blue)
+//The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle piece, and the lid. It contains pogo receptors and magnets. (blue)
 
 /* * Variables * */
     
@@ -318,7 +318,7 @@ create_release_m();
 
 /* * * Create Breakaway * * */
  
- //The "breakaway" receives the USB from the USB cable with a female USB port. It is in two parts, the base and the lid. It contains pogo pins and magnets. (red)
+ //The "breakaway" receives the USB from the USB cable with a female USB port. It is in three parts, the base, the middle piece, and the lid. It contains pogo pins and magnets. (red)
 
 /* * Variables * */
 
