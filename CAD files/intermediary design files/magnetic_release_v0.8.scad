@@ -186,55 +186,7 @@ module release_block(){
 }
 //usb_male();
 
-//Screws
-    module screw(){
-        translate([-1.6,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    };
-    //screw();
-    
-    module two_screws(){
-        translate([-1,-7.5,0]){
-        screw();
-    }
 
-    translate([16.5,-7.5,0]){
-        screw();
-        }
-    }; 
-   
-//two_screws(); 
-
-module two_top_screws(){    
-
-    translate([35,3,0]){
-        two_screws(); //for release base
-    }
-};
-//two_top_screws();
-module two_bottom_screws(){    
-
-    translate([10,3,3]){
-        two_screws(); // for release lid
-    }
-};
-//two_bottom_screws; 
-
-//Nuts
-module two_nuts(){
-  module nut_release(){
-        translate([32.5,-4.5,1.5]){
-            rotate([90,90,0]){
-                cube(size=[n_h,n_l*1.25,n_h], center = false);
-            }
-        }
-    }
-  nut_release(); //make one nut
-    translate([n_d/1.5,0,0]){
-      nut_release(); //make one nut n_d distance from the first nut
-    }
-};
-
-//two_nuts(); 
 module release_top_block(){
     release_block();
     
@@ -246,8 +198,6 @@ module release_top_void(){
     two_pogo_recs();
     release_magnet();
     usb_male();
-    two_top_screws();
-    two_nuts();
     translate([30,0,3.7])rotate([90,0,0])cube(size = [o_h+1, .3*o_w+1, o_d+1], center = false);
 }
 //release_top_void();
@@ -383,7 +333,7 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
 /* * Breakaway Blocks * */
     module top_block(){
     color("Red",.55)
-    translate([56.1,-13.1,-1])  rotate([90,0,0]){
+    translate([56.1,-13.1,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
@@ -393,7 +343,7 @@ pogo_distance=3.5+zpascifier; //distance between pins (x=z)
     
         module base_block(){
     color("Pink",.55)
-    translate([96.1,-13.1,-1])  rotate([90,0,0]){
+    translate([96.1,-13.1,0])  rotate([90,0,0]){
             translate([33,0,0]){
                 cube(size = [i_l_h, i_l_w, i_l_d/2], center = false);
             }
@@ -448,14 +398,6 @@ module breakaway_magnet(){
                 magnet();
             } //subtract magnets
         }         
-              module screw(){translate([88,0,0])
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-        translate([100,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
-  translate([4.75,-15,-2]){
-        screw();
-    }
-  
     };
     //void();
 
@@ -470,21 +412,15 @@ module create_breakaway_top(){
 
 //Base
 
-
 module create_breakaway_base(){
     difference(){
    base_block();
      translate([40,0,0])void();
     }
-
 };
 //create_breakaway_base();
 
 module create_breakaway_m(){
-    module screw(){
-        cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-        translate([11,0,0])cylinder($fn = 30, $fa = 30, $fs = 2,h=s_h, r1=s_r1, r2=s_r2, center = false);
-    }
     
     //block
 
@@ -504,14 +440,12 @@ translate([82,-33,-zpascifier]) screw();//cut holes
 //cut magnets 
     }
 }
-    
         difference(){
         mid_block();
         void();
     
         
     }
-    
         //void();
 }
 
