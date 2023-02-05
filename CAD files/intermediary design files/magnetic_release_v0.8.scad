@@ -242,14 +242,12 @@ module create_release_m(){
         color("aquamarine",.55)
         translate([0,-20,0])  rotate([90,0,0]){
             translate([30,0,0]){
-                cube(size = [o_h, o_w/2.5, o_d], center = false);
+                cube(size = [o_h, o_w*.3, o_d], center = false);
             }
         }  
-    }
+    }   
 
-      
-
-module void(){
+module mid_void(){
     translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
                     translate([33,-36.15,-6-zpascifier]){
             magnet();
@@ -257,22 +255,20 @@ module void(){
                 magnet();           
             }
         }//cut magnets
-translate([0,-20,-2-zpascifier]) two_pogo_recs(); 
+translate([0,-20,-.75-zpascifier]) two_pogo_recs(); 
+translate([0,-20,-3.5-zpascifier]) two_pogo_recs(); 
 translate([35,-16,-1]) two_screws();
 }
 
-//void();
+//mid_void();
 
 difference(){
     release_block();
-     void();
+     mid_void();
        
 }
 
-
 };
-
-
 
 create_release_m();
 
@@ -281,8 +277,7 @@ create_release_m();
 module create_release(){
 create_release_top();
 create_release_base();
-create_release_m();
-    
+create_release_m(); 
 }
 
 //create_release();
