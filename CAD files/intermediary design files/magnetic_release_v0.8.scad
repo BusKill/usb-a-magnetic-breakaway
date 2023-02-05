@@ -40,9 +40,6 @@ docs.buskill.in
 buskill.in
 */
 
-/* * * * TO DO * * * */
-//figure out exact shapes so that magnets and pogos are secured during assembly
-//properly define variables instead of kludging values
 
 module main(){
 
@@ -90,7 +87,7 @@ module M3HexNut() {
     }
 }
 
-translate([95,100,0])M3HexNut();
+//M3HexNut();
 
 
 module M3Screw() {
@@ -106,7 +103,7 @@ translate([0, 0, s_h - s_r2]) {
 cylinder(r = s_r2, h = s_r2, center = true);
 }
 }
-translate([100,100,0])M3Screw();
+//M3Screw();
 
 /*
 __________       .__                               
@@ -231,6 +228,7 @@ module release_top_void(){
    color("lightblue") difference(){
         release_top_block();
         release_top_void();
+       translate([32.5,0,0])M3Screw();translate([50,0,0])M3Screw(); 
     }
 }
 //create_release_top();
@@ -253,9 +251,9 @@ module create_release_base(){
  difference(){
         release_base_block();
         release_base_void();
+     translate([2.5,0,6.75])M3HexNut();translate([20,0,6.75])M3HexNut(); 
     }
 //create_release_base();
-
 
 
 module create_release_m(){
@@ -466,6 +464,8 @@ translate([82,-33,-zpascifier]) screw();//cut holes
     }
         //void();
 }
+
+
 
 /*
 
