@@ -169,7 +169,7 @@ module two_pogo_recs(){
 //USB_male variables
 um_h = 13;
 um_w = 10;
-um_d = 4;
+um_d = 14;
 
 /* * Modules * */
 
@@ -196,7 +196,7 @@ module release_block(){
 //release_magnet();
     
         module usb_male(){
-    translate([35.5,-10,1]){
+    translate([35.5,-6,1]){
         cube(size=[um_h,um_w,um_d], center = false);
     }
 }
