@@ -266,13 +266,14 @@ module create_release_m(){
 
 module mid_void(){
     translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33,-40.15,-6-zpascifier]){
+                    translate([33,-38,-6-zpascifier]){
             magnet();
+                    {
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
-            }
+            }}
         }//cut magnets
-translate([0,-26,-.75-zpascifier]) two_pogo_recs(); 
+translate([0,-26,.5-zpascifier]) two_pogo_recs(); 
 translate([0,-26,-3.5-zpascifier]) two_pogo_recs(); 
 translate([32.5,-22.5,6.75])M3HexNut();translate([51,-22.5,6.75])M3HexNut(); 
 }
@@ -503,7 +504,7 @@ create_breakaway_m();
 create_release_m();    
     
 }
-create_all();
+//create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
@@ -514,9 +515,9 @@ create_all();
 
 
 //create_release();
-//create_release_base();
-//create_release_top();
-//create_release_m();
+create_release_base();
+create_release_top();
+create_release_m();
 
 
 }
