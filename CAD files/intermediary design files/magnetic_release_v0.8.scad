@@ -266,15 +266,25 @@ module create_release_m(){
 
 module mid_void(){
     translate([35,-28,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33,-38,-6-zpascifier]){
+                    translate([33,-38,-3.5-zpascifier]){
             magnet();
                     {
             translate([magnet_distance,0,-zpascifier]){
                 magnet();           
             }}
-        }//cut magnets
-translate([0,-26,.5-zpascifier]) two_pogo_recs(); 
-translate([0,-26,-3.5-zpascifier]) two_pogo_recs(); 
+        }
+        
+        translate([33,-38,-8.5-zpascifier]){
+            magnet();
+                    {
+            translate([magnet_distance,0,-zpascifier]){
+                magnet();           
+            }}
+        }
+        
+        //cut magnets
+translate([0,-23,.5-zpascifier]) two_pogo_recs(); 
+translate([0,-23,-3.5-zpascifier]) two_pogo_recs(); 
 translate([32.5,-22.5,6.75])M3HexNut();translate([51,-22.5,6.75])M3HexNut(); 
 }
 
