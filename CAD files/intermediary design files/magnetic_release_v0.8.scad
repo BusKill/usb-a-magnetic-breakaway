@@ -78,13 +78,9 @@ module M3HexNut() {
   height = 6;
   size = 3.2;
   sides = 6;
-  hex = hexagon(d=size, h=height);
-  nut = linear_extrude(height, hex);
   translate([0, 0, -height/2]) 
-    difference() {
-      nut();
-      cylinder(d=size + 1, h=height + 1, center=true);
-    }
+      cylinder(d=size, h=height, center=true);
+    
 }
 
 //M3HexNut();
@@ -195,12 +191,12 @@ module release_block(){
     }
 //release_magnet();
     
-        module usb_male(){
+        module usb_female(){
     translate([35,-6,1]){
         cube(size=[um_h,um_w,um_d], center = false);
     }
 }
-//usb_male();
+//usb_female();
 
 
 module release_top_block(){
@@ -211,9 +207,10 @@ module release_top_block(){
 //release_top_block();
 
 module release_top_void(){
-    translate([0,1,-2.5])two_pogo_recs();
-    translate([.5,0,-2])release_magnet();
-    usb_male();
+    mag_position=-2;
+    translate([0,1,-3])two_pogo_recs();
+    translate([.5,0,mag_position])release_magnet();
+    translate([0,0,-5])usb_female();
    
 }
 //release_top_void();
@@ -238,9 +235,9 @@ module release_base_block(){
 //release_base_block();
 
 module release_base_void(){
-translate([-30,1,.5])two_pogo_recs();
+translate([-30,1,1])two_pogo_recs();
     translate([-29.5,.3,.5])release_magnet();
-    translate([-30,0,0])usb_male();
+    translate([-30,0,0])usb_female();
     
 }
 //release_base_void();
@@ -251,6 +248,7 @@ module create_release_base(){
         release_base_void();
      translate([2.5,5.5,6.75])M3HexNut();translate([21.5,5.5,6.75])M3HexNut(); 
     }
+}
 //create_release_base();
 
 
@@ -267,8 +265,12 @@ module create_release_m(){
     }   
 
 module mid_void(){
+    mag_top_h=-3.75;
+    mag_bottom_h=mag_top_h-3;
+    
+    
     translate([35,-32,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33,-43.25,-3.75-zpascifier]){
+                    translate([33,-43.25,mag_top_h]){
             magnet();
                     {
             translate([magnet_distance,0,-zpascifier]){
@@ -276,7 +278,7 @@ module mid_void(){
             }}
         }
         
-        translate([33,-43.25,-8.25-zpascifier]){
+        translate([33,-43.25,mag_bottom_h]){
             magnet();
                     {
             translate([magnet_distance,0,-zpascifier]){
@@ -285,8 +287,12 @@ module mid_void(){
         }
         
         //cut magnets
-translate([0,-27,.5-zpascifier]) two_pogo_recs(); 
-translate([0,-27,-3.5-zpascifier]) two_pogo_recs(); 
+        
+   rec_top_h=.75;
+   rec_bottom_h=rec_top_h-3.5;
+        
+translate([0,-27,rec_top_h]) two_pogo_recs(); 
+translate([0,-27,rec_bottom_h]) two_pogo_recs(); 
 translate([32.5,-22.5,6.75])M3HexNut();translate([51.75,-22.5,6.75])M3HexNut(); 
 }
 
@@ -303,7 +309,7 @@ difference(){
 
 create_release_m();
 
-}
+
 
 module create_release(){
 create_release_top();
