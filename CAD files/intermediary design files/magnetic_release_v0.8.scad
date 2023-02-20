@@ -246,7 +246,7 @@ module create_release_base(){
  difference(){
         release_base_block();
         release_base_void();
-     translate([2.5,5.5,6.75])M3HexNut();translate([21.5,5.5,6.75])M3HexNut(); 
+     translate([2.5,5.5,4.75])M3HexNut();translate([21.5,5.5,4.75])M3HexNut(); 
     }
 }
 //create_release_base();
@@ -270,7 +270,7 @@ module mid_void(){
     
     
     translate([35,-32,-zpascifier]) cube(size = [um_h, um_w, um_d], center = false);  //cut usb
-                    translate([33,-43.25,mag_top_h]){
+                    translate([33.5,-43.25,mag_top_h]){
             magnet();
                     {
             translate([magnet_distance,0,-zpascifier]){
@@ -278,7 +278,7 @@ module mid_void(){
             }}
         }
         
-        translate([33,-43.25,mag_bottom_h]){
+        translate([33.5,-43.25,mag_bottom_h]){
             magnet();
                     {
             translate([magnet_distance,0,-zpascifier]){
@@ -293,7 +293,7 @@ module mid_void(){
         
 translate([0,-27,rec_top_h]) two_pogo_recs(); 
 translate([0,-27,rec_bottom_h]) two_pogo_recs(); 
-translate([32.5,-22.5,6.75])M3HexNut();translate([51.75,-22.5,6.75])M3HexNut(); 
+translate([32.5,-22.5,4.75])M3HexNut();translate([51.75,-22.5,4.75])M3HexNut(); 
 }
 
 
@@ -531,7 +531,7 @@ create_release_m();
 //create_breakaway_m();
 
 
-//create_release();
+create_release();
 //create_release_base();
 //create_release_top();
 //create_release_m();
@@ -541,7 +541,8 @@ translate([0,14,2])rotate([90,0,0])create_release_base();
 translate([-30,6,2])rotate([90,0,0])create_release_top();
 translate([-30,10,30])rotate([90,0,0])create_release_m();
 }
-model_release();
+//model_release();
+
 }
 
 main();
