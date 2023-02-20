@@ -307,7 +307,7 @@ difference(){
 
 };
 
-create_release_m();
+//create_release_m();
 
 
 
@@ -532,11 +532,16 @@ create_release_m();
 
 
 //create_release();
-create_release_base();
-create_release_top();
-create_release_m();
+//create_release_base();
+//create_release_top();
+//create_release_m();
 
-
+module model_release(){
+translate([0,14,2])rotate([90,0,0])create_release_base();
+translate([-30,6,2])rotate([90,0,0])create_release_top();
+translate([-30,10,30])rotate([90,0,0])create_release_m();
+}
+model_release();
 }
 
 main();
