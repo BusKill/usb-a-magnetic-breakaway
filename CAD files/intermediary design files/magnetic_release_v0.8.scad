@@ -480,7 +480,12 @@ translate([82,-33,-zpascifier]) screw();//cut holes
         //void();
 }
 
-
+module create_breakaway(){
+    create_breakaway_m();
+    create_breakaway_base();
+    create_breakaway_top();
+}
+//create_breakaway();
 
 /*
 
@@ -502,39 +507,33 @@ $$/   $$/ $$$$$$$$/ $$/   $$/ $$$$$$$/  $$$$$$$$/ $$/   $$/
 
 module create_all(){
 
-//render breakaway top
-   create_breakaway_top();
-
-//render breakaway base
-   create_breakaway_base();
-    
-//render breakaway midpiece
-create_breakaway_m();    
-
-//render release lid
-  create_release_top(); 
-
- //render release base   
-  create_release_base();
-    
-//render release midpiece
-create_release_m();    
+create_breakaway();
+create_release();  
     
 }
 //create_all();
 
 /* * * RENDER AN INDIVIDUAL PART * * */
 
-//create_breakaway();
+create_breakaway();
 //create_breakaway_base();
 //create_breakaway_top();
 //create_breakaway_m();
 
 
-create_release();
+//create_release();
 //create_release_base();
 //create_release_top();
 //create_release_m();
+
+/* * * MODEL ASSEMBLY * * */
+
+module model_breakaway(){
+translate([0,0,0])create_breakaway_base();
+translate([0,0,0])create_breakaway_top();
+translate([0,0,0])create_breakaway_m(); 
+    
+}
 
 module model_release(){
 translate([0,14,2])rotate([90,0,0])create_release_base();
