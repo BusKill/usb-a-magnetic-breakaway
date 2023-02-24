@@ -321,7 +321,7 @@ create_release_m();
 
 
 /*  
-
+__________                       ___
 \______   \_______   ____ _____  |  | _______ __  _  _______  ___.__.
  |    |  _/\_  __ \_/ __ \\__  \ |  |/ /\__  \\ \/ \/ /\__  \<   |  |
  |    |   \ |  | \/\  ___/ / __ \|    <  / __ \\     /  / __ \\___  |
@@ -467,10 +467,10 @@ module create_breakaway_m(){
         
         translate([1,0,0]){
         translate([86,-30,.4]) pogo_pin();
-        translate([86,-30,4]) pogo_pin(); //cut pogos   
+        translate([86,-30,4]) pogo_pin();  
    
         
-translate([82,-33,-zpascifier]) screw();//cut holes  
+translate([82,-33,-zpascifier]) M3screw();
    translate([79.5,-45.25,mag_top_h]){
             magnet();
                     {
