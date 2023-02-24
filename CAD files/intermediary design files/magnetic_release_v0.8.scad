@@ -461,14 +461,31 @@ module create_breakaway_m(){
 // unlike the base and lid voids, this void has the bottom of base pogo pin and the top of the lid pogo pins, allowing for the pins to be in place during assembly
     
     module void(){
+        
+        mag_top_h=-4;
+        mag_bottom_h= mag_top_h-3;
+        
         translate([1,0,0]){
         translate([86,-30,-1.2]) pogo_pin();
         translate([86,-30,2.2]) pogo_pin(); //cut pogos    
         
 translate([82,-33,-zpascifier]) screw();//cut holes  
-            translate([79.5,-45.25,-6]){magnet();
-            translate([magnet_distance,0,-zpascifier]){
-                magnet();  }}
+   translate([79.5,-45.25,mag_top_h]){
+            magnet();
+                    {
+            translate([magnet_distance,0,0]){
+                magnet();           
+            }}
+        }
+        
+        translate([79.5,-45.25,mag_bottom_h]){
+            magnet();
+                    {
+            translate([magnet_distance,0,0]){
+                magnet();           
+            }}
+        }
+              
 //cut magnets 
     }
 }
@@ -477,7 +494,7 @@ translate([82,-33,-zpascifier]) screw();//cut holes
         void();
      
     }
-        //void();
+       // void();
 }
 
 module create_breakaway(){
@@ -529,12 +546,12 @@ create_breakaway();
 /* * * MODEL ASSEMBLY * * */
 
 module model_breakaway(){
-translate([0,0,0])create_breakaway_base();
-translate([0,0,0])create_breakaway_top();
-translate([0,0,0])create_breakaway_m(); 
+translate([0,14,0])rotate([90,0,0])create_breakaway_base();
+translate([40,6,0])rotate([90,0,0])create_breakaway_top();
+translate([50,10,18])rotate([90,0,0])create_breakaway_m(); 
     
 }
-//model_breakway();
+//model_breakaway();
 
 module model_release(){
 translate([0,14,2])rotate([90,0,0])create_release_base();
