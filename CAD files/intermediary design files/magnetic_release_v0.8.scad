@@ -338,7 +338,7 @@ create_release_m();
 
 //breakaway base variables
 i_h = 20; //x
-i_w = 2.5; //z
+i_w = 4; //z
 i_d = 24; //y
  
 i2_h = 8; //x
@@ -421,10 +421,10 @@ module breakaway_magnet(){
 //breakaway_magnet();
     
         module void(){
-        translate([97.1,-13.1,1.625]){
+        translate([97.1,-13.1,3.8]){
             pogo_pin();
             } //subtract pogo_pin
-        translate([90.5,-27.17,-5]){
+        translate([91,-27.17,-4]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -466,8 +466,9 @@ module create_breakaway_m(){
         mag_bottom_h= mag_top_h-3;
         
         translate([1,0,0]){
-        translate([86,-30,-1.2]) pogo_pin();
-        translate([86,-30,2.2]) pogo_pin(); //cut pogos    
+        translate([86,-30,.4]) pogo_pin();
+        translate([86,-30,4]) pogo_pin(); //cut pogos   
+   
         
 translate([82,-33,-zpascifier]) screw();//cut holes  
    translate([79.5,-45.25,mag_top_h]){
@@ -486,7 +487,7 @@ translate([82,-33,-zpascifier]) screw();//cut holes
             }}
         }
               
-//cut magnets 
+
     }
 }
         difference(){
@@ -546,12 +547,13 @@ create_breakaway();
 /* * * MODEL ASSEMBLY * * */
 
 module model_breakaway(){
-translate([0,14,0])rotate([90,0,0])create_breakaway_base();
-translate([40,6,0])rotate([90,0,0])create_breakaway_top();
-translate([50,10,18])rotate([90,0,0])create_breakaway_m(); 
+
+translate([238,3,0])rotate([90,0,180])create_breakaway_top();
+translate([50,11,18])rotate([90,0,0])create_breakaway_m(); 
+    translate([0,15,0])rotate([90,0,0])create_breakaway_base();
     
 }
-//model_breakaway();
+model_breakaway();
 
 module model_release(){
 translate([0,14,2])rotate([90,0,0])create_release_base();
