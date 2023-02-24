@@ -421,10 +421,10 @@ module breakaway_magnet(){
 //breakaway_magnet();
     
         module void(){
-        translate([97.1,-13.1,3.8]){
+        translate([97.5,-12.1,3.8]){
             pogo_pin();
             } //subtract pogo_pin
-        translate([91,-27.17,-4]){
+        translate([91,-27.2,-4]){
             magnet();
             translate([magnet_distance,0,-zpascifier]){
                 magnet();
@@ -436,7 +436,7 @@ module breakaway_magnet(){
 module create_breakaway_top(){
     difference(){
     top_block();
-    void();
+    translate([0,0,0])void();
     }
 };
     
@@ -447,7 +447,7 @@ module create_breakaway_top(){
 module create_breakaway_base(){
     difference(){
    base_block();
-     translate([40,0,0])void();
+     translate([39.5,0,0])void();
     }
 };
 //create_breakaway_base();
@@ -466,11 +466,11 @@ module create_breakaway_m(){
         mag_bottom_h= mag_top_h-3;
         
         translate([1,0,0]){
-        translate([86,-30,.4]) pogo_pin();
-        translate([86,-30,4]) pogo_pin();  
+        translate([86,-31,.4]) pogo_pin();
+        translate([86,-31,4]) pogo_pin();  
    
         
-translate([82,-33,-zpascifier]) M3screw();
+
    translate([79.5,-45.25,mag_top_h]){
             magnet();
                     {
@@ -553,7 +553,7 @@ translate([50,11,18])rotate([90,0,0])create_breakaway_m();
     translate([0,15,0])rotate([90,0,0])create_breakaway_base();
     
 }
-model_breakaway();
+//model_breakaway();
 
 module model_release(){
 translate([0,14,2])rotate([90,0,0])create_release_base();
