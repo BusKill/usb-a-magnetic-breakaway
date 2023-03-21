@@ -1,8 +1,6 @@
 #  What's New?
 
-Made some progress with making the code more usable. Fine tuning the lid, base, and midpieces. Planning to resize to accomodate a larger screw and pillar nut than previous designs. Position of release is now at hip instead of at the port, so we can work with more forgiving dimensions.
-
-Will start tracking releases by each iteration that may be printable. 
+I'm making a prototype using the magnetic_release_B_v0.9.stl file. I just print two of them and I'll be kludging everything together with tape and glue. 
 
 # usb-a-magnetic-breakaway
 
