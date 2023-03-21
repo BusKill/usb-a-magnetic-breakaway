@@ -1,6 +1,6 @@
 #  What's New?
 
-I'm making a prototype using the magnetic_release_B_v0.9.stl file. I just print two of them and I'll be kludging everything together with tape and glue. 
+Still working on Issue#2 I'm making a prototype using the magnetic_release_B_v0.9.stl file. I just print two of them and I'll be kludging everything together with tape and glue. 
 
 # usb-a-magnetic-breakaway
 
