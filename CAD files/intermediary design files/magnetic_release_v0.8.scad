@@ -22,9 +22,9 @@ BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, sev
 
 The user will have a USB, a USB extension cable, and the magnetic breakaway. 
 
-The "breakaway" receives the USB from the USB cable with a female USB port. It is in four parts, the base, two middle pieces, and the lid. It contains 4 pogo pins and 2 magnets. It separates from the release when the cord is pulled.
+The "breakaway" is connected to a USB extension cord that terminates with the female USB port that receives a USB. It is in four parts, the base, two middle pieces, and the lid. It contains 4 pogo pins and 2 magnets. It separates from the release when the cord is pulled.
 
-The "release" is attached to a cord ending in a male USB. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.
+The "release" is connected to the cord that terminates with the male USB and inserts the computer. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.
 
 The middle pieces are created in order to stabilize the pogo pins and magnets from the top and bottom pieces to keep them from interfering with each other.
 
@@ -113,7 +113,7 @@ __________       .__
 
 /* * * Create Release * * */
 
-//The "release" plugs into the computer with a male USB. It is in three parts, the base, the middle piece, and the lid. It contains pogo receptors and magnets. (blue)
+// The "release" is connected to the cord that terminates with the male USB and inserts the computer. It is in three parts, the base, the middle, and the lid. It contains 4 pogo receptors and 2 magnets.(blue)
 
 /* * Variables * */
     
@@ -332,7 +332,7 @@ __________                       ___
 
 /* * * Create Breakaway * * */
  
- //The "breakaway" receives the USB from the USB cable with a female USB port. It is in three parts, the base, the middle piece, and the lid. It contains pogo pins and magnets. (red)
+ // The "breakaway" is connected to a USB extension cord that terminates with the female USB port that receives a USB. It is in four parts, the base, two middle pieces, and the lid. It contains 4 pogo pins and 2 magnets. It separates from the release when the cord is pulled. (red)
 
 /* * Variables * */
 
