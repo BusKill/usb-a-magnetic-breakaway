@@ -36,13 +36,12 @@ i2_l_d = i2_d; //y
 //pogo pins are shaped like a cylinder.
 
 pogo_length=18;
-pogo_tip_diameter=1;
 pogo_diameter=1.8;
-pogo_distance=4; //distance between pins (x=z)
+pogo_distance=6; //distance between pins (x=z)
 
 module pogos(){
-        rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=1.8, r2=1.15, center = true);
-    translate([pogo_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=1.8, r2=1.15, center = true);
+        rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=1.8, r2=1.4, center = true);
+    translate([pogo_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=1.8, r2=1.4, center = true);
 }
 
 //pogos();
