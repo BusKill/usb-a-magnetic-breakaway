@@ -2,7 +2,7 @@
 
 This repo is for documenting and providing the design requirements for an open-source USB-A magnetic breakaway connector used in the BusKill laptop kill cord. This project is a Work In Progress and it welcomes contributors. 
 
-Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a history of the development so far and the latest news on what people are currently working on. 
+Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a history of the development so far and the latest news on what people are currently working on with regard to the 3D printed version of the case. 
 
 ## For More Information
 
