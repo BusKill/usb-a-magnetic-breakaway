@@ -6,7 +6,7 @@ If you create your own version, please create a folder and add your assets to th
 
 ### Goldfishlaser Version
 
-#  What's New?
+####  What's New?
 
 I have started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, my three piece design with the hex magnets is also still available. 
 
