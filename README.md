@@ -4,7 +4,7 @@ Design requirements for an open-source USB-A magnetic breakaway connector used i
 
 If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which I have documented mine.
 
-###Goldfishlaser Version
+### Goldfishlaser Version
 
 #  What's New?
 
