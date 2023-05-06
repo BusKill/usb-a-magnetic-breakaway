@@ -12,15 +12,15 @@ Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a hi
 * BusKill Open Collective https://opencollective.com/buskill
 * BusKill Documentation https://docs.buskill.in
 
-If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which I have documented mine.
+If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which we have documented ours.
 
 ## goldfishlaser 3D-Printed Version
 
-My version is built in OpenSCAD and is still a work in progress. Currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing.
+This version is built in OpenSCAD and is still a work in progress. Goldfishlaser is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing.
 
 ###  What's New?
 
-I have started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, my three piece design with the hex magnets is also still available. Publicised here: https://www.buskill.in/3d-print-2023-04/
+Goldfishlaser has started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, the three piece design with the hex magnets is also still available. Publicised here: https://www.buskill.in/3d-print-2023-04/
 
 ### CAD Files
 
@@ -28,7 +28,7 @@ Directory contains CAD files for the magnetic breakway case if you want to edit 
 
 ### Print files
 
-Directory contains 3D print files for the magnetic breakaway case. *(blocked by completion of CAD files)*
+Directory contains 3D print files for the magnetic breakaway case. *(in development)*
 
 ### Engineering drawings
 
