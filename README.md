@@ -6,10 +6,11 @@ Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a hi
 
 ## For More Information
 
-* What is Buskill? https://tech.michaelaltfield.net/2020/01/02/buskill-laptop-kill-cord-dead-man-switch/
-* Buskill YouTube https://www.youtube.com/channel/UC5Njxb027m2OmrocrH33oew
-* Buskill Crowdsupply https://www.crowdsupply.com/alt-shift/buskill
-* Buskill Open Collective https://opencollective.com/buskill
+* What is BusKill? https://tech.michaelaltfield.net/2020/01/02/buskill-laptop-kill-cord-dead-man-switch/
+* BusKill YouTube https://www.youtube.com/channel/UC5Njxb027m2OmrocrH33oew
+* BusKill Crowdsupply https://www.crowdsupply.com/alt-shift/buskill
+* BusKill Open Collective https://opencollective.com/buskill
+* BusKill Documentation https://docs.buskill.in
 
 If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which I have documented mine.
 
