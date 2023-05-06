@@ -2,9 +2,16 @@
 
 Design requirements for an open-source USB-A magnetic breakaway connector used in the BusKill laptop kill cord 
 
+## For more Information
+
+* What is Buskill? https://tech.michaelaltfield.net/2020/01/02/buskill-laptop-kill-cord-dead-man-switch/
+* Buskill YouTube https://www.youtube.com/channel/UC5Njxb027m2OmrocrH33oew
+* Buskill Crowdsupply https://www.crowdsupply.com/alt-shift/buskill
+* Buskill Open Collective https://opencollective.com/buskill
+
 If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which I have documented mine.
 
-## Goldfishlaser 3D-Printed Version
+## goldfishlaser 3D-Printed Version
 
 My version is built in OpenSCAD and is still a work in progress. Currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing.
 
@@ -60,11 +67,5 @@ To contact us via email, please visit:
 
 The contents of this repo are dual-licensed. All code is GPLv3 and all other content is CC-BY-SA.
 
-## For more Information
-
-* What is Buskill? https://tech.michaelaltfield.net/2020/01/02/buskill-laptop-kill-cord-dead-man-switch/
-* Buskill YouTube https://www.youtube.com/channel/UC5Njxb027m2OmrocrH33oew
-* Buskill Crowdsupply https://www.crowdsupply.com/alt-shift/buskill
-* Buskill Open Collective https://opencollective.com/buskill
 
 
