@@ -40,6 +40,8 @@ File contains a list of manufacturers that sell magnets, pogo pins, and pogo rec
 
 ## Supplier Version
 
+![image of supplier version](https://user-images.githubusercontent.com/597904/236636199-2c18498c-78d3-463a-81e8-185a83240824.png)
+
 ### digitalAssets
 
 Digital assets relating to supplier version of the BusKill breakaway
