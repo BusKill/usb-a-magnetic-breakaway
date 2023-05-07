@@ -14,6 +14,9 @@ Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a hi
 
 If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which we have documented ours.
 
+## CAD Files
+These files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
+
 ## goldfishlaser 3D-Printed Version
 
 This version is built in OpenSCAD and is still a work in progress. Goldfishlaser is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing.
