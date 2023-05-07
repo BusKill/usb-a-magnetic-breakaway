@@ -14,31 +14,34 @@ Please see https://github.com/BusKill/usb-a-magnetic-breakaway/issues/2 for a hi
 
 If you create your own version, please create a folder and add your assets to the folder. Feel free to document your section content in this Readme following the style by which we have documented ours.
 
+##  What's New?
+
+Updates to goldfishlaser Version: Goldfishlaser has started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, the three piece design with the hex magnets is also still available. Publicised here: https://www.buskill.in/3d-print-2023-04/
+New FreeCAD version: Leoheck has started working on a version of the case in FreeCAD. This version uses Yoosoo spring pressure pogo pins,uses aluminium can for pin contacts, and has pressfit voids for cube magnets. This version contains a female USB port. 
+
+## What's in this Repo?
+
 ## CAD files
 (3D printable case, Work In Progress)
-These files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
+This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
 
 ## goldfishlaser Version
 (3D printable case, Work In Progress)
-These files are for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
+This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
 
-###  What's New?
-
-Goldfishlaser has started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, the three piece design with the hex magnets is also still available. Publicised here: https://www.buskill.in/3d-print-2023-04/
-
-### CAD Files
+#### CAD Files
 
 Directory contains CAD files for the magnetic breakway case if you want to edit the files. *(in development)*
 
-### Print files
+#### Print files
 
 Directory contains 3D print files for the magnetic breakaway case. *(in development)*
 
-### Engineering drawings
+#### Engineering drawings
 
 Directory contains engineering drawings for the magnets which you can provide to a manufacturer for the purpose of ordering the magnets for the magnetic breakway.
 
-### Magnet_and_PP_Vendor_List.ods
+#### Magnet_and_PP_Vendor_List.ods
 
 File contains a list of manufacturers that sell magnets, pogo pins, and pogo receptors. 
 
