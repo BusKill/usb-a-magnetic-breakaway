@@ -21,11 +21,11 @@ New FreeCAD version: Leoheck has started working on a version of the case in Fre
 
 ## What's in this Repo?
 
-## CAD files
+### CAD files
 (3D printable case, Work In Progress)
 This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
 
-## goldfishlaser Version
+### goldfishlaser Version
 (3D printable case, Work In Progress)
 This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
 
