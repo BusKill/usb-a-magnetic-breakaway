@@ -48,35 +48,35 @@ i2_l_d = i2_d; //y
 
 pogo_length=18;
 pogo_diameter=1.8;
-pogo_distance=6; //distance between pins (x=z)
+pogo_distance=7; //distance between pins (x=z)
 
 module pogos(){
-        rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=1.8, r2=1.4, center = true);
-    translate([pogo_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=1.8, r2=1.4, center = true);
+        rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=2, r2=1.5, center = true);
+    translate([pogo_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=2, r2=1.5, center = true);
 }
 
 //pogos();
 
 module magnets(){
-    rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=2.4, r1=2, r2=2, center = true);
+    rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.2, r2=2.2, center = true);
     
-    translate([magnet_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=2.4, r1=2, r2=2, center = true);
+    translate([magnet_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.2, r2=2.2, center = true);
     
 }
 
 //magnets();
 
 module void(){
-    translate([5,pogo_length/2-1,0])pogos();
+    translate([4.5,pogo_length/2-2,0])pogos();
     magnets();
     
     
-        translate([5,pogo_length/2-1,0])pogos();
+        translate([4.5,pogo_length/2-2,0])pogos();
     magnets();
 }
 
-// translate([3,-15,3])void();
-// translate([3,-15,9])void();
+ //translate([3,-14,3])void();
+ //translate([3,-14,9])void();
 
 /* * Blocks * */
     module top_block(){
