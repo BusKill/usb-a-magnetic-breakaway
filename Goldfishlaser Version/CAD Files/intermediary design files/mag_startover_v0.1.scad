@@ -44,7 +44,7 @@ pogo_diameter=2;
 pogo_distance=5; //distance between pins (x=z)
 shift=1; //distance from pins 
 
-rec_diameter=3;
+rec_diameter=1.8;
 
 module pogos(){
         translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
@@ -52,6 +52,13 @@ module pogos(){
 }
 
 //pogos();
+
+module recs(){
+        translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=rec_diameter, r2=rec_diameter, center = true);
+    translate([pogo_distance+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=rec_diameter, r2=rec_diameter, center = true);
+}
+
+//recs();
 
 module magnets(){
    translate([0,2,0]) rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15, r2=2.15, center = true);
@@ -68,6 +75,15 @@ module void(){
     
     
         translate([4.5,pogo_length/2-2,0])pogos();
+    magnets();
+}
+
+module void2(){
+    translate([4.5,pogo_length/2-2,0])recs();
+    magnets();
+    
+    
+        translate([4.5,pogo_length/2-2,0])recs();
     magnets();
 }
 
@@ -106,8 +122,8 @@ difference(){
 
 translate([0,0,0])difference(){
       base_block();
-    translate([3+block_distance,-i_d,3])void();
-    translate([3+block_distance,-i_d,9])void();
+    translate([3+block_distance,-i_d,3])void2();
+    translate([3+block_distance,-i_d,9])void2();
     translate([4+block_distance,-15,3])
 cube(size=[u_h,u_w,u_d], center = false);
 }
