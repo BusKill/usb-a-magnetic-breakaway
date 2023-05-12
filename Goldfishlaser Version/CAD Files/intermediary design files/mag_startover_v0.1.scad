@@ -28,39 +28,35 @@ magnet_distance=16;
 //breakaway base variables
 i_h = 22; //x
 i_w = 13; //z
-i_d = 16; //y
- 
-i2_h = 8; //x
-i2_w = 0; //y
-i2_d = 2.5; //z
+i_d = 18; //y
 
 //breakaway top variables
-i_l_h =i_h; //z
-i_l_w = i_w; //x
-i_l_d = i_d; //y
+i_l_h =i_h; //x
+i_l_w = i_w; //z
+i_l_d = 18; //y
 
-i2_l_h =i2_h; //z
-i2_l_w = i2_w; //x
-i2_l_d = i2_d; //y
 
 //pogo variables
 //pogo pins are shaped like a cylinder.
 
-pogo_length=18;
-pogo_diameter=1.8;
-pogo_distance=7; //distance between pins (x=z)
+pogo_length=22;
+pogo_diameter=2;
+pogo_distance=5; //distance between pins (x=z)
+shift=1; //distance from pins 
+
+rec_diameter=3;
 
 module pogos(){
-        rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=2, r2=1.5, center = true);
-    translate([pogo_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=2, r2=1.5, center = true);
+        translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
+    translate([pogo_distance+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
 }
 
 //pogos();
 
 module magnets(){
-    rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.2, r2=2.2, center = true);
+   translate([0,2,0]) rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15, r2=2.15, center = true);
     
-    translate([magnet_distance,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.2, r2=2.2, center = true);
+    translate([magnet_distance,2,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15, r2=2.15, center = true);
     
 }
 
@@ -75,8 +71,8 @@ module void(){
     magnets();
 }
 
- //translate([3,-14,3])void();
- //translate([3,-14,9])void();
+ //translate([3,-i_l_d,3])void();
+ //translate([3,-i_l_d,9])void();
 
 /* * Blocks * */
     module top_block(){
@@ -94,7 +90,7 @@ block_distance=25;
     color("Pink",.55)
  rotate([90,0,0]){
             translate([block_distance,0,0]){
-                cube(size = [i_l_h, i_l_w, i_l_d], center = false);
+                cube(size = [i_h, i_w, i_d], center = false);
             }
         } 
     } 
@@ -103,15 +99,15 @@ block_distance=25;
     
 difference(){
        top_block();
-    translate([3,-15,3])void();
-    translate([3,-15,9])void();
+    translate([3,-i_l_d,3])void();
+    translate([3,-i_l_d,9])void();
 
 }
 
 translate([0,0,0])difference(){
       base_block();
-    translate([3+block_distance,-15,3])void();
-    translate([3+block_distance,-15,9])void();
+    translate([3+block_distance,-i_d,3])void();
+    translate([3+block_distance,-i_d,9])void();
     translate([4+block_distance,-15,3])
 cube(size=[u_h,u_w,u_d], center = false);
 }
