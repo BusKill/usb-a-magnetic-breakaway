@@ -25,9 +25,14 @@ New FreeCAD version: Leoheck has started working on a version of the case in Fre
 (3D printable case, Work In Progress)
 This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
 
+![image](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/fe949841-c8f3-4abd-87c7-8e0b29d4b1c3)
+
 ### goldfishlaser Version
 (3D printable case, Work In Progress)
 This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
+
+![goldfishlaser Version](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/cca7f0f6-c13a-45fb-9152-c4c95e4f8740)
+
 
 #### CAD Files
 
