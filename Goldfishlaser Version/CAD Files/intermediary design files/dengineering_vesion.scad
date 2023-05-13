@@ -24,9 +24,9 @@ BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, sev
 
 The user will have a USB, a USB extension cable, and the magnetic breakaway. 
 
-The "breakaway" is connected to a USB extension cord that terminates with the female USB port that receives a USB. It is in four parts, the base, two middle pieces, and the lid. It contains 5 pogo pins and 2 magnets. It separates from the release when the cord is pulled. (red)
+The "release" is connected to a USB extension cord that terminates with the female USB port that receives a USB.  It contains 4 pogo pins directly soldered to the female usb port and 1 oval magnet. It separates from the release when the cord is pulled. (red)
 
-The "release" is connected to the cord that terminates with the male USB and inserts the computer. It is in three parts, the base, the middle, and the lid. It contains 5 pogo receptors and 2 magnets. (pink)
+The "breakaway" is connected to the cord that terminates with the male USB and inserts the computer. It contains 4 pins terminating in pogo receptors and 1 round  magnet and a plastic case. (pink)
 
 When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
 
@@ -42,23 +42,33 @@ buskill.in
 
 //magnet variables
 
+//release magnet
+
+m_h=4.5 //magnet height
+m_w= 12.8//magnet width
+m_t= .8//magnet thickness
+im_h=2.3 // inner magnet height
+
+
+//breakaway magnet
+
 //USB_port variables
-u_h = 14;
-u_w = 15;
-u_d = 6;
+u_h = 12;
+u_w = 13.5;
+u_d = 5.7;
 
 //pogo variables
 
-pogo_length=22;
-pogo_diameter=2;
-pogo_distance=5; //distance between pins 
-shift=1; //distance from pins 
+pogo_length=7.6;
+pogo_diameter=1.5;
+pogo_distance=.9; //distance between pins 
+shift=2; //distance from pins 
 
 //receptor variables
 
 //breakaway variables
 i_h = 22; //x
-i_w = 13; //z
+i_w = 8; //z
 i_d = 18; //y
 
 //release variables
@@ -69,14 +79,21 @@ i_l_d = 18; //y
 //pogo pins
 
 module pogos(){
-        translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
-    translate([pogo_distance+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
-            translate([pogo_distance*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
-    translate([pogo_distance*3+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter, r2=pogo_diameter-1, center = true);
+    translate([0,0,4.5]){
+        translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([(pogo_distance+pogo_diameter)*3+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+}
 }
 
-pogos();
+//pogos();
 
+module usb(){
+    cube(size = [u_h,u_w,u_d],center=false);
+}
+
+//usb();
 //pogo receptors
 
 module recs(){
@@ -94,10 +111,13 @@ module magnet(){
 //
 
 module void(){
-
+usb();
+    pogos();
+    magnet();
 }
 
-//
+ //void();
+    translate([5,-i_l_d+3,1])void();
 
 module void2(){
 
@@ -129,8 +149,8 @@ block_distance=25;
     
 difference(){
        top_block();
-    translate([3,-i_l_d,3])void();
-    translate([3,-i_l_d,9])void();
+    translate([5,-i_l_d+5,3])void();
+
 
 }
 
@@ -138,8 +158,7 @@ translate([0,0,0])difference(){
       base_block();
     translate([3+block_distance,-i_d,3])void2();
     translate([3+block_distance,-i_d,9])void2();
-    translate([4+block_distance,-15,3])
-cube(size=[u_h,u_w,u_d], center = false);
+    translate([4+block_distance,-15,3]);
 }
 
 
