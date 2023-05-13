@@ -44,10 +44,13 @@ buskill.in
 
 //release magnet
 
-m_h=4.5 //magnet height
-m_w= 12.8//magnet width
-m_t= .8//magnet thickness
-im_h=2.3 // inner magnet height
+m_h=4.5; //magnet height
+m_w=12.8;//magnet width
+m_t= .8;//magnet thickness
+im_h=2.3; // inner magnet height
+mc_height=6; //magnet case height
+mc_w= 14.6;//magnet case width
+
 
 
 //breakaway magnet
@@ -69,12 +72,12 @@ shift=2; //distance from pins
 //breakaway variables
 i_h = 22; //x
 i_w = 8; //z
-i_d = 18; //y
+i_d = 20; //y
 
 //release variables
 i_l_h =i_h; //x
 i_l_w = i_w; //z
-i_l_d = 18; //y
+i_l_d = 20; //y
 
 //pogo pins
 
@@ -90,7 +93,7 @@ module pogos(){
 //pogos();
 
 module usb(){
-    cube(size = [u_h,u_w,u_d],center=false);
+    color("grey",.1)translate([0,3.8,0])cube(size = [u_h,u_w,u_d],center=false);
 }
 
 //usb();
@@ -103,7 +106,8 @@ module recs(){
 //recs();
 
 module magnet(){
-    
+   color("grey")rotate([90,0,0])translate([-1,2,1]) linear_extrude(2)import("/home/goldishlaser/usb-a-magnetic-breakaway/Goldfishlaser Version/Engineering_Drawings/magnet.svg");
+
 }
 
 //magnet();
@@ -117,7 +121,7 @@ usb();
 }
 
  //void();
-    translate([5,-i_l_d+3,1])void();
+  //  translate([5,-i_l_d+3,0.5])void();
 
 module void2(){
 
@@ -125,7 +129,7 @@ module void2(){
 
 
 /* * Blocks * */
-    module top_block(){
+    module release_block(){
     color("Red",.55)
  rotate([90,0,0]){
 {
@@ -133,10 +137,10 @@ module void2(){
             }
         } 
     } 
-   // top_block();
+   // release_block();
 
 block_distance=25;    
-        module base_block(){
+        module breakaway_block(){
     color("Pink",.55)
  rotate([90,0,0]){
             translate([block_distance,0,0]){
@@ -144,23 +148,26 @@ block_distance=25;
             }
         } 
     } 
-  //base_block();
+  //breakaway_block();
 
     
 difference(){
-       top_block();
-    translate([5,-i_l_d+5,3])void();
+       release_block();
+    translate([5,-i_l_d+3,0])void();
 
 
 }
 
+module assemble(){
 translate([0,0,0])difference(){
-      base_block();
+      breakaway_block();
     translate([3+block_distance,-i_d,3])void2();
     translate([3+block_distance,-i_d,9])void2();
     translate([4+block_distance,-15,3]);
 }
+}
 
+//assemble();
 
 
 
