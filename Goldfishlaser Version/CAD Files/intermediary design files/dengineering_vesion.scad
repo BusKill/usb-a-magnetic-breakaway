@@ -63,8 +63,8 @@ u_d = 5.7;
 //pogo variables
 
 pogo_length=7.6;
-pogo_diameter=1.8; //+.3
-pogo_distance=.9; //distance between pins 
+pogo_diameter=2.4; //+.3 +.2 +.2 +.2
+pogo_distance=.4; //distance between pins 
 shift=2; //distance from pins 
 shift2=2; //distance from top
 
@@ -83,7 +83,7 @@ i_l_d = 20; //y
 //pogo pins
 
 module pogos(){
-    translate([-.75,0,4]){
+    translate([-.9,0,4.2]){
         translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
     translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
             translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
@@ -117,8 +117,8 @@ module magnet(){
 
 module void(){
 usb();
-    pogos();
-    magnet();
+    translate([.75,0,0])pogos();
+    translate([.75,0,0])magnet();
 }
 
  //void();
