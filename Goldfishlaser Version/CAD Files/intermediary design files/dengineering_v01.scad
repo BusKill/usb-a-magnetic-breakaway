@@ -56,7 +56,7 @@ mc_w= 14.6;//magnet case width
 //breakaway magnet
 
 //USB_port variables
-u_h = 14;
+u_h = 14.2;
 u_w = 13.5;
 u_d = 5.7;
 
@@ -64,7 +64,7 @@ u_d = 5.7;
 
 pogo_length=7.6;
 pogo_diameter=2.4; //+.3 +.2 +.2 +.2
-pogo_distance=.4; //distance between pins 
+pogo_distance=.3; //distance between pins 
 shift=2; //distance from pins 
 shift2=2; //distance from top
 
@@ -83,7 +83,7 @@ i_l_d = 20; //y
 //pogo pins
 
 module pogos(){
-    translate([-.9,0,4.2]){
+    translate([-.7,0,4.2]){
         translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
     translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
             translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
@@ -122,7 +122,7 @@ usb();
 }
 
  //void();
-  //  translate([5,-i_l_d+3,0.5])void();
+
 
 module void2(){
 
@@ -158,6 +158,8 @@ difference(){
 
 
 }
+
+// translate([5,-i_l_d+3,0])void();
 
 module assemble(){
 translate([0,0,0])difference(){
