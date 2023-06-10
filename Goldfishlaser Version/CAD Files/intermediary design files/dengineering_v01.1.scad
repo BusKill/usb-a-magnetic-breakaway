@@ -47,7 +47,7 @@ buskill.in
 magnet_position_x=3;
 magnet_position_z=18.1;
 magnet_position_y=4;
-magnet_distance=16.5;
+magnet_distance=19;
 
 //breakaway magnet
 
@@ -60,14 +60,14 @@ u_d = 5.7;
 
 pogo_length=7.6;
 pogo_diameter=2.6; //+.3 +.2 +.2 +.2
-pogo_distance=.2; //distance between pins 
+pogo_distance=.8; //distance between pins 
 shift=2; //distance from pins 
 shift2=2; //distance from top
 
 //receptor variables
 
 //breakaway variables
-i_h = 22; //x
+i_h = 24; //x
 i_w = 8; //z
 i_d = 20; //y
 
@@ -79,7 +79,7 @@ i_l_d = 20; //y
 //pogo pins
 
 module pogos(){
-    translate([-.7,0,4.2]){
+    translate([-.7,-.1,4.2]){
         translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
     translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
             translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
@@ -114,24 +114,26 @@ module magnet(){
 
 //
 
-x=.5;
+x=0;
+y=0;
 module void(){
     
 usb();
-    translate([x,0,0])pogos();
-translate([-5,17,0])magnet();
+    translate([x,y,0])pogos();
+translate([-5.5,17,0])magnet();
 }
 
 // void();
 
 
 module void2(){
-translate([30.5,-1.7,.3])pogos();
-translate([24.5,16,0])magnet();
+translate([30+x,y,.0])pogos();
+translate([24.5,17,0])magnet();
 }
 //void2();
 
 /* * Blocks * */
+
     module release_block(){
        
     color("Red",.55)
@@ -143,6 +145,26 @@ translate([24.5,16,0])magnet();
     } 
  
    // release_block();
+   module assemble3(){ 
+    difference(){
+       release_block();
+    translate([5,-i_l_d+3,0])void();
+
+
+}
+
+ //translate([5,-i_l_d+3,0])void();
+}
+
+//outie block
+
+pogo_house_x = 14;
+pogo_house_y = 2;
+pogo_house_z =3;
+pogo_house_pos_x= 29.5;
+pogo_house_pos_y= 0;
+pogo_house_pos_z= 2.75;
+
 
 block_distance=25;    
         module breakaway_block(){
@@ -152,20 +174,47 @@ block_distance=25;
                 cube(size = [i_h, i_w, 2], center = false);
             }
         } 
-    translate([30-x,0,3])cube(size = [12,2,3], center=false);
+    translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
         } 
   //breakaway_block();
+        
+     
+ 
+ //innie block
 
+innie_tolerance=.5;         
+        
+ block_distance2=25;    
+        module breakaway_block2(){
+    color("purple",.55)
+ translate([25,0,0])rotate([90,0,0]){
+            translate([block_distance2,0,0]){
+                cube(size = [i_h, i_w, 3], center = false);
+            }
+        } 
+        }        
+//breakaway_block2();
+     
+ pogo_house2_pos_x= pogo_house_pos_x+25.5;
+ pogo_house2_pos_y= pogo_house_pos_y-1.8;
+ pogo_house2_pos_z= pogo_house_pos_z;  
+        
+ module void3(){
+     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     translate([55.5,-2.6,0])pogos();
+     translate([49.5,16.5,0])magnet();
+     }    
+        
+//void3();    
+ 
+ module assemble2(){
+ difference(){
+ breakaway_block2();
+ void3();
+ }    
+ }
+ assemble2();
     
-difference(){
-       release_block();
-    translate([5,-i_l_d+3,0])void();
-
-
-}
-
- //translate([5,-i_l_d+3,0])void();
-
 module assemble(){
 translate([0,0,0])difference(){
       breakaway_block();
@@ -174,7 +223,9 @@ translate([0,0,0])difference(){
 }
 }
 
-assemble();
+assemble();   
+
+
 
 
 
