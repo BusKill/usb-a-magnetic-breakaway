@@ -45,7 +45,7 @@ buskill.in
 //release magnet
 
 magnet_position_x=3;
-magnet_position_z=18;
+magnet_position_z=18.1;
 magnet_position_y=4;
 magnet_distance=16.5;
 
@@ -60,7 +60,7 @@ u_d = 5.7;
 
 pogo_length=7.6;
 pogo_diameter=2.6; //+.3 +.2 +.2 +.2
-pogo_distance=.1; //distance between pins 
+pogo_distance=.2; //distance between pins 
 shift=2; //distance from pins 
 shift2=2; //distance from top
 
@@ -114,19 +114,20 @@ module magnet(){
 
 //
 
-x=.;
+x=.5;
 module void(){
+    
 usb();
     translate([x,0,0])pogos();
-
+translate([-5,17,0])magnet();
 }
 
- //void();
+// void();
 
 
 module void2(){
-translate([30,-1.7,.3])pogos();
-
+translate([30.5,-1.7,.3])pogos();
+translate([24.5,16,0])magnet();
 }
 //void2();
 
@@ -140,7 +141,7 @@ translate([30,-1.7,.3])pogos();
             }
         } 
     } 
-    magnet();
+ 
    // release_block();
 
 block_distance=25;    
