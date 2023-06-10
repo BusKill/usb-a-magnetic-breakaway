@@ -22,6 +22,9 @@ If you create your own version, please create a folder and add your assets to th
 
 ## What's in this Repo?
 
+### Glossary
+To reference our technical terminology check out [glossary.md](https://github.com/BusKill/usb-a-magnetic-breakaway/blob/3cc552533db1436cacee31b77e96ae590389fd92/Glossary.md)
+
 ### CAD files
 (3D printable case, Work In Progress)
 This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
