@@ -47,7 +47,7 @@ buskill.in
 magnet_position_x=3;
 magnet_position_z=18.1;
 magnet_position_y=4;
-magnet_distance=20;
+magnet_distance=23;
 
 //breakaway magnet
 
@@ -60,14 +60,14 @@ u_d = 5.7;
 
 pogo_length=7.6;
 pogo_diameter=2.6; //+.3 +.2 +.2 +.2
-pogo_distance=.8; //distance between pins 
-shift=2; //distance from pins 
+pogo_distance=1.5; //distance between pins 
+shift=2.5; //distance from pins 
 shift2=2; //distance from top
 
 //receptor variables
 
 //breakaway variables
-i_h = 26; //x
+i_h = 29; //x
 i_w = 8; //z
 i_d = 20; //y
 
@@ -88,6 +88,19 @@ module pogos(){
 }
 
 //pogos();
+
+size_difference = .75;
+
+module pogo_recs(){
+    translate([-.7,-.1,4.2]){
+        translate([shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([(pogo_distance+pogo_diameter)*3+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+}
+}
+
+//pogo_recs();
 
 module usb(){
     color("grey",.1)translate([-1,3.8,0])cube(size = [u_h,u_w,u_d],center=false);
@@ -116,8 +129,8 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 //
 
-x=1;
-y=0;
+x=.75;
+y=.5;
 module void(){
     
 usb();
@@ -129,7 +142,7 @@ translate([-5.5,17,0])magnet();
 
 
 module void2(){
-translate([30+x,y,0])pogos();
+translate([30+x,y,0])pogo_recs();
 translate([24.5,17,0])magnet();
 }
 //void2();
@@ -160,8 +173,8 @@ translate([24.5,17,0])magnet();
 
 //outie block
 
-pogo_house_x = 14;
-pogo_house_y = 2;
+pogo_house_x = 17;
+pogo_house_y = 3;
 pogo_house_z =3;
 pogo_house_pos_x= 30;
 pogo_house_pos_y= 0;
@@ -191,14 +204,14 @@ innie_tolerance=.5;
     color("purple",.55)
  translate([25,0,0])rotate([90,0,0]){
             translate([block_distance2,0,0]){
-                cube(size = [i_h, i_w, 3], center = false);
+                cube(size = [i_h, i_w, 5], center = false);
             }
         } 
         }        
 //breakaway_block2();
      
  pogo_house2_pos_x= pogo_house_pos_x+25.5;
- pogo_house2_pos_y= pogo_house_pos_y-1.8;
+ pogo_house2_pos_y= pogo_house_pos_y-1;
  pogo_house2_pos_z= pogo_house_pos_z;  
         
  module void3(){
