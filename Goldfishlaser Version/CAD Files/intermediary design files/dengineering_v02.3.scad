@@ -67,7 +67,7 @@ shift2=2; //distance from top
 //receptor variables
 
 //breakaway variables
-i_h = 29; //x
+i_h = 30; //x
 i_w = 8; //z
 i_d = 20; //y
 
@@ -89,7 +89,7 @@ module pogos(){
 
 //pogos();
 
-size_difference = .75;
+size_difference = .9;
 
 module pogo_recs(){
     translate([-.7,-.1,4.2]){
@@ -132,7 +132,7 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 x=.75;
 y=.5;
 module void(){
-    
+
 usb();
     translate([x,y,0])pogos();
 translate([-5.5,17,0])magnet();
@@ -160,25 +160,27 @@ translate([24.5,17,0])magnet();
     } 
  
    // release_block();
+    
+    shiftx=5;
    module assemble3(){ 
     difference(){
        release_block();
-    translate([5,-i_l_d+3,0])void();
+    translate([shiftx,-i_l_d+3,0])void();
 
 
 }
 
- //translate([5,-i_l_d+3,0])void();
+ //translate([shiftx,-i_l_d+3,0])void();
 }
 
 //outie block
 
-pogo_house_x = 17;
+pogo_house_x = 17.5;
 pogo_house_y = 3;
-pogo_house_z =3;
-pogo_house_pos_x= 30;
+pogo_house_z =4;
+pogo_house_pos_x= 31.5;
 pogo_house_pos_y= 0;
-pogo_house_pos_z= 2.75;
+pogo_house_pos_z= 2.25;
 
 
 block_distance=25;    
@@ -210,8 +212,8 @@ innie_tolerance=.5;
         }        
 //breakaway_block2();
      
- pogo_house2_pos_x= pogo_house_pos_x+25.5;
- pogo_house2_pos_y= pogo_house_pos_y-1;
+ pogo_house2_pos_x= pogo_house_pos_x+23.75;
+ pogo_house2_pos_y= pogo_house_pos_y-2;
  pogo_house2_pos_z= pogo_house_pos_z;  
         
  module void3(){
@@ -222,25 +224,36 @@ innie_tolerance=.5;
         
 //void3();    
  
+     shiftxx=1.5;
+     shiftyy=-1.45;
  module assemble2(){
  difference(){
  breakaway_block2();
- void3();
+ translate([shiftxx,shiftyy,0])void3();
  }    
  }
- translate([5,0,0])assemble2();
+ translate([10,0,0])assemble2();
+ 
+// translate([shiftxx+10,shiftyy,0])void3();
     
 module assemble(){
 translate([0,0,0])difference(){
       breakaway_block();
-    void2();
+    translate([shiftxx,0,0])void2();
    
 }
 }
 
+//translate([shiftxx,0,0])void2();
+
 assemble();   
 
+module jig(){
+    difference(){
 
-
-
-
+cube(size = [16,7,2],center=false);
+        translate([0,3.5,-1.75])pogos();
+    }
+}
+jig();
+translate([-25,0,0])jig();
