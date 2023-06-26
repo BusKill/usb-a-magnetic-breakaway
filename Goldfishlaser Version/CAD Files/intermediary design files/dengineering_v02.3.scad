@@ -61,7 +61,8 @@ u_d = 5.7;
 pogo_length=7.6;
 pogo_diameter=2.6; //+.3 +.2 +.2 +.2
 pogo_distance=1.5; //distance between pins 
-shift=2.5; //distance from pins 
+shift=2.1; //distance from pins 
+spread=4.8;
 shift2=2; //distance from top
 
 //receptor variables
@@ -81,22 +82,50 @@ i_l_d = 20; //y
 module pogos(){
     translate([-.7,-.1,4.2]){
         translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-            translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([(pogo_distance+pogo_diameter)*3+shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+spread,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            translate([pogo_distance+spread*2,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+spread*3,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
 }
 
 //pogos();
+
+module pogojig(){
+    pj_h=5; //height top
+    pj_h2=6.75; //height back
+    pj_s=3; //shift forward top
+    pj_s2=-1; //shift forward back
+    pj_t=30; //tilt left
+    pj_t2=-pj_t; //tilt right
+    pj_ts=1.25; // shift back left
+    pj_ts2=-pj_ts; // shift back right
+    pogo_diameter=2;
+    shift=2.25;
+    translate([-.7,-.1,3]){
+        translate([shift,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //1st from right 
+    translate([pogo_distance+spread,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); // 2nd from right
+            translate([pogo_distance+spread*2,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //3rd from right
+    translate([pogo_distance+spread*3,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+}
+    translate([-.7,-.1,3]){
+        translate([shift+pj_ts,pj_s2,0])rotate ([90,0,pj_t])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //1st from right 
+    translate([pogo_distance+spread,pj_s2,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); // 2nd from right
+            translate([pogo_distance+spread*2,pj_s2,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //3rd from right
+    translate([pogo_distance+spread*3+pj_ts2,pj_s2,0])rotate ([90,0,pj_t2])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+}
+
+}
+
+//pogojig();
 
 size_difference = .9;
 
 module pogo_recs(){
     translate([-.7,-.1,4.2]){
         translate([shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([pogo_distance+pogo_diameter+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-            translate([(pogo_distance+pogo_diameter)*2+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([(pogo_distance+pogo_diameter)*3+shift,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+spread,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            translate([pogo_distance+spread*2,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([pogo_distance+spread*3,0,0])rotate ([90,0,0])scale(size_difference)cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
 }
 
@@ -143,7 +172,7 @@ translate([-5.5,17,0])magnet();
 
 module void2(){
 translate([30+x,y,0])pogo_recs();
-translate([24.5,17,0])magnet();
+translate([24.5,17+1,0])magnet();
 }
 //void2();
 
@@ -176,7 +205,7 @@ translate([24.5,17,0])magnet();
 //outie block
 
 pogo_house_x = 17.5;
-pogo_house_y = 3;
+pogo_house_y = 1.5;
 pogo_house_z =4;
 pogo_house_pos_x= 31.5;
 pogo_house_pos_y= 0;
@@ -189,12 +218,14 @@ block_distance=25;
  rotate([90,0,0]){
             translate([block_distance,0,0]){
                 cube(size = [i_h, i_w, 2], center = false);
+                cube(size = [2, 2, 2], center = false);
             }
         } 
     translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
+
         } 
   //breakaway_block();
-        
+
      
  
  //innie block
@@ -204,12 +235,18 @@ innie_tolerance=.5;
  block_distance2=25;    
         module breakaway_block2(){
     color("purple",.55)
- translate([25,0,0])rotate([90,0,0]){
-            translate([block_distance2,0,0]){
-                cube(size = [i_h, i_w, 5], center = false);
+ translate([25,0,0])
+            rotate([90,0,0]){
+            translate([block_distance2,0,2]){
+                cube(size = [i_h, i_w, 3], center = false);
+
             }
+                           translate([25.8,0,2]) rotate([-90,0,0]) cube(size = [5.6, 1.25, 8], center = false);   
+        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5.6, 1.25, 8], center = false);
         } 
-        }        
+        
+        }   
+
 //breakaway_block2();
      
  pogo_house2_pos_x= pogo_house_pos_x+23.75;
@@ -220,9 +257,12 @@ innie_tolerance=.5;
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      translate([55.5,-2.6,0])pogos();
      translate([49.5,16.5,0])magnet();
+     translate([49.5,18,0])magnet();
      }    
         
-//void3();    
+//void3(); 
+  
+ 
  
      shiftxx=1.5;
      shiftyy=-1.45;
@@ -251,8 +291,8 @@ assemble();
 module jig(){
     difference(){
 
-cube(size = [16,7,2],center=false);
-        translate([0,3.5,-1.75])pogos();
+cube(size = [17,7,2],center=false);
+        translate([0,3.5-1.8,-1.75])pogojig();
     }
 }
 jig();
