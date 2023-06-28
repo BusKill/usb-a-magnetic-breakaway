@@ -255,6 +255,7 @@ innie_tolerance=.5;
         
  module void3(){
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
      translate([55.5,-2.6,0])pogos();
      translate([49.5,16.5,0])magnet();
      translate([49.5,18,0])magnet();
@@ -262,8 +263,16 @@ innie_tolerance=.5;
         
 //void3(); 
   
- 
- 
+     module jig2(){
+ translate ([0,-10,0])rotate([90,0,0]){difference(){
+     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
+      translate([0,0,-2])pogos();
+     }
+ }
+ }
+     jig2();
+     
      shiftxx=1.5;
      shiftyy=-1.45;
  module assemble2(){
@@ -289,11 +298,15 @@ translate([0,0,0])difference(){
 assemble();   
 
 module jig(){
+    
     difference(){
 
 cube(size = [17,7,2],center=false);
+        
         translate([0,3.5-1.8,-1.75])pogojig();
+
     }
+   
 }
 jig();
 translate([-25,0,0])jig();
