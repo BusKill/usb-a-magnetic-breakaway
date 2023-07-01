@@ -97,8 +97,12 @@ module pogojig(){
     pj_s2=-1; //shift forward back
     pj_t=30; //tilt left
     pj_t2=-pj_t; //tilt right
+    pj_t3=10; //tilt left innie
+    pj_t4=-pj_t3; //tilt right innie
     pj_ts=1.25; // shift back left
     pj_ts2=-pj_ts; // shift back right
+    
+    
     pogo_diameter=2;
     shift=2.25;
     translate([-.7,-.1,3]){
@@ -109,8 +113,8 @@ module pogojig(){
 }
     translate([-.7,-.1,3]){
         translate([shift+pj_ts,pj_s2,0])rotate ([90,0,pj_t])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //1st from right 
-    translate([pogo_distance+spread,pj_s2,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); // 2nd from right
-            translate([pogo_distance+spread*2,pj_s2,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //3rd from right
+    translate([pogo_distance+spread,pj_s2,0])rotate ([90,0,pj_t3])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); // 2nd from right
+            translate([pogo_distance+spread*2,pj_s2,0])rotate ([90,0,pj_t4])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //3rd from right
     translate([pogo_distance+spread*3+pj_ts2,pj_s2,0])rotate ([90,0,pj_t2])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
 
@@ -202,12 +206,12 @@ translate([24.5,17+1,0])magnet();
  //translate([shiftx,-i_l_d+3,0])void();
 }
 
-//outie block
+//outie block side 1
 
 pogo_house_x = 17.5;
-pogo_house_y = 1.5;
+pogo_house_y = 1;
 pogo_house_z =4;
-pogo_house_pos_x= 31.5;
+pogo_house_pos_x= 31.75;
 pogo_house_pos_y= 0;
 pogo_house_pos_z= 2.25;
 
@@ -225,9 +229,38 @@ block_distance=25;
 
         } 
   //breakaway_block();
+        
+ //outie block
 
+
+
+  
+ module breakaway_block3(){
+pogo_house_x = 17.5;
+pogo_house_y = .75;
+pogo_house_z =4;
+pogo_house_pos_x= 31.75;
+pogo_house_pos_y= 0;
+pogo_house_pos_z= 2.25;
+    color("Red",.55)
      
+ rotate([90,0,0]){
+            translate([block_distance+70,0,0]){
+                cube(size = [i_h, i_w, 2], center = false);
+                cube(size = [2, 2, 2], center = false);
+            }
+        } 
+    translate([pogo_house_pos_x+70,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
+        
+
  
+
+        } 
+        difference(){
+  translate ([0,0,0])breakaway_block3();       
+
+           translate([block_distance+70+7,0,0])  pogos();
+        }
  //innie block
 
 innie_tolerance=.5;         
@@ -264,14 +297,16 @@ innie_tolerance=.5;
 //void3(); 
   
      module jig2(){
- translate ([0,-10,0])rotate([90,0,0]){difference(){
-     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+ 
+         translate ([0,-10,0])rotate([90,0,0]){difference(){
+     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      
       translate([0,0,-2])pogos();
      }
  }
  }
      jig2();
+ translate([-25,0,0])jig2();
      
      shiftxx=1.5;
      shiftyy=-1.45;
@@ -301,12 +336,12 @@ module jig(){
     
     difference(){
 
-cube(size = [17,7,2],center=false);
+cube(size = [17,7,4],center=false);
         
-        translate([0,3.5-1.8,-1.75])pogojig();
+        translate([0,3.5-1.8,1])pogojig();
 
     }
-   
+ 
 }
 jig();
 translate([-25,0,0])jig();
