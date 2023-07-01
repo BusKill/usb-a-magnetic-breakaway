@@ -209,7 +209,7 @@ translate([24.5,17+1,0])magnet();
 //outie block side 1
 
 pogo_house_x = 17.5;
-pogo_house_y = 1;
+pogo_house_y = 1.5;
 pogo_house_z =4;
 pogo_house_pos_x= 31.75;
 pogo_house_pos_y= 0;
@@ -235,36 +235,11 @@ block_distance=25;
 
 
   
- module breakaway_block3(){
-pogo_house_x = 17.5;
-pogo_house_y = .75;
-pogo_house_z =4;
-pogo_house_pos_x= 31.75;
-pogo_house_pos_y= 0;
-pogo_house_pos_z= 2.25;
-    color("Red",.55)
-     
- rotate([90,0,0]){
-            translate([block_distance+70,0,0]){
-                cube(size = [i_h, i_w, 2], center = false);
-                cube(size = [2, 2, 2], center = false);
-            }
-        } 
-    translate([pogo_house_pos_x+70,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
-        
-
  
-
-        } 
-        difference(){
-  translate ([0,0,0])breakaway_block3();       
-
-           translate([block_distance+70+7,0,0])  pogos();
-        }
  //innie block
 
 innie_tolerance=.5;         
-        
+m_step=1.25;        
  block_distance2=25;    
         module breakaway_block2(){
     color("purple",.55)
@@ -274,8 +249,8 @@ innie_tolerance=.5;
                 cube(size = [i_h, i_w, 3], center = false);
 
             }
-                           translate([25.8,0,2]) rotate([-90,0,0]) cube(size = [5.6, 1.25, 8], center = false);   
-        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5.6, 1.25, 8], center = false);
+                           translate([25,0,2]) rotate([-90,0,0]) cube(size = [6.5, m_step, 8], center = false);   
+        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5.6, m_step, 8], center = false);
         } 
         
         }   
@@ -283,7 +258,7 @@ innie_tolerance=.5;
 //breakaway_block2();
      
  pogo_house2_pos_x= pogo_house_pos_x+23.75;
- pogo_house2_pos_y= pogo_house_pos_y-2;
+ pogo_house2_pos_y= pogo_house_pos_y-m_step;
  pogo_house2_pos_z= pogo_house_pos_z;  
         
  module void3(){
