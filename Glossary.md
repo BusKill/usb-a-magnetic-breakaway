@@ -2,15 +2,16 @@
 1. [Breakaway End](#Breakway-End)
 2. [BusKill Cable](#BusKill-Cable)
 3. [BusKill Software](#BusKill-Software)
-4. [Magnetic_Coupler](#Magnetic-Coupler)
-5. [Magnetic Release Cord](#Magnetic-Release-Cord)
-6. [Pogo Contacts](#Pogo-Contacts)
-7. [Pogo Pin](#Pogo-Pin)
-8. [Pogo Contact](#Pogo-Contact)
-9. [Release End](#Release-End)
-10. [USB A](#USB-A)
-11. [USB Ejection Event](#USB-Ejection-Event)
-12. [USB Insertion Event](#USB-Insertion-Event)
+4. [Jig](#Jig)
+5. [Magnetic_Coupler](#Magnetic-Coupler)
+6. [Magnetic Release Cord](#Magnetic-Release-Cord)
+7. [Pogo Contacts](#Pogo-Contacts)
+8. [Pogo Pin](#Pogo-Pin)
+9. [Pogo Contact](#Pogo-Contact)
+10. [Release End](#Release-End)
+11. [USB A](#USB-A)
+12. [USB Ejection Event](#USB-Ejection-Event)
+13. [USB Insertion Event](#USB-Insertion-Event)
 
 
 # Breakaway End <a name="Breakaway-End"></a>
@@ -21,6 +22,9 @@ Used to refer to the assembly of a USB, USB Extender Cord, and Magnetic Coupler 
 
 # BusKill Software <a name="BusKill-Software"></a>
 A program that you can install on Linux, MacOS, or Windows that allows you to set up a trigger that occurs with a USB Ejection Event. The trigger could be locking the screen, shutting down the computer, or something else. 
+
+# Jig
+A printed piece that is used to stabilize something during assembly. 
 
 # Magnetic Coupler <a name="Magnetic-Coupler"></a>
 The Magnetic Coupler has two parts, the Breakaway End and the Release End. These two parts contain magnets and contacts. The coupler is designed so that when the magnets are in place, the Pogo Pins and Pogo Receptors contact and transfer signal through the coupler. When the Magnets detach, the Pins and Receptors separate and the signal is disconnected causing a USB ejection event.
