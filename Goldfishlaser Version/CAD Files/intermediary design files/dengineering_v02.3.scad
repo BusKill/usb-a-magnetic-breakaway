@@ -24,9 +24,9 @@ BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, sev
 
 The user will have a USB, a USB extension cable, and the magnetic breakaway. 
 
-The "release" is connected to a USB extension cord that terminates with the female USB port that receives a USB.  It contains 4 pogo pins directly soldered to the female usb port and 1 oval magnet. It separates from the release when the cord is pulled. (red)
+The "breakaway" consists of areas for two disc magnets and an indention to house pogo receptors. (purple)
 
-The "breakaway" is connected to the cord that terminates with the male USB and inserts the computer. It contains 4 pins terminating in pogo receptors and 1 round  magnet and a plastic case. (pink)
+The "release" consists of areas for two disk magnets and an extrusion to house pogo pins. (pink)
 
 When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
 
@@ -206,10 +206,10 @@ translate([24.5,17+1,0])magnet();
  //translate([shiftx,-i_l_d+3,0])void();
 }
 
-//outie block side 1
+//RELEASE
 
 pogo_house_x = 17.5;
-pogo_house_y = 1.5;
+pogo_house_y = 1;
 pogo_house_z =4;
 pogo_house_pos_x= 31.75;
 pogo_house_pos_y= 0;
@@ -217,7 +217,7 @@ pogo_house_pos_z= 2.25;
 
 
 block_distance=25;    
-        module breakaway_block(){
+        module release_block(){
     color("Pink",.55)
  rotate([90,0,0]){
             translate([block_distance,0,0]){
@@ -228,20 +228,17 @@ block_distance=25;
     translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
 
         } 
-  //breakaway_block();
+  //release_block();
         
- //outie block
-
-
 
   
  
- //innie block
+ //BREAKAWAY
 
 innie_tolerance=.5;         
 m_step=1.25;        
  block_distance2=25;    
-        module breakaway_block2(){
+        module breakaway(){
     color("purple",.55)
  translate([25,0,0])
             rotate([90,0,0]){
@@ -255,7 +252,7 @@ m_step=1.25;
         
         }   
 
-//breakaway_block2();
+//breakaway();
      
  pogo_house2_pos_x= pogo_house_pos_x+23.75;
  pogo_house2_pos_y= pogo_house_pos_y-m_step;
@@ -287,7 +284,7 @@ m_step=1.25;
      shiftyy=-1.45;
  module assemble2(){
  difference(){
- breakaway_block2();
+ breakaway();
  translate([shiftxx,shiftyy,0])void3();
  }    
  }
@@ -297,7 +294,7 @@ m_step=1.25;
     
 module assemble(){
 translate([0,0,0])difference(){
-      breakaway_block();
+      release_block();
     translate([shiftxx,0,0])void2();
    
 }
