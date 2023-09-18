@@ -399,9 +399,9 @@ difference(){
  }
  }; //end of enclosure code
  
-translate([0,20,0]) enclosure();
+color("Pink",.9)translate([40,-20,0]) rotate([0,0,180]) enclosure();
  
-
+color("Purple",.9)translate([75,-20,0]) rotate([0,0,180]) enclosure();
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
