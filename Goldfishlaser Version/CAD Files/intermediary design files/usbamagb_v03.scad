@@ -100,7 +100,7 @@ module pogojig(){
     pj_s2=-1; //shift forward back
     pj_t=30; //tilt left
     pj_t2=-pj_t; //tilt right
-      translate([0,0,0]) cube(u_w,u_h, center=true);  pj_t3=10; //tilt left innie
+        pj_t3=10; //tilt left innie
     pj_t4=-pj_t3; //tilt right innie
     pj_ts=1.25; // shift back left
     pj_ts2=-pj_ts; // shift back right
@@ -309,11 +309,11 @@ m_step=1.25;
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 2; 
-     post_d = 5; //support post for screw hole
-     hole_d= 2.5; //hole for screws
-     lid_thicc = 2; 
-     lid_lip = 21; //inset
+     wall_thicc = 1; 
+     post_d = 4; //support post for screw hole
+     hole_d= 2; //hole for screws
+     lid_thicc = 1; 
+     lid_lip = 1; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
@@ -386,6 +386,7 @@ m_step=1.25;
          r=hole_d/2);    
  }
 
+translate([40,0,-e_h]){
 difference(){
 //lid
   hull(){
@@ -399,11 +400,12 @@ difference(){
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2-1, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-1, 
          z=e_h - lid_thicc + 1, 
          h=wall_thicc - lid_thicc + 3,
          r=hole_d/2 + .5);     
+ }
  }
  }; //end of enclosure code
  
@@ -435,7 +437,7 @@ cube(size = [17,7,4],center=false);
         translate([0,3.5-1.8,1])pogojig();
 
     }
- 
+
 }
 jig();
 translate([-25,0,0])jig();
