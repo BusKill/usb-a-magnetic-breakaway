@@ -143,6 +143,14 @@ module usb(){
 }
 
 //usb();
+
+module usb_p(){
+    color("grey",.1)translate([-1,3.8,0])cube(size = [u_h,u_w+2,u_d+2],center=false);
+}
+
+//usb_p();
+
+
 //pogo receptors
 
 module recs(){
@@ -156,9 +164,9 @@ magnet_tolerance= .1;
 
 
 module magnet(){
-color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cube(magnet_size, center=true);
+color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cube(magnet_size+magnet_tolerance, center=true);
     
-   color("grey") rotate ([90,0,0])translate([magnet_position_x+magnet_distance,magnet_position_y,magnet_position_z])cube(magnet_size,center=true);
+   color("grey") rotate ([90,0,0])translate([magnet_position_x+magnet_distance,magnet_position_y,magnet_position_z])cube(magnet_size+magnet_tolerance,center=true);
     
 
 }
@@ -295,12 +303,17 @@ m_step=1.25;
  }
  translate([10,0,0])assemble2();
  
- module enclosure(){
+      //acknowledgements to BaldGuyDIY for enclosure code
+ 
+// RELEASE ENCLOSURE
+
+ 
+ module enclosure_r(){
      
-     //acknowledgements to BaldGuyDIY for enclosure code
+
      
     $fn=15;
-  //dimensions for enclosure
+  //dimensions for enclosure_r
   e_w=20;
   e_l=22;  
   e_h=8;   
@@ -407,14 +420,130 @@ difference(){
          r=hole_d/2 + .5);     
  }
  }
- }; //end of enclosure code
+ }; //end of enclosure_r code
  
  
-color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure();
+color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
  color("black")translate([45,13,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
+
+// BREAKAWAY ENCLOSURE
+
+module enclosure_b(){
+     
+
+     
+    $fn=15;
+  //dimensions for enclosure_b
+  e_w=18;
+  e_l=26;  
+  e_h=8;   
+     
+     
+ //parameters
+     corner_r = .5; //higher is more rounded
+     wall_thicc = 1; 
+     post_d = 4; //support post for screw hole
+     hole_d= 2; //hole for screws
+     lid_thicc = 1; 
+     lid_lip = 1; //inset
+     lid_tol = .5;
+     
+     module posts(x,y,z,h,r){
+         
+         translate([x,y+2,z]){
+             cylinder(r = r, h = h);
+         }
+     
+              translate([-x,y,z]){
+             cylinder(r = r, h = h);
+         }
+         
+                  translate([-x,-y,z]){
+             cylinder(r = r, h = h);
+         }
+                 translate([x,-y-2,z]){
+             cylinder(r = r, h = h);
+         }
+     }
+     difference(){
+         //box
+     hull(){
+     posts(
+         x=e_w/2 - corner_r, 
+         y=e_l/2 - corner_r, 
+         z=0, 
+         h=e_h,
+         r=corner_r);
+     }
+     //hollow
+         hull(){
+     posts(
+             x=e_w/2 - corner_r - wall_thicc, 
+         y=e_l/2 - corner_r - wall_thicc, 
+         z=wall_thicc, 
+         h=e_h,
+         r=corner_r);
+     }
+     //lip
+       hull(){
+     posts(
+           x=e_w/2 - corner_r - lid_lip, 
+         y=e_l/2 - corner_r - lid_lip, 
+         z=e_h-lid_thicc, 
+         h=lid_thicc + 1,
+         r=corner_r);
+     }
+     //usb
+     translate([-14,-11,1])usb_p(); 
+     //pogos
+      translate([12,-8,1])rotate([0,0,90])pogo_recs();
+ }
+
+ difference(){
+    //support posts
+     posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc-.5, 
+         h=e_h - wall_thicc - lid_thicc +.5,
+         r=post_d/2);
+    
+     
+    //screw holes    
+     posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc, 
+         h=e_h - wall_thicc - lid_thicc +.5,
+         r=hole_d/2);    
+ }
+
+translate([40,0,-e_h]){
+difference(){
+//lid
+  hull(){
+     posts(
+      x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
+         y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
+         z=e_h - lid_thicc + 1, 
+         h=wall_thicc - lid_thicc + 2,
+         r=corner_r);
+     }
+     
+     //holes in lid
+ posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2-1, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-1, 
+         z=e_h - lid_thicc + 1, 
+         h=wall_thicc - lid_thicc + 3,
+         r=hole_d/2 + .5);     
+ }
+ }
+ }; //end of enclosure_b code
  
-color("Purple",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure();
+color("Purple",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
+
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
