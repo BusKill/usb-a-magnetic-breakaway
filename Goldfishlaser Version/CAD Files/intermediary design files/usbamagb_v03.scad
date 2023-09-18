@@ -6,7 +6,7 @@ __________ ____ ___  _____________  __.___.____    .____
  |    |   \    |  / /        \    |  \|   |    |___|    |___ 
  |_______ /______/ /_______  / ___|__ \___|_______ \_______ \
                               \/     \/           \/       \/
-                                                  \/       \/                  
+                                                  \/       \/   usbamagb_v03               
 
 */
 /*                      
@@ -14,8 +14,7 @@ Buskill USB-A Magnetic breakaway Shell Assembly
 GNU General Public License v3.0 
 Author: Melanie Allen
 */
-
-
+    
 
 /*
 Description
@@ -42,25 +41,7 @@ buskill.in
 
 //TODO: update design entirely yay
 
-CubePoints = [
-  [  0,  0,  0 ],  //0
-  [ 10,  0,  0 ],  //1
-  [ 10,  7,  0 ],  //2
-  [  0,  7,  0 ],  //3
-  [  0,  0,  5 ],  //4
-  [ 10,  0,  5 ],  //5
-  [ 10,  7,  5 ],  //6
-  [  0,  7,  5 ]]; //7
-  
-CubeFaces = [
-  [0,1,2,3],  // bottom
-  [4,5,1,0],  // front
-  [7,6,5,4],  // top
-  [5,6,2,1],  // right
-  [6,7,3,2],  // back
-  [7,4,0,3]]; // left
-  
-translate([70,0,0])polyhedron( CubePoints, CubeFaces );
+
 
 //magnet variables
 
@@ -170,12 +151,14 @@ module recs(){
 
 //recs();
 
+magnet_size=3.175; 
 magnet_tolerance= .1;
 
+
 module magnet(){
-color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15+magnet_tolerance, r2=2.15+magnet_tolerance, center = true);
+color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cube(magnet_size, center=true);
     
-   color("grey") rotate ([90,0,0])translate([magnet_position_x+magnet_distance,magnet_position_y,magnet_position_z])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15, r2=2.15, center = true);
+   color("grey") rotate ([90,0,0])translate([magnet_position_x+magnet_distance,magnet_position_y,magnet_position_z])cube(magnet_size,center=true);
     
 
 }
@@ -252,9 +235,7 @@ block_distance=25;
         } 
   //release_block();
         
- color("Pink",.55) translate([block_distance,-26,0])cube(size = [i_h, 20, 4], center = false);
-        
-        
+    
   
  
  //BREAKAWAY
@@ -313,6 +294,114 @@ m_step=1.25;
  }    
  }
  translate([10,0,0])assemble2();
+ 
+ module enclosure(){
+     
+     //acknowledgements to BaldGuyDIY for enclosure code
+     
+    $fn=15;
+  //dimensions for enclosure
+  e_w=30;
+  e_l=20;  
+  e_h=8;   
+ //parameters
+     corner_r = .5; //higher is more rounded
+     wall_thicc = 2; 
+     post_d = 5; //support post for screw hole
+     hole_d= 2.5; //hole for screws
+     lid_thicc = 2; 
+     lid_lip = 1; //inset
+     lid_tol = .5;
+     
+     module posts(x,y,z,h,r){
+         
+         translate([x,y,z]){
+             cylinder(r = r, h = h);
+         }
+     
+              translate([-x,y,z]){
+             cylinder(r = r, h = h);
+         }
+         
+                  translate([-x,-y,z]){
+             cylinder(r = r, h = h);
+         }
+                 translate([x,-y,z]){
+             cylinder(r = r, h = h);
+         }
+     }
+     difference(){
+         //box
+     hull(){
+     posts(
+         x=e_w/2 - corner_r, 
+         y=e_l/2 - corner_r, 
+         z=0, 
+         h=e_h,
+         r=corner_r);
+     }
+     //hollow
+         hull(){
+     posts(
+             x=e_w/2 - corner_r - wall_thicc, 
+         y=e_l/2 - corner_r - wall_thicc, 
+         z=wall_thicc, 
+         h=e_h,
+         r=corner_r);
+     }
+     //lip
+       hull(){
+     posts(
+           x=e_w/2 - corner_r - lid_lip, 
+         y=e_l/2 - corner_r - lid_lip, 
+         z=e_h-lid_thicc, 
+         h=lid_thicc + 1,
+         r=corner_r);
+     }
+ }
+ difference(){
+    //support posts
+     posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc-.5, 
+         h=e_h - wall_thicc - lid_thicc +.5,
+         r=post_d/2);
+    
+     
+    //screw holes    
+     posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc, 
+         h=e_h - wall_thicc - lid_thicc +.5,
+         r=hole_d/2);    
+ }
+
+difference(){
+//lid
+  hull(){
+     posts(
+      x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
+         y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
+         z=e_h - lid_thicc + 1, 
+         h=wall_thicc - lid_thicc + 2,
+         r=corner_r);
+     }
+     
+     //holes in lid
+ posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=e_h - lid_thicc + 1, 
+         h=wall_thicc - lid_thicc + 3,
+         r=hole_d/2 + .5);     
+ }
+ }; //end of enclosure code
+ 
+translate([0,20,0]) enclosure();
+ 
+
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
