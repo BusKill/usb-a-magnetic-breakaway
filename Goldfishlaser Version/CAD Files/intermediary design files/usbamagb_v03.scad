@@ -301,8 +301,8 @@ m_step=1.25;
      
     $fn=15;
   //dimensions for enclosure
-  e_w=30;
-  e_l=20;  
+  e_w=20;
+  e_l=22;  
   e_h=8;   
  //parameters
      corner_r = .5; //higher is more rounded
@@ -399,9 +399,9 @@ difference(){
  }
  }; //end of enclosure code
  
-color("Pink",.9)translate([40,-20,0]) rotate([0,0,180]) enclosure();
+color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure();
  
-color("Purple",.9)translate([75,-20,0]) rotate([0,0,180]) enclosure();
+color("Purple",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure();
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
