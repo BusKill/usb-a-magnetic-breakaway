@@ -313,12 +313,12 @@ m_step=1.25;
      post_d = 5; //support post for screw hole
      hole_d= 2.5; //hole for screws
      lid_thicc = 2; 
-     lid_lip = 1; //inset
+     lid_lip = 21; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
          
-         translate([x,y,z]){
+         translate([x+4,y+4,z]){
              cylinder(r = r, h = h);
          }
      
@@ -329,7 +329,7 @@ m_step=1.25;
                   translate([-x,-y,z]){
              cylinder(r = r, h = h);
          }
-                 translate([x,-y,z]){
+                 translate([x+4,-y-4,z]){
              cylinder(r = r, h = h);
          }
      }
@@ -363,7 +363,10 @@ m_step=1.25;
      }
      //usb
      translate([-14,-11,1])usb(); 
+     //pogos
+      translate([12,-8,1])rotate([0,0,90])pogo_recs();
  }
+
  difference(){
     //support posts
      posts(
