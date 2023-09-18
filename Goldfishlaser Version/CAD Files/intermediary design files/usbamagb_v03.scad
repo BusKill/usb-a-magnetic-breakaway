@@ -100,7 +100,7 @@ module pogojig(){
     pj_s2=-1; //shift forward back
     pj_t=30; //tilt left
     pj_t2=-pj_t; //tilt right
-    pj_t3=10; //tilt left innie
+      translate([0,0,0]) cube(u_w,u_h, center=true);  pj_t3=10; //tilt left innie
     pj_t4=-pj_t3; //tilt right innie
     pj_ts=1.25; // shift back left
     pj_ts2=-pj_ts; // shift back right
@@ -304,6 +304,9 @@ m_step=1.25;
   e_w=20;
   e_l=22;  
   e_h=8;   
+     
+
+     
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 2; 
@@ -358,6 +361,8 @@ m_step=1.25;
          h=lid_thicc + 1,
          r=corner_r);
      }
+     //usb
+     translate([-14,-11,1])usb(); 
  }
  difference(){
     //support posts
@@ -398,6 +403,7 @@ difference(){
          r=hole_d/2 + .5);     
  }
  }; //end of enclosure code
+ 
  
 color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure();
  
