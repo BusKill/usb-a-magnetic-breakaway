@@ -100,7 +100,7 @@ module pogojig(){
     pj_s2=-1; //shift forward back
     pj_t=30; //tilt left
     pj_t2=-pj_t; //tilt right
-        pj_t3=10; //tilt left innie
+  pj_t3=10; //tilt left innie
     pj_t4=-pj_t3; //tilt right innie
     pj_ts=1.25; // shift back left
     pj_ts2=-pj_ts; // shift back right
@@ -411,6 +411,8 @@ difference(){
  
  
 color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure();
+ //add logo
+ color("black")translate([45,13,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
  
 color("Purple",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure();
  
@@ -432,12 +434,16 @@ module jig(){
     
     difference(){
 
-cube(size = [17,7,4],center=false);
+cube(size = [17,7,2],center=false);
         
-        translate([0,3.5-1.8,1])pogojig();
+        translate([0,3.5-1.8,-1])pogojig();
+    }
+   difference()  {   
+translate([-25,0,0])cube(size = [17,7,2],center=false);
+        
+        translate([-25,5,5])rotate([180])pogojig();    }     
 
     }
 
-}
+
 jig();
-translate([-25,0,0])jig();
