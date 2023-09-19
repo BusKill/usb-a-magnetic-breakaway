@@ -415,7 +415,7 @@ difference(){
          y=e_l/2 - wall_thicc/2 - post_d/2-1, 
          z=e_h - lid_thicc + 1, 
          h=wall_thicc - lid_thicc + 3,
-         r=hole_d/2 + .5);     
+         r= 1);     
  }
  }
  }; //end of enclosure_r code
@@ -423,7 +423,7 @@ difference(){
  
 color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
- color("black")translate([45,13,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
+ color("black")translate([45,11,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
 
 // BREAKAWAY ENCLOSURE
 
@@ -535,7 +535,7 @@ difference(){
          y=e_l/2 - wall_thicc/2 - post_d/2-1, 
          z=e_h - lid_thicc + 1, 
          h=wall_thicc - lid_thicc + 3,
-         r=hole_d/2 + .5);     
+         r=1);     
  }
  }
  }; //end of enclosure_b code
