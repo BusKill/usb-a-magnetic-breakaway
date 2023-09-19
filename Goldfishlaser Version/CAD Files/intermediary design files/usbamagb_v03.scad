@@ -160,7 +160,7 @@ module recs(){
 //recs();
 
 magnet_size=3.175; 
-magnet_tolerance= .1;
+magnet_tolerance= .2;
 
 
 module magnet(){
@@ -435,9 +435,9 @@ module enclosure_b(){
      
     $fn=15;
   //dimensions for enclosure_b
-  e_w=18;
+  e_w=22;
   e_l=26;  
-  e_h=8;   
+  e_h=10;   
      
      
  //parameters
