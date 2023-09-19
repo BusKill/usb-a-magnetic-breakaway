@@ -145,7 +145,7 @@ module usb(){
 //usb();
 
 module usb_p(){
-    color("grey",.1)translate([-1,3.8,0])cube(size = [u_h,u_w+2,u_d+2],center=false);
+    color("grey",.1)translate([-1,3.8,0])cube(size = [u_h,u_w+1,u_d+1],center=false);
 }
 
 //usb_p();
@@ -310,12 +310,10 @@ m_step=1.25;
  
  module enclosure_r(){
      
-
-     
     $fn=15;
   //dimensions for enclosure_r
-  e_w=20;
-  e_l=22;  
+  e_w=24;
+  e_l=28;  
   e_h=8;   
      
 
@@ -323,26 +321,26 @@ m_step=1.25;
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1; 
-     post_d = 4; //support post for screw hole
-     hole_d= 2; //hole for screws
+     post_d = 2.5; //support post for screw hole
+     hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
      lid_lip = 1; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
          
-         translate([x+4,y+4,z]){
+         translate([x,y,z]){
              cylinder(r = r, h = h);
          }
      
-              translate([-x,y,z]){
+              translate([-x,y-4,z]){
              cylinder(r = r, h = h);
          }
          
-                  translate([-x,-y,z]){
+                  translate([-x,-y+4,z]){
              cylinder(r = r, h = h);
          }
-                 translate([x+4,-y-4,z]){
+                 translate([x,-y,z]){
              cylinder(r = r, h = h);
          }
      }
@@ -437,32 +435,32 @@ module enclosure_b(){
   //dimensions for enclosure_b
   e_w=22;
   e_l=26;  
-  e_h=10;   
+  e_h=8.2;   
      
      
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1; 
-     post_d = 4; //support post for screw hole
-     hole_d= 2; //hole for screws
+     post_d = 2.5; //support post for screw hole
+     hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
      lid_lip = 1; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
          
-         translate([x,y+2,z]){
+         translate([x,y,z]){
              cylinder(r = r, h = h);
          }
      
-              translate([-x,y,z]){
+              translate([-x,y-2.5,z]){
              cylinder(r = r, h = h);
          }
          
-                  translate([-x,-y,z]){
+                  translate([-x,-y+2.5,z]){
              cylinder(r = r, h = h);
          }
-                 translate([x,-y-2,z]){
+                 translate([x,-y,z]){
              cylinder(r = r, h = h);
          }
      }
@@ -576,3 +574,4 @@ translate([-25,0,0])cube(size = [17,7,2],center=false);
 
 
 jig();
+   translate([0,20,0]) jig();
