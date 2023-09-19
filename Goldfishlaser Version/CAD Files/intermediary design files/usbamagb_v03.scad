@@ -320,12 +320,12 @@ m_step=1.25;
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 1; 
+     wall_thicc = 2.5; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = 1; //inset
-     lid_tol = .5;
+     lid_lip = 2; //inset
+     lid_tol = 1;
      
      module posts(x,y,z,h,r){
          
@@ -333,11 +333,11 @@ m_step=1.25;
              cylinder(r = r, h = h);
          }
      
-              translate([-x,y-4,z]){
+              translate([-x,y-3,z]){
              cylinder(r = r, h = h);
          }
          
-                  translate([-x,-y+4,z]){
+                  translate([-x,-y+3,z]){
              cylinder(r = r, h = h);
          }
                  translate([x,-y,z]){
@@ -381,8 +381,8 @@ m_step=1.25;
  difference(){
     //support posts
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 -.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
          z=wall_thicc-.5, 
          h=e_h - wall_thicc - lid_thicc +.5,
          r=post_d/2);
@@ -390,37 +390,39 @@ m_step=1.25;
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc +.5,
          r=hole_d/2);    
  }
 
-translate([40,0,-e_h]){
+translate([40,0,-e_h-4]){
 difference(){
 //lid
   hull(){
      posts(
       x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
          y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
-         z=e_h - lid_thicc + 1, 
-         h=wall_thicc - lid_thicc + 2,
+         z=e_h - lid_thicc +5, 
+         h=lid_thicc,
          r=corner_r);
      }
      
      //holes in lid
- posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2-1, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-1, 
-         z=e_h - lid_thicc + 1, 
-         h=wall_thicc - lid_thicc + 3,
-         r= 1);     
+
+     posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2 -.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -.5, 
+         z=wall_thicc, 
+         h=e_h - wall_thicc - lid_thicc +10,
+         r=hole_d/2);      
  }
  }
+ 
  }; //end of enclosure_r code
  
- 
+
 color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
  color("black")translate([45,11,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
@@ -440,12 +442,12 @@ module enclosure_b(){
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 1; 
+     wall_thicc = 2; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
      lid_lip = 1; //inset
-     lid_tol = .5;
+     lid_tol = 1;
      
      module posts(x,y,z,h,r){
          
@@ -512,7 +514,7 @@ module enclosure_b(){
      posts(
      x=e_w/2 - wall_thicc/2 - post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
-         z=wall_thicc, 
+         z=wall_thicc-.5, 
          h=e_h - wall_thicc - lid_thicc +.5,
          r=hole_d/2);    
  }
@@ -524,8 +526,8 @@ difference(){
      posts(
       x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
          y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
-         z=e_h - lid_thicc + 1, 
-         h=wall_thicc - lid_thicc + 2,
+         z=e_h - lid_thicc, 
+         h=wall_thicc - lid_thicc + .5,
          r=corner_r);
      }
      
@@ -533,8 +535,8 @@ difference(){
  posts(
      x=e_w/2 - wall_thicc/2 - post_d/2-1, 
          y=e_l/2 - wall_thicc/2 - post_d/2-1, 
-         z=e_h - lid_thicc + 1, 
-         h=wall_thicc - lid_thicc + 3,
+         z=e_h - lid_thicc, 
+         h=wall_thicc - lid_thicc + .5,
          r=1);     
  }
  }
