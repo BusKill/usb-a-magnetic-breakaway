@@ -55,9 +55,9 @@ magnet_distance=23;
 //breakaway magnet
 
 //USB_port variables
-u_h = 14.2;
+u_h = 16;
 u_w = 13.5;
-u_d = 5.7;
+u_d = 4.7;
 
 //pogo variables
 
@@ -320,12 +320,12 @@ m_step=1.25;
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 2.5; 
+     wall_thicc = 1.5; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = 2; //inset
-     lid_tol = 1;
+     lid_lip = .5; //inset
+     lid_tol = .5;
      
      module posts(x,y,z,h,r){
          
@@ -425,7 +425,7 @@ difference(){
 
 color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
- color("black")translate([45,11,1])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
+ color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
 
 // BREAKAWAY ENCLOSURE
 
@@ -442,12 +442,12 @@ module enclosure_b(){
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 2; 
+     wall_thicc = 1.5; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = 1; //inset
-     lid_tol = 1;
+     lid_lip = .5; //inset
+     lid_tol = .5;
      
      module posts(x,y,z,h,r){
          
