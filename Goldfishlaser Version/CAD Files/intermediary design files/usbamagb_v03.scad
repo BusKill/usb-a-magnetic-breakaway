@@ -80,6 +80,12 @@ i_l_h =i_h; //x
 i_l_w = i_w; //z
 i_l_d = 20; //y
 
+//jig slot variables
+
+js_w=18;
+js_h=8;
+js_l=3;
+
 //pogo pins
 
 module pogos(){
@@ -222,7 +228,7 @@ translate([24.5,17+1,0])magnet();
 //RELEASE FACE
 
 pogo_house_x = 17.5;
-pogo_house_y = 1;
+pogo_house_y = 2;
 pogo_house_z =4;
 pogo_house_pos_x= 31.75;
 pogo_house_pos_y= 0;
@@ -243,7 +249,7 @@ block_distance=25;
         } 
   //release_block();
         
-    
+
   
  
  //BREAKAWAY FACE
@@ -378,8 +384,10 @@ m_step=1.25;
      translate([-14,-11,1])usb(); 
      //pogos
       //translate([12,-8,1])rotate([0,0,90])pogo_recs();
-     translate([11,0,4])cube([4,18,3], true);
+     //slot
+     translate([11,0,4])cube([js_h,js_w,js_l], true);
  }
+
 
  difference(){
     //support posts
@@ -447,10 +455,11 @@ module enclosure_b(){
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
      post_d = 2.5; //support post for screw hole
-     hole_d= 1; //hole for screws
+     hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
      lid_lip = .5; //inset
-     lid_tol = .25;
+     lid_tol = .5;
+    
      
      module posts(x,y,z,h,r){
          
@@ -500,15 +509,17 @@ module enclosure_b(){
      //usb
      translate([-14,-11,1])usb_p(); 
      //jig
-      translate([11,1,4])cube([3,18,4],true);
+      translate([11,0,4])cube([js_h,js_w,js_l],true);
      //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
+
+ 
 
  difference(){
     //support posts
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
          z=wall_thicc-.5, 
          h=e_h - wall_thicc - lid_thicc +1,
          r=post_d/2);
@@ -516,8 +527,8 @@ module enclosure_b(){
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 -  post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2-.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
          z=wall_thicc-.5, 
          h=e_h - wall_thicc - lid_thicc +1,
          r=hole_d/2);    
@@ -537,11 +548,11 @@ difference(){
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
+         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
          z=e_h - lid_thicc, 
          h=wall_thicc - lid_thicc + 1,
-         r=1);     
+         r=hole_d/2);     
  }
  }
  }; //end of enclosure_b code
