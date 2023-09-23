@@ -234,7 +234,7 @@ block_distance=25;
     color("Pink",.55)
  rotate([90,0,0]){
             translate([block_distance+1.5,0,0]){
-                cube(size = [i_h, i_w, 2.5], center = false);
+                cube(size = [i_h, i_w, 2], center = false);
                 cube(size = [2, 2, 2], center = false);
             }
         } 
