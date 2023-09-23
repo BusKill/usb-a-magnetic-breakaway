@@ -70,12 +70,12 @@ shift2=2; //distance from top
 
 //receptor variables
 
-//breakaway variables
-i_h = 30; //x
+//breakaway face variables
+i_h = 28; //x
 i_w = 8; //z
 i_d = 20; //y
 
-//release variables
+//release face variables
 i_l_h =i_h; //x
 i_l_w = i_w; //z
 i_l_d = 20; //y
@@ -219,7 +219,7 @@ translate([24.5,17+1,0])magnet();
  //translate([shiftx,-i_l_d+3,0])void();
 }
 
-//RELEASE
+//RELEASE FACE
 
 pogo_house_x = 17.5;
 pogo_house_y = 1;
@@ -233,8 +233,8 @@ block_distance=25;
         module release_block(){
     color("Pink",.55)
  rotate([90,0,0]){
-            translate([block_distance,0,0]){
-                cube(size = [i_h, i_w, 2], center = false);
+            translate([block_distance+1.5,0,0]){
+                cube(size = [i_h, i_w, 2.5], center = false);
                 cube(size = [2, 2, 2], center = false);
             }
         } 
@@ -246,7 +246,7 @@ block_distance=25;
     
   
  
- //BREAKAWAY
+ //BREAKAWAY FACE
 
 innie_tolerance=.5;         
 m_step=1.25;        
@@ -255,12 +255,12 @@ m_step=1.25;
     color("purple",.55)
  translate([25,0,0])
             rotate([90,0,0]){
-            translate([block_distance2,0,2]){
-                cube(size = [i_h, i_w, 3], center = false);
+            translate([block_distance2+1.5,0,2]){
+                cube(size = [i_h, i_w, 1.5], center = false);
 
             }
-                           translate([25,0,2]) rotate([-90,0,0]) cube(size = [6.5, m_step, 8], center = false);   
-        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5.6, m_step, 8], center = false);
+                           translate([26.5,0,2]) rotate([-90,0,0]) cube(size = [5, m_step+1, 8], center = false);   
+        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5, m_step+1, 8], center = false);
         } 
         
         }   
@@ -275,7 +275,7 @@ m_step=1.25;
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      
      translate([55.5,-2.6,0])pogos();
-     translate([49.5,16.5,0])magnet();
+     translate([49.5,18.5,0])magnet();
      translate([49.5,18,0])magnet();
      }    
         
@@ -302,6 +302,8 @@ m_step=1.25;
  }    
  }
  translate([10,0,0])assemble2();
+ 
+ // translate([10,0,0])translate([shiftxx,shiftyy,0])void3();
  
       //acknowledgements to BaldGuyDIY for enclosure code
  
@@ -375,7 +377,8 @@ m_step=1.25;
      //usb
      translate([-14,-11,1])usb(); 
      //pogos
-      translate([12,-8,1])rotate([0,0,90])pogo_recs();
+      //translate([12,-8,1])rotate([0,0,90])pogo_recs();
+     translate([11,0,4])cube([4,18,3], true);
  }
 
  difference(){
@@ -496,8 +499,9 @@ module enclosure_b(){
      }
      //usb
      translate([-14,-11,1])usb_p(); 
-     //pogos
-      translate([12,-8,1])rotate([0,0,90])pogo_recs();
+     //jig
+      translate([11,1,4])cube([3,18,4],true);
+     //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
 
  difference(){
