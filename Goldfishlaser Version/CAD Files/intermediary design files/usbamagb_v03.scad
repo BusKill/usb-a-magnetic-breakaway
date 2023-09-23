@@ -444,10 +444,10 @@ module enclosure_b(){
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
      post_d = 2.5; //support post for screw hole
-     hole_d= 1.5; //hole for screws
+     hole_d= 1; //hole for screws
      lid_thicc = 1; 
      lid_lip = .5; //inset
-     lid_tol = .5;
+     lid_tol = .25;
      
      module posts(x,y,z,h,r){
          
@@ -473,7 +473,7 @@ module enclosure_b(){
          x=e_w/2 - corner_r, 
          y=e_l/2 - corner_r, 
          z=0, 
-         h=e_h,
+         h=e_h+1,
          r=corner_r);
      }
      //hollow
@@ -482,7 +482,7 @@ module enclosure_b(){
              x=e_w/2 - corner_r - wall_thicc, 
          y=e_l/2 - corner_r - wall_thicc, 
          z=wall_thicc, 
-         h=e_h,
+         h=e_h +1,
          r=corner_r);
      }
      //lip
@@ -491,7 +491,7 @@ module enclosure_b(){
            x=e_w/2 - corner_r - lid_lip, 
          y=e_l/2 - corner_r - lid_lip, 
          z=e_h-lid_thicc, 
-         h=lid_thicc + 1,
+         h=lid_thicc +1,
          r=corner_r);
      }
      //usb
@@ -506,16 +506,16 @@ module enclosure_b(){
      x=e_w/2 - wall_thicc/2 - post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc-.5, 
-         h=e_h - wall_thicc - lid_thicc +.5,
+         h=e_h - wall_thicc - lid_thicc +1,
          r=post_d/2);
     
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc-.5, 
-         h=e_h - wall_thicc - lid_thicc +.5,
+         h=e_h - wall_thicc - lid_thicc +1,
          r=hole_d/2);    
  }
 
@@ -527,16 +527,16 @@ difference(){
       x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
          y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
          z=e_h - lid_thicc, 
-         h=wall_thicc - lid_thicc + .5,
+         h=wall_thicc - lid_thicc +1,
          r=corner_r);
      }
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2-1, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-1, 
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=e_h - lid_thicc, 
-         h=wall_thicc - lid_thicc + .5,
+         h=wall_thicc - lid_thicc + 1,
          r=1);     
  }
  }
