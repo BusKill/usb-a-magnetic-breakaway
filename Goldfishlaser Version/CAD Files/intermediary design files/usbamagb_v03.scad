@@ -560,7 +560,7 @@ difference(){
  }; //end of enclosure_b code
  
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
-color("black") translate([82,46,0])linear_extrude(2)mirror([0,1,0])rotate([0,0,90])scale(1.5)import("kill.svg");
+color("black") translate([68,-4,0])linear_extrude(2)mirror([0,1,0])rotate([0,0,270])scale(1.5)import("kill.svg");
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
