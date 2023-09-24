@@ -25,9 +25,9 @@ The user will have a USB, a USB extension cable, and the magnetic breakaway. The
 
 The magnetic breakway consists of a "breakaway" and a "release". 
 
-The "breakaway" consists of areas for two 1/8" cube magnets, a usb port, pogo receptors. The breakaway is connected to the cable attached to the person. (purple)
+The "breakaway" consists of areas for two 1/8" cube magnets, a usb port, pogo receptors. The breakaway is connected to the cable attached to the person. (blue)
 
-The "release" consists of areas for two 1/8" cube magnets, a usb, and pogo pins. The release plugs into the computer. (pink)
+The "release" consists of areas for two 1/8" cube magnets, a usb, and pogo pins. The release plugs into the computer. (red)
 
 "Jigs" serve purposes such as housing wires and holding hardware in place. (yellow)
 
@@ -99,7 +99,8 @@ module pogos(){
 
 //pogos();
 
-module pogojig(){
+/**
+    module pogojig(){
     pj_h=5; //height top
     pj_h2=6.75; //height back
     pj_s=3; //shift forward top
@@ -120,6 +121,7 @@ module pogojig(){
             translate([pogo_distance+spread*2,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //3rd from right
     translate([pogo_distance+spread*3,pj_s,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
+
     translate([-.7,-.1,3]){
         translate([shift+pj_ts,pj_s2,0])rotate ([90,0,pj_t])cylinder($fn = 30, $fa = 30, $fs = 2, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); //1st from right 
     translate([pogo_distance+spread,pj_s2,0])rotate ([90,0,pj_t3])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pj_h2, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true); // 2nd from right
@@ -130,7 +132,7 @@ module pogojig(){
 }
 
 //pogojig();
-
+**/
 size_difference = .9;
 
 module pogo_recs(){
@@ -237,7 +239,7 @@ pogo_house_pos_z= 2.25;
 
 block_distance=25;    
         module release_block(){
-    color("Pink",.55)
+    color("red",.55)
  rotate([90,0,0]){
             translate([block_distance+1.5,0,0]){
                 cube(size = [i_h, i_w, 2], center = false);
@@ -258,7 +260,7 @@ innie_tolerance=.5;
 m_step=1.25;        
  block_distance2=25;    
         module breakaway(){
-    color("purple",.55)
+    color("blue",.55)
  translate([25,0,0])
             rotate([90,0,0]){
             translate([block_distance2+1.5,0,2]){
@@ -434,9 +436,9 @@ difference(){
  }; //end of enclosure_r code
  
 
-color("Pink",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
+color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
- color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg");
+color("black") linear_extrude(2)translate([48,13,0])scale(1.5)rotate([0,0,90])import("Bus.svg");
 
 // BREAKAWAY ENCLOSURE
 
@@ -557,8 +559,8 @@ difference(){
  }
  }; //end of enclosure_b code
  
-color("Purple",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
-
+color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
+color("black") translate([82,46,0])linear_extrude(2)mirror([0,1,0])rotate([0,0,90])scale(1.5)import("kill.svg");
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
@@ -580,12 +582,9 @@ module jig(){
 
 cube(size = [17,7,2],center=false);
         
-        translate([0,3.5-1.8,-1])pogojig();
+        translate([0,3.5,-2])pogos();
     }
-   difference()  {   
-translate([-25,0,0])cube(size = [17,7,2],center=false);
-        
-        translate([-25,5,5])rotate([180])pogojig();    }     
+   
 
     }
 
