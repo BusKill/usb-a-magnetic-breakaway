@@ -84,7 +84,7 @@ i_l_d = 20; //y
 
 js_w=18;
 js_h=8;
-js_l=3;
+js_l=4.5;
 
 //pogo pins
 
