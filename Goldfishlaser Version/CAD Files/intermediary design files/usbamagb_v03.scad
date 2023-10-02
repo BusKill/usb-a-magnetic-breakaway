@@ -62,7 +62,7 @@ u_d = 4.7;
 //pogo variables
 
 pogo_length=7.6;
-pogo_diameter=2.6; //+.3 +.2 +.2 +.2
+pogo_diameter=2.7; // pogo thickness
 pogo_distance=1.5; //distance between pins 
 shift=2.1; //distance from pins 
 spread=4.8;
@@ -242,7 +242,7 @@ block_distance=25;
     color("red",.55)
  rotate([90,0,0]){
             translate([block_distance+1.5,0,0]){
-                cube(size = [i_h, i_w, 2], center = false);
+                cube(size = [i_h, i_w, 3], center = false);
                 cube(size = [2, 2, 2], center = false);
             }
         } 
@@ -282,7 +282,7 @@ m_step=1.25;
  module void3(){
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      
-     translate([55.5,-2.6,0])pogos();
+     translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
      translate([49.5,18.5,0])magnet();
      translate([49.5,18,0])magnet();
      }    
@@ -438,8 +438,9 @@ difference(){
 
 color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
-color("black") linear_extrude(2)translate([48,13,0])scale(1.5)rotate([0,0,90])import("Bus.svg");
-
+//color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
+ color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
+ 
 // BREAKAWAY ENCLOSURE
 
 module enclosure_b(){
@@ -448,9 +449,9 @@ module enclosure_b(){
      
     $fn=15;
   //dimensions for enclosure_b
-  e_w=22;
+  e_w=25;
   e_l=26;  
-  e_h=8.2;   
+  e_h=9;   
      
      
  //parameters
@@ -560,7 +561,7 @@ difference(){
  }; //end of enclosure_b code
  
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
-color("black") translate([80,-5,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg");
+//color("black") translate([80,-2.75,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
 // translate([shiftxx+10,shiftyy,0])void3();
     
