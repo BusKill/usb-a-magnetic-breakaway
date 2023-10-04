@@ -71,14 +71,14 @@ shift2=2; //distance from top
 //receptor variables
 
 //breakaway face variables
-i_h = 28; //x
-i_w = 8; //z
-i_d = 20; //y
+i_x = 28; //width
+i_z = 10; //height
+i_y = 1.5; //length
 
 //release face variables
-i_l_h =i_h; //x
-i_l_w = i_w; //z
-i_l_d = 20; //y
+i_l_h =i_x; //width
+i_l_w = 8; //height
+i_l_d = 3; //length
 
 //jig slot variables
 
@@ -203,7 +203,7 @@ translate([24.5,17+1,0])magnet();
 
 /* * Blocks * */
 
-    module release_block(){
+    module release_face(){
        
     color("Red",.55)
  rotate([90,0,0]){
@@ -213,18 +213,53 @@ translate([24.5,17+1,0])magnet();
         } 
     } 
  
-   // release_block();
+   // release_face();
     
     shiftx=5;
    module assemble3(){ 
     difference(){
-       release_block();
+       release_face();
     translate([shiftx,-i_l_d+3,0])void();
 
 
 }
 
- //translate([shiftx,-i_l_d+3,0])void();
+ //
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+translate([shiftx,-i_l_d+3,0])void();
 }
 
 //RELEASE FACE
@@ -238,18 +273,18 @@ pogo_house_pos_z= 2.25;
 
 
 block_distance=25;    
-        module release_block(){
+        module release_face(){
     color("red",.55)
  rotate([90,0,0]){
             translate([block_distance+1.5,0,0]){
-                cube(size = [i_h, i_w, 3], center = false);
+                cube(size = [i_l_h, i_l_w, i_l_d], center = false);
                 cube(size = [2, 2, 2], center = false);
             }
         } 
     translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
 
         } 
-  //release_block();
+  //release_face();
         
 
   
@@ -264,7 +299,7 @@ m_step=1.25;
  translate([25,0,0])
             rotate([90,0,0]){
             translate([block_distance2+1.5,0,2]){
-                cube(size = [i_h, i_w, 1.5], center = false);
+                cube(size = [i_x, i_z, i_y], center = false);
 
             }
                            translate([26.5,0,2]) rotate([-90,0,0]) cube(size = [5, m_step+1, 8], center = false);   
@@ -449,7 +484,7 @@ module enclosure_b(){
      
     $fn=15;
   //dimensions for enclosure_b
-  e_w=25;
+  e_w=30;
   e_l=26;  
   e_h=9;   
      
@@ -510,9 +545,9 @@ module enclosure_b(){
          r=corner_r);
      }
      //usb
-     translate([-14,-11,1])usb_p(); 
-     //jig
-      translate([11,0,4])cube([js_h,js_w,js_l],true);
+     translate([-14,-11,2])usb_p(); 
+     //jig slot
+      translate([11,0,4])cube([js_h,js_w,js_l],true); 
      //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
 
@@ -567,7 +602,7 @@ color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
     
 module assemble(){
 translate([0,0,0])difference(){
-      release_block();
+      release_face();
     translate([shiftxx,0,0])void2();
    
 }
