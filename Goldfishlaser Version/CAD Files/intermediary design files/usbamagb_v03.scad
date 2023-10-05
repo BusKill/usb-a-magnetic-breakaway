@@ -475,16 +475,18 @@ color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
 //color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
  color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
+
  
 // BREAKAWAY ENCLOSURE
 
+module make_breakaway_case(){
 module enclosure_b(){
      
 
      
     $fn=15;
   //dimensions for enclosure_b
-  e_w=30;
+  e_w=28;
   e_l=26;  
   e_h=9;   
      
@@ -610,7 +612,11 @@ translate([0,0,0])difference(){
 
 //translate([shiftxx,0,0])void2();
 
-assemble();   
+assemble();
+
+}
+
+module make_jig(){
 
 module jig(){
     
@@ -627,3 +633,13 @@ cube(size = [17,7,2],center=false);
 
 jig();
    translate([0,20,0]) jig();
+}   
+    
+    
+ //ASSEMBLY
+ 
+ make_jig();
+ make_breakaway_case();
+ //make_breakaway_face();   
+ //make_release_case();
+ //make_release_face();   
