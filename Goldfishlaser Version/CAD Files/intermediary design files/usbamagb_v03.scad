@@ -130,6 +130,8 @@ module usb_p(){
 
 //usb_p();
 
+
+/** cube magnet **/
 module magnet(){
 color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cube(magnet_size+magnet_tolerance, center=true);
     
@@ -139,6 +141,16 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 }
 
 //magnet();
+
+/** disc magnet **/ 
+module disc_magnet(){
+color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,magnet_position_z])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15+magnet_tolerance, r2=2.15+magnet_tolerance, center = true);
+    
+   color("grey") rotate ([90,0,0])translate([magnet_position_x+magnet_distance,magnet_position_y,magnet_position_z])cylinder($fn = 30, $fa = 30, $fs = 2, h=4, r1=2.15, r2=2.15, center = true);  
+
+}
+
+//disc_magnet();
 
 
 // wire jigs
@@ -237,6 +249,12 @@ translate([24.5,17+1,0])magnet();
 }
 //release_void();   
 
+ module release_void_m(){
+translate([30+x,y,0])pogo_recs();
+translate([24.5,17+1,0])disc_magnet();
+}
+//release_void_m();   
+
 
 //pogo house is the extrusion on the front of the release face. the breakaway face has a coresponding admission allowing for mating.
 pogo_house_x = 17.5;
@@ -272,6 +290,17 @@ module make_r_face(){
 
 }        
 // make_r_face();
+
+module make_r_face_m(){
+ translate([0,5.75,3.5]) rotate([90,0,0])difference(){
+      release_face();
+    translate([shiftxx,0,0])release_void_m();
+   
+}
+
+} 
+
+//make_r_face_m();
  
 // RELEASE ENCLOSURE
 
@@ -450,6 +479,16 @@ innie_tolerance=.5;
      }    
         
 //breakaway_void(); 
+     
+ module breakaway_void_m(){
+     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
+     translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
+     translate([49.5,18.5,0])disc_magnet();
+     translate([49.5,18,0])disc_magnet();
+     }    
+        
+//breakaway_void_m();      
        
  
      shiftxx=1.5;
@@ -465,8 +504,14 @@ innie_tolerance=.5;
 
 // make_b_face();
  
-
-
+ module make_b_face_m(){
+ translate([10,5.75,3.5]) rotate([90,0,0])
+     difference(){
+ breakaway();
+ translate([shiftxx,shiftyy,0])breakaway_void_m();
+ }    
+ }
+//make_b_face_m();
 
 // BREAKAWAY ENCLOSURE
 
@@ -603,7 +648,7 @@ color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
  
  //comment or uncomment below to render desired parts
  
-// all
+/** all **/
 module make_all(){
  make_r_face();
  make_enclosure_r();  
@@ -615,15 +660,15 @@ module make_all(){
 
 make_all();
 
-// only release
+/** only release **/
 module only_r()
 {
     make_enclosure_r();
     jig();
     }
-only_r();
+//only_r();
     
-// only breakaway
+/** only breakaway **/
 
 module only_b()
 {
@@ -632,7 +677,7 @@ module only_b()
     }
 //only_b();    
  
-// only wire jigs 
+/** only wire jigs **/
     
 module only_j()
 {
@@ -641,15 +686,24 @@ module only_j()
     }
 //only_j();    
 
-// only release face
+/** only release face **/
+    
 module only_r_f(){
 make_r_face();
 }
 //only_r_f();
 
-// only breakaway face
+/** only breakaway face **/
 
 module only_b_f(){
     make_b_face();
 }
 //make_b_face();
+
+/** disc version of faces*/
+
+module make_disc_version(){
+   make_r_face_m();  
+    make_b_face_m();
+}
+//make_disc_version();
