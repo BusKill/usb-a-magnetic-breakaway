@@ -36,7 +36,7 @@ Parameters: Should you need to adjust this design to suit the parts available to
 Hardware: This section contains modules related to creating areas for magnets, usb, pogo pins, pogo receptors, and jigs. 
 Breakaway: This section contains modules related to creating enclosure (lid, body, and face) for the breakaway. 
 Release: This section contains modules related to creating the enclosure (lid, body, and face) for the release.
-Assembly: This section allows you to call the modules individually or all at once.
+Assembly: This section allows you to call the modules individually or all at once. 
 
 The assembly of the BusKill cord is as follows: (1) attach the caribiner to the usb (2) insert the USB hard drive into the female usb port in the assembled "breakaway" (3) connect the magnets of the "breakaway" to the "release" (4) insert the male usb from the "release" into the female port of the extension cable (5) insert the male end of the usb cable into the computers usb-a port. 
 
@@ -223,6 +223,10 @@ i_l_h =28; //width
 i_l_w = 8; //height
 i_l_d = 3; //length
 
+r_extrusion_x=5;//extrusion x
+r_extrusion_y=1; //extrusion y
+r_extrusion_z=8;//extrusion z
+
 x=.75;
 y=.5;
 
@@ -251,8 +255,9 @@ block_distance=25;
                 cube(size = [i_l_h, i_l_w, i_l_d], center = false);
             }
         } 
-    translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
-
+    color("red",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
+                           color("red",.55)translate([26.5,0,0]) cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);   
+        color("red",.55)translate([26.5+magnet_distance,0,0])cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);
         } 
   //release_face();
         
@@ -404,31 +409,36 @@ color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //BREAKAWAY FACE
  
  //variables
-i_x = i_l_h; //width
-i_z = 10; //height
-i_y = 1.5; //length
+i_x = i_l_h; //base width
+i_z = 10; //base height
+i_y = 2; //base length
+
+b_extrusion_x=5;//extrusion x
+b_extrusion_y=1.5; //extrusion y
+b_extrusion_z=8;//extrusion z
+
 
 innie_tolerance=.5;         
-m_step=1.25;        
- block_distance2=25;    
+     
+ face_distance=26.5;  //distance from release face
         module breakaway(){
     color("blue",.55)
  translate([25,0,0])
             rotate([90,0,0]){
-            translate([block_distance2+1.5,0,2]){
+            translate([face_distance,0,2]){
                 cube(size = [i_x, i_z, i_y], center = false);
 
             }
-                           translate([26.5,0,2]) rotate([-90,0,0]) cube(size = [5, m_step+1, 8], center = false);   
-        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5, m_step+1, 8], center = false);
+                           translate([face_distance,0,2]) rotate([-90,0,0]) cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);   
+        translate([face_distance+magnet_distance,0,2])rotate([-90,0,0])cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);
         } 
         
         }   
 
 //breakaway();
      
- pogo_house2_pos_x= pogo_house_pos_x+23.75;
- pogo_house2_pos_y= pogo_house_pos_y-m_step;
+ pogo_house2_pos_x= pogo_house_pos_x+23.5;
+ pogo_house2_pos_y= pogo_house_pos_y-b_extrusion_y;
  pogo_house2_pos_z= pogo_house_pos_z;  
         
  module breakaway_void(){
@@ -455,7 +465,7 @@ m_step=1.25;
 
 // make_b_face();
  
- // translate([10,0,0])translate([shiftxx,shiftyy,0])breakaway_void();
+
 
 
 // BREAKAWAY ENCLOSURE
