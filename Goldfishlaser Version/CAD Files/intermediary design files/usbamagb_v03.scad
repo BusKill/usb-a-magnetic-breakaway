@@ -599,7 +599,8 @@ module make_all(){
  make_enclosure_r();  
  make_b_face();
  make_enclosure_b();
- jig();   
+ jig();  
+ translate ([-25,0,0])jig();   
 } 
 
 make_all();
@@ -608,14 +609,16 @@ make_all();
 module only_r()
 {
     make_enclosure_r();
+    jig();
     }
-//only_r();
+only_r();
     
 // only breakaway
 
 module only_b()
 {
     make_enclosure_b();
+    jig();
     }
 //only_b();    
  
@@ -624,6 +627,7 @@ module only_b()
 module only_j()
 {
     jig();
+    translate ([-25,0,0])jig();
     }
 //only_j();    
 
