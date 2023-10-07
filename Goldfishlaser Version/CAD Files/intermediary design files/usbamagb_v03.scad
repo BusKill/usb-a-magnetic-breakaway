@@ -19,29 +19,35 @@ Author: Melanie Allen
 /*
 Description
 
-BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, severing a USB connection. This design is for USB-A.
+BusKill is a Dead Man Switch triggered when a magnetic breakaway is tripped, severing a USB connection. This code creates a 3D printable file for plastic parts needed to create the magnetic breakaway. 
 
-The user will have a USB, a USB extension cable, and the magnetic breakaway. The user will attach a USB using a caribiner to their person. the USB will plug into the extension cable, which will plug into the magnetic breakaway usb female port. The magnetic breakaway usb male will insert into the computer.
+To assemble a BusKill Dead Man Switch cord you will need: a usb-a extension cord, a usb hard drive capable of being attached to a caribiner, a caribiner, the plastic pieces in this file, a usb female port, a usb male, 4 magnets, 4 pogo pins, 4 pogo receptors, wire, 8 screws, and BusKill software. For full BOM, glossary, and assembly instructions, see the files in the repo.
 
-The magnetic breakway consists of a "breakaway" and a "release". 
+The magnetic breakway consists of a "breakaway" (blue) and a "release" (red). When the magnets on the breakaway and release connect, the pogo pins and pogo receptors meet and establish the USB connection. When the parts are separated, the USB connection is severed.
 
-The "breakaway" consists of areas for two 1/8" cube magnets, a usb port, pogo receptors. The breakaway is connected to the cable attached to the person. (blue)
+The "breakaway" consists of three plastic pieces. The enclosure, the lid, and the face. The face contains areas for two 1/8" cube magnets and pogo receptors. The enclosure allows for the housing of a wire jig, wires and female usb port. The lid screws onto the enclosure with 4 x 1.5-2M screws. 
 
-The "release" consists of areas for two 1/8" cube magnets, a usb, and pogo pins. The release plugs into the computer. (red)
+The "release" consists of three plastic parts. The enclosure, the lid, and the face. The face contains areas for two 1/8" cube magnets and pogo pins. The enclosure allows for the housing of a wire jig, wires, and male usb. The release plugs into the computer. The lid screws onto the enclosure with 4 x 1.5-2M screws.
 
-"Jigs" serve purposes such as housing wires and holding hardware in place. (yellow)
+"Jigs" serve purposes such as housing wires and holding hardware in place during assembly and use. (yellow)
 
-When the magnets on the breakaway and release connect, the pogo pins and pogo receptors must meet and establish the USB connection.
+The code in this file is divided into five section: Parameters, Hardware, Breakaway, Release, and Assembly.
+Parameters: Should you need to adjust this design to suit the parts available to you, you can tune variables for parts in this section 
+Hardware: This section contains modules related to creating areas for magnets, usb, pogo pins, pogo receptors, and jigs. 
+Breakaway: This section contains modules related to creating enclosure (lid, body, and face) for the breakaway. 
+Release: This section contains modules related to creating the enclosure (lid, body, and face) for the release.
+Assembly: This section allows you to call the modules individually or all at once.
 
-The breakaway and release plugs must be designed asymmetrically to prevent the connection from happening the wrong way. 
+The assembly of the BusKill cord is as follows: (1) attach the caribiner to the usb (2) insert the USB hard drive into the female usb port in the assembled "breakaway" (3) connect the magnets of the "breakaway" to the "release" (4) insert the male usb from the "release" into the female port of the extension cable (5) insert the male end of the usb cable into the computers usb-a port. 
+
 
 docs.buskill.in
 buskill.in
 */
 
-//TODO: update design entirely yay
+//acknowledgements to BaldGuyDIY for enclosure code
 
-
+/*********** PARAMETERS ***********/
 
 //magnet variables
 
@@ -85,6 +91,9 @@ i_l_d = 3; //length
 js_w=18;
 js_h=8;
 js_l=4.5;
+
+
+/*********** HARDWARE ***********/
 
 //pogo pins
 
@@ -181,10 +190,37 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 //magnet();
 
-//
+module jig(){
+    
+    difference(){
+
+cube(size = [17,7,2],center=false);
+        
+        translate([0,3.5,-2])pogos();
+    }
+   
+}
+
+jig();
+   translate([0,20,0]) jig();
+
+
+
+
+/*********** RELEASE ***********/
+
+//RELEASE FACE
 
 x=.75;
 y=.5;
+
+
+ module void2(){
+translate([30+x,y,0])pogo_recs();
+translate([24.5,17+1,0])magnet();
+}
+//void2();   
+
 module void(){
 
 usb();
@@ -193,15 +229,6 @@ translate([-5.5,17,0])magnet();
 }
 
 // void();
-
-
-module void2(){
-translate([30+x,y,0])pogo_recs();
-translate([24.5,17+1,0])magnet();
-}
-//void2();
-
-/* * Blocks * */
 
     module release_face(){
        
@@ -226,43 +253,9 @@ translate([24.5,17+1,0])magnet();
 
  //
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 translate([shiftx,-i_l_d+3,0])void();
 }
 
-//RELEASE FACE
 
 pogo_house_x = 17.5;
 pogo_house_y = 2;
@@ -285,70 +278,17 @@ block_distance=25;
 
         } 
   //release_face();
-        
+module assemble(){
+translate([0,0,0])difference(){
+      release_face();
+    translate([shiftxx,0,0])void2();
+   
+}
 
-  
- 
- //BREAKAWAY FACE
+//translate([shiftxx,0,0])void2();
 
-innie_tolerance=.5;         
-m_step=1.25;        
- block_distance2=25;    
-        module breakaway(){
-    color("blue",.55)
- translate([25,0,0])
-            rotate([90,0,0]){
-            translate([block_distance2+1.5,0,2]){
-                cube(size = [i_x, i_z, i_y], center = false);
-
-            }
-                           translate([26.5,0,2]) rotate([-90,0,0]) cube(size = [5, m_step+1, 8], center = false);   
-        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5, m_step+1, 8], center = false);
-        } 
-        
-        }   
-
-//breakaway();
-     
- pogo_house2_pos_x= pogo_house_pos_x+23.75;
- pogo_house2_pos_y= pogo_house_pos_y-m_step;
- pogo_house2_pos_z= pogo_house_pos_z;  
-        
- module void3(){
-     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
-     
-     translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
-     translate([49.5,18.5,0])magnet();
-     translate([49.5,18,0])magnet();
-     }    
-        
-//void3(); 
-  
-     module jig2(){
- 
-         translate ([0,-10,0])rotate([90,0,0]){difference(){
-     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
-     
-      translate([0,0,-2])pogos();
-     }
- }
- }
-     jig2();
- translate([-25,0,0])jig2();
-     
-     shiftxx=1.5;
-     shiftyy=-1.45;
- module assemble2(){
- difference(){
- breakaway();
- translate([shiftxx,shiftyy,0])void3();
- }    
- }
- translate([10,0,0])assemble2();
- 
- // translate([10,0,0])translate([shiftxx,shiftyy,0])void3();
- 
-      //acknowledgements to BaldGuyDIY for enclosure code
+}        
+ assemble();
  
 // RELEASE ENCLOSURE
 
@@ -476,13 +416,77 @@ color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
 //color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
  color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
 
+
+
+/*********** BREAKAWAY ***********/
+
  
+ //BREAKAWAY FACE
+
+innie_tolerance=.5;         
+m_step=1.25;        
+ block_distance2=25;    
+        module breakaway(){
+    color("blue",.55)
+ translate([25,0,0])
+            rotate([90,0,0]){
+            translate([block_distance2+1.5,0,2]){
+                cube(size = [i_x, i_z, i_y], center = false);
+
+            }
+                           translate([26.5,0,2]) rotate([-90,0,0]) cube(size = [5, m_step+1, 8], center = false);   
+        translate([25+magnet_distance+1.55,0,2])rotate([-90,0,0])cube(size = [5, m_step+1, 8], center = false);
+        } 
+        
+        }   
+
+//breakaway();
+     
+ pogo_house2_pos_x= pogo_house_pos_x+23.75;
+ pogo_house2_pos_y= pogo_house_pos_y-m_step;
+ pogo_house2_pos_z= pogo_house_pos_z;  
+        
+ module void3(){
+     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
+     translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
+     translate([49.5,18.5,0])magnet();
+     translate([49.5,18,0])magnet();
+     }    
+        
+//void3(); 
+       
+  
+     module jig2(){
+ 
+         translate ([0,-10,0])rotate([90,0,0]){difference(){
+     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
+      translate([0,0,-2])pogos();
+     }
+ }
+ }
+     jig2();
+ translate([-25,0,0])jig2();
+     
+     shiftxx=1.5;
+     shiftyy=-1.45;
+ module assemble2(){
+ difference(){
+ breakaway();
+ translate([shiftxx,shiftyy,0])void3();
+ }    
+ }
+ translate([10,0,0])assemble2();
+ 
+ // translate([10,0,0])translate([shiftxx,shiftyy,0])void3();
+
+
 // BREAKAWAY ENCLOSURE
 
-module make_breakaway_case(){
+
 module enclosure_b(){
      
-
      
     $fn=15;
   //dimensions for enclosure_b
@@ -601,45 +605,28 @@ color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
 //color("black") translate([80,-2.75,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
 // translate([shiftxx+10,shiftyy,0])void3();
-    
-module assemble(){
-translate([0,0,0])difference(){
-      release_face();
-    translate([shiftxx,0,0])void2();
-   
-}
-}
-
-//translate([shiftxx,0,0])void2();
-
-assemble();
-
-}
-
-module make_jig(){
-
-module jig(){
-    
-    difference(){
-
-cube(size = [17,7,2],center=false);
-        
-        translate([0,3.5,-2])pogos();
-    }
-   
-
-    }
-
-
-jig();
-   translate([0,20,0]) jig();
-}   
-    
-    
- //ASSEMBLY
  
- make_jig();
- make_breakaway_case();
- //make_breakaway_face();   
- //make_release_case();
- //make_release_face();   
+    
+/*********** ASSEMBLY ***********/
+ 
+ //comment or uncomment below to render desired parts
+ 
+// all
+ 
+// only release
+ 
+// only breakaway
+ 
+// only wire jigs 
+
+// only release lid
+
+// only breakaway lid
+
+// only release body
+
+// only breakaway body
+
+// only release face
+
+// only breakaway face
