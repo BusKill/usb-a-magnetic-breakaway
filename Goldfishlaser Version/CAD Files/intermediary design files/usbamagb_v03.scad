@@ -143,18 +143,21 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 // wire jigs
 module jig(){
+ j_d=20; //distance between jigs
     
     difference(){
-
-cube(size = [17,7,2],center=false);
-        
+        cube(size = [17,7,2],center=false);
+        translate([0,3.5,-2])pogos();
+    }
+    
+    translate([0,j_d,0])
+    difference(){
+        cube(size = [17,7,2],center=false);
         translate([0,3.5,-2])pogos();
     }
    
 }
-
-jig();
-   translate([0,20,0]) jig();
+//jig();
 
 /**
 //this commented out code was used to create a wire jig that curves wire from the place where it comes out of face to where it could be soldered to a usb female or male. it didn't work well for me, but keeping the code in case it helps others or I change my mind. 
@@ -192,6 +195,23 @@ jig();
 
 //pogojig();
 **/
+
+  /*
+  //this commented out code is for a small retangular piece with holes the size of pogos. at one time it was thought this piece might help with stabilization but it didn't really pan out. 
+  
+     module jig2(){
+ 
+         translate ([0,-10,0])rotate([90,0,0]){difference(){
+     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     
+      translate([0,0,-2])pogos();
+     }
+ }
+ }
+     jig2();
+
+ translate([-25,0,0])jig2();
+   */  
 
 
 /*********** RELEASE ***********/
@@ -252,6 +272,7 @@ module make_r_face(){
 
  
  module enclosure_r(){
+
      
     $fn=15;
   //dimensions for enclosure_r
@@ -342,6 +363,7 @@ module make_r_face(){
          h=e_h - wall_thicc - lid_thicc +.5,
          r=hole_d/2);    
  }
+ 
 
 translate([40,0,-e_h-4]){
 difference(){
@@ -368,12 +390,13 @@ difference(){
  
  }; //end of enclosure_r code
  
-
+module make_enclosure_r(){
 color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
 //color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
  color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
-
+}
+//make_enclosure_r();
 
 
 /*********** BREAKAWAY ***********/
@@ -418,19 +441,7 @@ m_step=1.25;
         
 //breakaway_void(); 
        
-  
-     module jig2(){
  
-         translate ([0,-10,0])rotate([90,0,0]){difference(){
-     cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
-     
-      translate([0,0,-2])pogos();
-     }
- }
- }
-     jig2();
- translate([-25,0,0])jig2();
-     
      shiftxx=1.5;
      shiftyy=-1.45;
  module make_b_face(){
@@ -440,6 +451,8 @@ m_step=1.25;
  translate([shiftxx,shiftyy,0])breakaway_void();
  }    
  }
+ 
+
 // make_b_face();
  
  // translate([10,0,0])translate([shiftxx,shiftyy,0])breakaway_void();
@@ -567,34 +580,62 @@ difference(){
 
  }; //end of enclosure_b code
 
-
+module make_enclosure_b(){
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
 //color("black") translate([80,-2.75,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
 // translate([shiftxx+10,shiftyy,0])breakaway_void();
+}
 
+//make_enclosure_b();
     
 /*********** ASSEMBLY ***********/
  
  //comment or uncomment below to render desired parts
  
 // all
- 
+module make_all(){
+ make_r_face();
+ make_enclosure_r();  
+ make_b_face();
+ make_enclosure_b();
+ jig();   
+} 
+
+make_all();
+
 // only release
- 
+module only_r()
+{
+    make_enclosure_r();
+    }
+//only_r();
+    
 // only breakaway
+
+module only_b()
+{
+    make_enclosure_b();
+    }
+//only_b();    
  
 // only wire jigs 
-
-// only release lid
-
-// only breakaway lid
-
-// only release body
-
-// only breakaway body
+    
+module only_j()
+{
+    jig();
+    }
+//only_j();    
 
 // only release face
+module only_r_f(){
 make_r_face();
+}
+//only_r_f();
+
 // only breakaway face
-make_b_face();
+
+module only_b_f(){
+    make_b_face();
+}
+//make_b_face();
