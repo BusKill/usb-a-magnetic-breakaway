@@ -431,8 +431,8 @@ difference(){
 module make_enclosure_r(){
 color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
-//color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
- color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
+color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
+ //color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
 }
 //make_enclosure_r();
 
@@ -647,7 +647,7 @@ difference(){
 
 module make_enclosure_b(){
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
-//color("black") translate([80,-2.75,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
+color("black") translate([80,-2.75,0])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
 // translate([shiftxx+10,shiftyy,0])breakaway_void();
 }
@@ -668,7 +668,7 @@ module make_all(){
  translate ([-25,0,0])jig();   
 } 
 
-make_all();
+//make_all();
 
 /** only release **/
 module only_r()
@@ -685,7 +685,7 @@ module only_b()
     make_enclosure_b();
     jig();
     }
-//only_b();    
+only_b();    
  
 /** only wire jigs **/
     
@@ -708,7 +708,7 @@ make_r_face();
 module only_b_f(){
     make_b_face();
 }
-//make_b_face();
+make_b_face();
 
 /** disc version of faces*/
 
