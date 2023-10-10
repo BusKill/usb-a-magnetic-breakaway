@@ -38,6 +38,8 @@ Breakaway: This section contains modules related to creating enclosure (lid, bod
 Release: This section contains modules related to creating the enclosure (lid, body, and face) for the release.
 Assembly: This section allows you to call the modules individually or all at once. 
 
+If you're new to openscad, might be helpful to know that numbers representing dimensions are in "mm" units. 
+
 The assembly of the BusKill cord is as follows: (1) attach the caribiner to the usb (2) insert the USB hard drive into the female usb port in the assembled "breakaway" (3) connect the magnets of the "breakaway" to the "release" (4) insert the male usb from the "release" into the female port of the extension cable (5) insert the male end of the usb cable into the computers usb-a port. 
 
 
@@ -242,6 +244,7 @@ r_extrusion_z=8;//extrusion z
 x=.75;
 y=.5;
 
+/** version with cube magnets **/
 
  module release_void(){
 translate([30+x,y,0])pogo_recs();
@@ -249,6 +252,7 @@ translate([24.5,17+1,0])magnet();
 }
 //release_void();   
 
+/** version with disc magnets **/
  module release_void_m(){
 translate([30+x,y,0])pogo_recs();
 translate([24.5,17+1,0])disc_magnet();
@@ -375,7 +379,7 @@ module make_r_face_m(){
      //pogos
       //translate([12,-8,1])rotate([0,0,90])pogo_recs();
      //slot
-     translate([11,0,4])cube([js_h,js_w,js_l], true);
+     translate([11,0,4])cube([js_h,js_w,js_l], true); //jig slot
  }
 
 
@@ -460,6 +464,8 @@ innie_tolerance=.5;
             }
                            translate([face_distance,0,2]) rotate([-90,0,0]) cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);   
         translate([face_distance+magnet_distance,0,2])rotate([-90,0,0])cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);
+           translate([face_distance,.25,.5])cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false);
+            translate([face_distance,6.75,.5])cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false);
         } 
         
         }   
@@ -469,6 +475,8 @@ innie_tolerance=.5;
  pogo_house2_pos_x= pogo_house_pos_x+23.5;
  pogo_house2_pos_y= pogo_house_pos_y-b_extrusion_y;
  pogo_house2_pos_z= pogo_house_pos_z;  
+
+/** version with cube magnets **/
         
  module breakaway_void(){
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
@@ -479,6 +487,8 @@ innie_tolerance=.5;
      }    
         
 //breakaway_void(); 
+
+/**version with disc magnets **/
      
  module breakaway_void_m(){
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
