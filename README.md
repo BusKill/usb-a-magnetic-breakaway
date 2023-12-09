@@ -35,7 +35,7 @@ This directory contains files are for a version built in FreeCAD by leoheck. See
 (3D printable case, Work In Progress)
 This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
 
-![goldfishlaser Version](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/cca7f0f6-c13a-45fb-9152-c4c95e4f8740)
+![goldfishlaser Version](https://crashxblossom.files.wordpress.com/2023/11/layout2-1.jpg)
 
 
 #### CAD Files
