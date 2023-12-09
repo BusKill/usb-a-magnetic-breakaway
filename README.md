@@ -28,10 +28,12 @@ To reference our technical terminology check out [glossary.md](https://github.co
 
 ### goldfishlaser Version
 (3D printable case, Work In Progress)
-This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently trying to suss out exactly what the wiring requirements are to get the cord to successfully transmit data through the connection after splicing. 
+This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation.
 
 ![goldfishlaser Version](https://crashxblossom.files.wordpress.com/2023/11/layout2-1.jpg)
 
+Part 1 Video Assembly Instructions: https://youtu.be/HxwEmIUqQ7w?si=xajbAuSA-TxbAlxz
+Prototype Assembly Instructions: https://crashxblossom.wordpress.com/2023/07/04/exciting-milestone-in-buskill-usb-a-magnetic-release-open-hardware-project/
 
 #### CAD Files
 
