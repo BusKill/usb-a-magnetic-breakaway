@@ -16,7 +16,8 @@ If you create your own version, please create a folder and add your assets to th
 
 ##  What's New?
 
-* Updates to goldfishlaser Version: She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. 
+* Updates to goldfishlaser Version: She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. Part 1 Video Assembly Instructions: https://youtu.be/HxwEmIUqQ7w?si=xajbAuSA-TxbAlxz
+
 
 ## What's in this Repo?
 
