@@ -25,11 +25,6 @@ If you create your own version, please create a folder and add your assets to th
 ### Glossary
 To reference our technical terminology check out [glossary.md](https://github.com/BusKill/usb-a-magnetic-breakaway/blob/3cc552533db1436cacee31b77e96ae590389fd92/Glossary.md)
 
-### CAD files
-(3D printable case, Work In Progress)
-This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
-
-![image](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/fe949841-c8f3-4abd-87c7-8e0b29d4b1c3)
 
 ### goldfishlaser Version
 (3D printable case, Work In Progress)
@@ -53,6 +48,12 @@ Directory contains engineering drawings for the magnets which you can provide to
 #### Magnet_and_PP_Vendor_List.ods
 
 File contains a list of manufacturers that sell magnets, pogo pins, and pogo receptors. 
+
+### Leoheck CAD files
+(3D printable case, Work In Progress)
+This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
+
+![image](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/fe949841-c8f3-4abd-87c7-8e0b29d4b1c3)
 
 ## Supplier Version
 
