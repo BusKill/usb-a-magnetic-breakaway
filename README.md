@@ -16,9 +16,7 @@ If you create your own version, please create a folder and add your assets to th
 
 ##  What's New?
 
-* Updates to goldfishlaser Version: Goldfishlaser has started over from scratch to use disc magnets and also to go back to a two piece instead of three piece design. However, the three piece design with the hex magnets is also still available. Publicised here: https://www.buskill.in/3d-print-2023-04/
-
-* New FreeCAD version: Leoheck has started working on a version of the case in FreeCAD. This version uses Yoosoo spring pressure pogo pins,uses aluminium can for pin contacts, and has pressfit voids for cube magnets. This version contains a female USB port. 
+* Updates to goldfishlaser Version: She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. 
 
 ## What's in this Repo?
 
@@ -27,10 +25,9 @@ This repo contains information about the project, CAD files for two versions of 
 ### Glossary
 To reference our technical terminology check out [glossary.md](https://github.com/BusKill/usb-a-magnetic-breakaway/blob/3cc552533db1436cacee31b77e96ae590389fd92/Glossary.md)
 
-
 ### goldfishlaser Version
 
-This directory contains files for a version built in OpenSCAD by goldfishlaser. It contains documented 3D print files (SCAD and STL), Bill of Materials, and more. She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. 
+This directory contains files for a version built in OpenSCAD by goldfishlaser. It contains documented 3D print files (SCAD and STL), Bill of Materials, and more. See issue#2 for more details.
 
 ![goldfishlaser Version](https://crashxblossom.files.wordpress.com/2023/11/layout2-1.jpg)
 
@@ -55,7 +52,7 @@ File contains a list of manufacturers that sell magnets, pogo pins, and pogo rec
 
 ### Leoheck CAD files
 (3D printable case, Work In Progress)
-This directory contains files are for a version built in FreeCAD by leoheck. See issue#2 for more details.
+This directory contains files are for a version built in FreeCAD by leoheck.  This version uses Yoosoo spring pressure pogo pins,uses aluminium can for pin contacts, and has pressfit voids for cube magnets. This version contains a female USB port. See issue#2 for more details.
 
 ![image](https://github.com/BusKill/usb-a-magnetic-breakaway/assets/597904/fe949841-c8f3-4abd-87c7-8e0b29d4b1c3)
 
