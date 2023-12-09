@@ -29,8 +29,8 @@ To reference our technical terminology check out [glossary.md](https://github.co
 
 
 ### goldfishlaser Version
-(3D printable case, Work In Progress)
-This directory contains files for a version built in OpenSCAD by goldfishlaser. She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation.
+
+This directory contains files for a version built in OpenSCAD by goldfishlaser. It contains documented 3D print files (SCAD and STL), Bill of Materials, and more. She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. 
 
 ![goldfishlaser Version](https://crashxblossom.files.wordpress.com/2023/11/layout2-1.jpg)
 
