@@ -62,7 +62,7 @@ magnet_tolerance= .2; //to allow room for press fit
 
 //USB male parameters 
 u_h = 16; //height
-u_w = 13.5; //width
+u_w = 13; //width
 u_d = 4.7; //depth 
 
 //USB female parameters
@@ -120,7 +120,7 @@ module pogo_recs(){
 
 //usb male
 module usb(){
-    color("grey",.1)translate([-1,3.8,0])cube(size = [u_h,u_w,u_d],center=false);
+    color("grey",.1)translate([-1,4.5,0])cube(size = [u_h,u_w,u_d],center=false);
 }
 
 //usb();
