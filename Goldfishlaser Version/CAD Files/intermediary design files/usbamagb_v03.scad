@@ -248,7 +248,7 @@ y=.5;
 
  module release_void(){
 translate([30+x,y,0])pogo_recs();
-translate([24.5,17+1,0])magnet();
+translate([24.5,17.5,0])magnet();
 }
 //release_void();   
 
@@ -290,7 +290,7 @@ module make_r_face(){
    
 }
 
-//translate([shiftxx,0,0])release_void();
+ translate([0,5.75,3]) translate([shiftxx,0,0])rotate([90,0,0])release_void();
 
 }        
 // make_r_face();
@@ -482,8 +482,8 @@ innie_tolerance=.5;
      translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      
      translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
-     translate([49.5,18.5,0])magnet();
-     translate([49.5,18,0])magnet();
+     translate([49.5,17.4,0])magnet();
+     translate([49.5,17.4,0])magnet();
      }    
         
 //breakaway_void(); 
@@ -511,7 +511,7 @@ innie_tolerance=.5;
  }    
  }
  
-
+ translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])breakaway_void();
 // make_b_face();
  
  module make_b_face_m(){
