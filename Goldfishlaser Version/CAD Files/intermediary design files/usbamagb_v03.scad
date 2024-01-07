@@ -74,7 +74,7 @@ u_f_d = 5.7; //depth
 //pogo parameters
 
 pogo_length=7.6;
-pogo_diameter=2.7; // pogo thickness
+pogo_diameter=2.8; // pogo thickness
 pogo_distance=1.5; //distance between pins 
 shift=2.1; //distance from pins 
 spread=4.8;
