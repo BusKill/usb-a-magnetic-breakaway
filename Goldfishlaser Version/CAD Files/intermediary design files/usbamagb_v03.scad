@@ -290,7 +290,7 @@ module make_r_face(){
    
 }
 
- translate([0,5.75,3]) translate([shiftxx,0,0])rotate([90,0,0])release_void();
+// translate([0,5.75,3]) translate([shiftxx,0,0])rotate([90,0,0])release_void();
 
 }        
 // make_r_face();
@@ -444,7 +444,7 @@ color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90]
  //variables
 i_x = i_l_h; //base width
 i_z = 10; //base height
-i_y = 2; //base length
+i_y = 2.2; //base length
 
 b_extrusion_x=5;//extrusion x
 b_extrusion_y=1.5; //extrusion y
@@ -456,9 +456,9 @@ innie_tolerance=.5;
  face_distance=26.5;  //distance from release face
         module breakaway(){
     color("blue",.55)
- translate([25,0,0])
+ translate([25,.2,0])
             rotate([90,0,0]){
-            translate([face_distance,0,2]){
+            translate([face_distance,-.75,2]){
                 cube(size = [i_x, i_z, i_y], center = false);
 
             }
@@ -479,11 +479,11 @@ innie_tolerance=.5;
 /** version with cube magnets **/
         
  module breakaway_void(){
-     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
+     translate([pogo_house2_pos_x-(innie_tolerance),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance)])cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
      
      translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
-     translate([49.5,17.4,0])magnet();
-     translate([49.5,17.4,0])magnet();
+     translate([49.5,17.6,0])magnet();
+    // translate([49.5,17.6,0])magnet();
      }    
         
 //breakaway_void(); 
@@ -511,7 +511,7 @@ innie_tolerance=.5;
  }    
  }
  
- translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])breakaway_void();
+ //translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])breakaway_void();
 // make_b_face();
  
  module make_b_face_m(){
@@ -594,7 +594,7 @@ module enclosure_b(){
      //usb
      translate([-14,-11,2])usb_p(); 
      //jig slot
-      translate([11,0,4])cube([js_h,js_w,js_l],true); 
+      translate([11,0,5])cube([js_h,js_w,js_l],true); 
      //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
 
@@ -620,7 +620,7 @@ module enclosure_b(){
  }
 
 
-translate([40,0,-e_h+1]){
+translate([45,0,-e_h+1]){
 difference(){
 //lid
   hull(){
@@ -647,7 +647,7 @@ difference(){
 
 module make_enclosure_b(){
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
-color("black") translate([80,-.25,.5])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
+color("black") translate([80,4.75,.5])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
 // translate([shiftxx+10,shiftyy,0])breakaway_void();
 }
