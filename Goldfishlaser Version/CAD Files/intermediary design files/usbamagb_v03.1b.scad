@@ -85,7 +85,7 @@ size_difference = .9; // right now the code just uses pogo pin code scaled down 
 
 //jig slot variables
 
-js_w=18;
+js_w=18+4;// diff=4 to give room for slots?
 js_h=8;
 js_l=4.5;
 
@@ -156,19 +156,33 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 
 // wire jigs
+
+jig_w=21; //diff=4 to add room for slot
+jig_h=2;
+jig_l=7;
+
+slot_w=1;
+slot_h=jig_h/2;
+slot_l=jig_l;
+
+module slot(){translate([0,0,slot_h+.1])cube(size=[slot_w,slot_l,slot_h], center=false);}
+
 module jig(){
  j_d=20; //distance between jigs
-    
+    translate([.6,0,.8])slot();
+        translate([jig_w-2,0,.8])slot();
     difference(){
-        cube(size = [17,7,2],center=false);
-        translate([0,3.5,-2])pogos();
-    }
+        cube(size = [jig_w,jig_l,jig_h],center=false);
+        translate([2,3.5,-2])pogos();
+    } //diff 2 to center 
     
     translate([0,j_d,0])
     difference(){
-        cube(size = [17,7,2],center=false);
-        translate([0,3.5,-2])pogos();
-    }
+        cube(size = [jig_w,jig_l,jig_h],center=false);
+        translate([2,3.5,-2])pogos();
+        translate([.6,0,0])slot();
+        translate([jig_w-2,0,0])slot();
+    } //diff 2 to center
    
 }
 //jig();
