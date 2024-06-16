@@ -332,6 +332,7 @@ module make_r_face_m(){
   e_l=28;  
   e_h=8;   
      
+s_p=4; //make room for jig slot
 
      
  //parameters
@@ -340,7 +341,7 @@ module make_r_face_m(){
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = .5; //inset
+     lid_lip = 1; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
@@ -399,23 +400,24 @@ module make_r_face_m(){
 
  difference(){
     //support posts
+    
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2 -.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
-         z=wall_thicc-.5, 
-         h=e_h - wall_thicc - lid_thicc +.5,
+     x=e_w/2 - wall_thicc/2 - post_d/2 , 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc, 
+         h=e_h - wall_thicc - lid_thicc,
          r=post_d/2);
     
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc, 
-         h=e_h - wall_thicc - lid_thicc +.5,
+         h=e_h - wall_thicc - lid_thicc,
          r=hole_d/2);    
- }
  
+ }
 
 translate([40,0,-e_h-4]){
 difference(){
@@ -432,8 +434,8 @@ difference(){
      //holes in lid
 
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2 -.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2 -.5, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 , 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc +10,
          r=hole_d/2);      
@@ -556,7 +558,7 @@ module enclosure_b(){
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = .5; //inset
+     lid_lip = 1; //inset
      lid_tol = .5;
     
      
@@ -617,18 +619,18 @@ module enclosure_b(){
  difference(){
     //support posts
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
-         z=wall_thicc-.5, 
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc +1,
          r=post_d/2);
     
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 -  post_d/2-.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
-         z=wall_thicc-.5, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
+         z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc +1,
          r=hole_d/2);    
  }
@@ -648,8 +650,8 @@ difference(){
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2-.5, 
-         y=e_l/2 - wall_thicc/2 - post_d/2-.5, 
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
+         y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=e_h - lid_thicc, 
          h=wall_thicc - lid_thicc + 1,
          r=hole_d/2);     
