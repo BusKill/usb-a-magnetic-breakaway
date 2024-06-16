@@ -160,14 +160,14 @@ module jig(){
  j_d=20; //distance between jigs
     
     difference(){
-        cube(size = [17,6,2],center=false);
-        translate([.2,3.5,-2])pogos();
+        cube(size = [17,7,2],center=false);
+        translate([0,3.5,-2])pogos();
     }
     
     translate([0,j_d,0])
     difference(){
-        cube(size = [17,6,2],center=false);
-        translate([.2,3.5,-2])pogos();
+        cube(size = [17,7,2],center=false);
+        translate([0,3.5,-2])pogos();
     }
    
 }
@@ -230,11 +230,11 @@ module jig(){
 
 /*********** RELEASE ***********/
 
-//RELEASE FACE
+//RELEASE FACE (Actually breakaway face now)
 
 //variables
 i_l_h =28; //width
-i_l_w = 8; //height
+i_l_w = 8+2; //height diff=2 for switch
 i_l_d = 3; //length
 
 r_extrusion_x=5;//extrusion x
@@ -271,15 +271,15 @@ pogo_house_pos_z= 2.25;
 
 block_distance=25;    
         module release_face(){
-    color("red",.55)
+    color("blue",.55)
  rotate([90,0,0]){
-            translate([block_distance+1.5,0,0]){
+            translate([block_distance+1.5,0-1,0]){ //diff=-1 for switch
                 cube(size = [i_l_h, i_l_w, i_l_d], center = false);
             }
         } 
-    color("red",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
-                           color("red",.55)translate([26.5,0,0]) cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);   
-        color("red",.55)translate([26.5+magnet_distance,0,0])cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);
+    color("blue",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y,pogo_house_z], center=false);
+                           color("blue",.55)translate([26.5,0,0]) cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);   
+        color("blue",.55)translate([26.5+magnet_distance,0,0])cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);
         } 
   //release_face();
         
@@ -326,7 +326,7 @@ module make_r_face_m(){
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = 1.25; //inset
+     lid_lip = .5; //inset
      lid_tol = .5;
      
      module posts(x,y,z,h,r){
@@ -439,52 +439,47 @@ color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90]
 
 /*********** BREAKAWAY ***********/
 
- //BREAKAWAY FACE
+ //BREAKAWAY FACE (Actually Release face now)
  
  //variables
 i_x = i_l_h; //base width
-i_z = 10; //base height
-i_y = 2.2; //base length
+i_z = 10-2; //base length diff=-2
+i_y = 2.5; //base height diff=.3
 
 b_extrusion_x=5;//extrusion x
 b_extrusion_y=1.5; //extrusion y
 b_extrusion_z=8;//extrusion z
 
-b_tab_x=5;
-b_tab_y=1.5;
-b_tab_z=1;
-
-module tab(){
-translate([73,3.25,3.5])cube(size=[b_tab_x,b_tab_y,b_tab_z], center = false);
-translate([73,-3.25,3.5])cube(size=[b_tab_x,b_tab_y,b_tab_z], center = false);
-}
-tab();
 
 innie_tolerance=.5;         
      
  face_distance=26.5;  //distance from release face
-        module breakaway(){color("blue",.55){translate([25+face_distance,-2,0])
-            rotate([90,0,0])
-            
+        module breakaway(){
+    color("red",.55)
+ translate([25,.2,0])
+            rotate([90,0,0]){
+            translate([face_distance,-.75+1,2]){ // +1 to switch faces
                 cube(size = [i_x, i_z, i_y], center = false);
-                           translate([face_distance+25,-2,2])  cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);   
-        translate([face_distance+magnet_distance+25,-2,2])cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);
-           translate([face_distance+25,-2,0])cube(size = [i_x, b_extrusion_y, 2.75], center = false);
-            translate([face_distance+25,-2,6])cube(size = [i_x, b_extrusion_y, 4], center = false);
+
+            }
+                           translate([face_distance,0,2]) rotate([-90,0,0]) cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);   
+        translate([face_distance+magnet_distance,0,2])rotate([-90,0,0])cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);
+           translate([face_distance,.25,.5])cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false);
+            translate([face_distance,6.75,.5])cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false);
+        } 
         
-        }
-    } 
+        }   
 
 //breakaway();
      
  pogo_house2_pos_x= pogo_house_pos_x+23.5;
- pogo_house2_pos_y= pogo_house_pos_y-b_extrusion_y;
- pogo_house2_pos_z= pogo_house_pos_z-.25;  
+ pogo_house2_pos_y= pogo_house_pos_y-b_extrusion_y-.3;
+ pogo_house2_pos_z= pogo_house_pos_z;  
 
 /** version with cube magnets **/
         
  module breakaway_void(){
-     translate([pogo_house2_pos_x-(innie_tolerance),pogo_house2_pos_y+.5,pogo_house2_pos_z-(innie_tolerance)])cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
+     translate([pogo_house2_pos_x-(innie_tolerance),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance)])cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
      
      translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
      translate([49.5,17.6,0])magnet();
@@ -512,7 +507,7 @@ innie_tolerance=.5;
  translate([10,5.75,4]) rotate([90,0,0])
      difference(){
  breakaway();
- translate([shiftxx,shiftyy,1])breakaway_void();
+ translate([shiftxx,shiftyy,0])breakaway_void();
  }    
  }
  
@@ -547,7 +542,7 @@ module enclosure_b(){
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
      lid_thicc = 1; 
-     lid_lip = 1.25; //inset
+     lid_lip = .5; //inset
      lid_tol = .5;
     
      
@@ -667,7 +662,7 @@ color("black") translate([80,4.75,.5])linear_extrude(2)rotate([0,0,90])scale(1.5
 module make_all(){
  make_r_face();
  make_enclosure_r();  
- make_b_face();
+ translate([0,0,.3])make_b_face(); //translate to accomodate change for pins
  make_enclosure_b();
  jig();  
  translate ([-25,0,0])jig();   
