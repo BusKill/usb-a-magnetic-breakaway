@@ -348,9 +348,9 @@ s_p=4; //make room for jig slot
      wall_thicc = 1.5; 
      post_d = 3; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_thicc = .5; //lid_thicc<wall_thicc
      lid_lip = .5; //lid_lip < wall_thicc
-     lid_tol = .25;
+     lid_tol = .5;
      taper=3; //makes backend smaller than front end
      
      module posts(x,y,z,h,r){
@@ -401,7 +401,7 @@ s_p=4; //make room for jig slot
      //usb
      translate([-14,-11,2])usb_p(); 
      //jig slot
-      translate([11,0,5])cube([js_h,js_w,js_l],true); 
+      translate([11,0,4.5])cube([js_h,js_w,js_l],true); 
      //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
 
@@ -427,7 +427,7 @@ s_p=4; //make room for jig slot
  
  }
 
-translate([40,0,-e_h+1]){
+translate([40,0,-e_h]){
 difference(){
 //lid
   hull(){
@@ -566,9 +566,9 @@ module enclosure_b(){
      wall_thicc = 1.5; 
      post_d = 3; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_thicc = .5; //lid_thicc<wall_thicc
      lid_lip = .5; //lid_lip < wall_thicc
-     lid_tol = .25;
+     lid_tol = .5;
     taper=2.5;
      
      module posts(x,y,z,h,r){
