@@ -85,7 +85,7 @@ size_difference = .9; // right now the code just uses pogo pin code scaled down 
 
 //jig slot variables
 
-js_w=18+4;// diff=4 to give room for slots?
+js_w=18+2.5;// diff=2.5 to give room for slots?
 js_h=8;
 js_l=4.5;
 
@@ -157,32 +157,38 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 // wire jigs
 
-jig_w=21; //diff=4 to add room for slot
+jig_w=19.5; //diff=2.5 to add room for slot
 jig_h=2;
 jig_l=7;
 
 slot_w=1;
 slot_h=jig_h/2;
-slot_l=jig_l;
+slot_l=jig_l-2;
+
+slot2_w=1;
+slot2_h=slot_h;
+slot2_l=slot_l;
 
 module slot(){translate([0,0,slot_h+.1])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
+module slot2(){translate([0,0,slot2_h+.1])cube(size=[slot2_w,slot2_l,slot2_h], center=false);}
+
 module jig(){
  j_d=20; //distance between jigs
-    translate([.6,0,.8])slot();
-        translate([jig_w-2,0,.8])slot();
+    translate([0,0,.8])slot();
+        translate([jig_w-1.25,0,.8])slot();
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([2,3.5,-2])pogos();
-    } //diff 2 to center 
+        translate([1.5,3.5,-2])pogos();
+    } //diff 1.5 to center 
     
     translate([0,j_d,0])
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([2,3.5,-2])pogos();
-        translate([.6,0,0])slot();
-        translate([jig_w-2,0,0])slot();
-    } //diff 2 to center
+        translate([1.5,3.5,-2])pogos();
+        slot2();
+        translate([jig_w-1.25,0,0])slot();
+    } //diff 1.5 to center
    
 }
 //jig();
@@ -338,11 +344,12 @@ s_p=4; //make room for jig slot
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
-     post_d = 2.5; //support post for screw hole
+     post_d = 3; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; 
-     lid_lip = 1; //inset
-     lid_tol = .5;
+     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_lip = .5; //lid_lip < wall_thicc
+     lid_tol = .25;
+     taper=3; //makes backend smaller than front end
      
      module posts(x,y,z,h,r){
          
@@ -350,11 +357,11 @@ s_p=4; //make room for jig slot
              cylinder(r = r, h = h);
          }
      
-              translate([-x,y-3,z]){
+              translate([-x,y-taper,z]){
              cylinder(r = r, h = h);
          }
          
-                  translate([-x,-y+3,z]){
+                  translate([-x,-y+taper,z]){
              cylinder(r = r, h = h);
          }
                  translate([x,-y,z]){
@@ -368,7 +375,7 @@ s_p=4; //make room for jig slot
          x=e_w/2 - corner_r, 
          y=e_l/2 - corner_r, 
          z=0, 
-         h=e_h,
+         h=e_h+1,
          r=corner_r);
      }
      //hollow
@@ -377,7 +384,7 @@ s_p=4; //make room for jig slot
              x=e_w/2 - corner_r - wall_thicc, 
          y=e_l/2 - corner_r - wall_thicc, 
          z=wall_thicc, 
-         h=e_h,
+         h=e_h +1,
          r=corner_r);
      }
      //lip
@@ -386,15 +393,14 @@ s_p=4; //make room for jig slot
            x=e_w/2 - corner_r - lid_lip, 
          y=e_l/2 - corner_r - lid_lip, 
          z=e_h-lid_thicc, 
-         h=lid_thicc + 1,
+         h=lid_thicc,
          r=corner_r);
      }
      //usb
-     translate([-14,-11,1])usb(); 
-     //pogos
-      //translate([12,-8,1])rotate([0,0,90])pogo_recs();
-     //slot
-     translate([11,0,4])cube([js_h,js_w,js_l], true); //jig slot
+     translate([-14,-11,2])usb_p(); 
+     //jig slot
+      translate([11,0,5])cube([js_h,js_w,js_l],true); 
+     //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
  }
 
 
@@ -411,35 +417,36 @@ s_p=4; //make room for jig slot
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc,
-         r=hole_d/2);    
+         r=hole_d/2);      
  
  }
 
-translate([40,0,-e_h-4]){
+translate([40,0,-e_h+1]){
 difference(){
 //lid
   hull(){
      posts(
       x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
          y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
-         z=e_h - lid_thicc +5, 
-         h=lid_thicc,
+         z=e_h - lid_thicc, 
+         h=wall_thicc - lid_thicc,
          r=corner_r);
      }
      
      //holes in lid
-
-     posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2 , 
+ posts(
+     x=e_w/2 - wall_thicc/2 - post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
-         z=wall_thicc, 
-         h=e_h - wall_thicc - lid_thicc +10,
-         r=hole_d/2);      
+         z=e_h - lid_thicc, 
+         h=wall_thicc - lid_thicc,
+         r=hole_d/2);     
  }
+ 
+ 
  }
  
  }; //end of enclosure_r code
@@ -459,7 +466,7 @@ color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90]
  
  //variables
 i_x = i_l_h; //base width
-i_z = 10-2; //base length diff=-2
+i_z = 10-1.75; //base length diff=-2
 i_y = 2.5; //base height diff=.3
 
 b_extrusion_x=5;//extrusion x
@@ -474,7 +481,7 @@ innie_tolerance=.5;
     color("red",.55)
  translate([25,.2,0])
             rotate([90,0,0]){
-            translate([face_distance,-.75+1,2]){ // +1 to switch faces
+            translate([face_distance,0,2]){ // +1 to switch faces
                 cube(size = [i_x, i_z, i_y], center = false);
 
             }
@@ -548,19 +555,19 @@ module enclosure_b(){
     $fn=15;
   //dimensions for enclosure_b
   e_w=30;
-  e_l=26;  
+  e_l=28;  
   e_h=9;   
      
      
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
-     post_d = 2.5; //support post for screw hole
+     post_d = 3; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; 
-     lid_lip = 1; //inset
-     lid_tol = .5;
-    
+     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_lip = .5; //lid_lip < wall_thicc
+     lid_tol = .25;
+    taper=2.5;
      
      module posts(x,y,z,h,r){
          
@@ -568,11 +575,11 @@ module enclosure_b(){
              cylinder(r = r, h = h);
          }
      
-              translate([-x,y-2.5,z]){
+              translate([-x,y-taper,z]){
              cylinder(r = r, h = h);
          }
          
-                  translate([-x,-y+2.5,z]){
+                  translate([-x,-y+taper,z]){
              cylinder(r = r, h = h);
          }
                  translate([x,-y,z]){
@@ -604,7 +611,7 @@ module enclosure_b(){
            x=e_w/2 - corner_r - lid_lip, 
          y=e_l/2 - corner_r - lid_lip, 
          z=e_h-lid_thicc, 
-         h=lid_thicc +1,
+         h=lid_thicc,
          r=corner_r);
      }
      //usb
@@ -622,7 +629,7 @@ module enclosure_b(){
      x=e_w/2 - wall_thicc/2 - post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc, 
-         h=e_h - wall_thicc - lid_thicc +1,
+         h=e_h - wall_thicc - lid_thicc,
          r=post_d/2);
     
      
@@ -631,7 +638,7 @@ module enclosure_b(){
      x=e_w/2 - wall_thicc/2 -  post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=wall_thicc, 
-         h=e_h - wall_thicc - lid_thicc +1,
+         h=e_h - wall_thicc - lid_thicc,
          r=hole_d/2);    
  }
 
@@ -644,7 +651,7 @@ difference(){
       x=e_w/2 - corner_r - wall_thicc/2 - lid_tol, 
          y=e_l/2 - corner_r - wall_thicc/2 - lid_tol, 
          z=e_h - lid_thicc, 
-         h=wall_thicc - lid_thicc +1,
+         h=wall_thicc - lid_thicc,
          r=corner_r);
      }
      
@@ -653,7 +660,7 @@ difference(){
      x=e_w/2 - wall_thicc/2 - post_d/2, 
          y=e_l/2 - wall_thicc/2 - post_d/2, 
          z=e_h - lid_thicc, 
-         h=wall_thicc - lid_thicc + 1,
+         h=wall_thicc - lid_thicc,
          r=hole_d/2);     
  }
  }
