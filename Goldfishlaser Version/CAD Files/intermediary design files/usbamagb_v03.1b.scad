@@ -161,34 +161,36 @@ jig_w=19.5; //diff=2.5 to add room for slot
 jig_h=2;
 jig_l=7;
 
-slot_w=1;
+slot_w=.75;
 slot_h=jig_h/2;
 slot_l=jig_l-2;
 
-slot2_w=1;
-slot2_h=slot_h;
-slot2_l=slot_l;
+jigwall_w=slot_w;
+jigwall_h=slot_h;
+jigwall_l=slot_l;
 
-module slot(){translate([0,0,slot_h+.1])cube(size=[slot_w,slot_l,slot_h], center=false);}
+module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
-module slot2(){translate([0,0,slot2_h+.1])cube(size=[slot2_w,slot2_l,slot2_h], center=false);}
+module jigwall(){translate([0,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jigwall_h], center=false);}
 
 module jig(){
  j_d=20; //distance between jigs
     translate([0,0,.8])slot();
-        translate([jig_w-1.25,0,.8])slot();
+        translate([jig_w-.75,0,.8])slot();
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
         translate([1.5,3.5,-2])pogos();
     } //diff 1.5 to center 
     
     translate([0,j_d,0])
+  
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
         translate([1.5,3.5,-2])pogos();
-        slot2();
-        translate([jig_w-1.25,0,0])slot();
-    } //diff 1.5 to center
+        ;
+    } 
+    translate([.75,j_d,.8])jigwall();
+        translate([jig_w-1.5,j_d,.8])jigwall();
    
 }
 //jig();
