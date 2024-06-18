@@ -95,15 +95,28 @@ js_l=4.5;
 //pogo pins
 
 module pogos(){
-    translate([-.7,-.1,4.2]){
-        translate([shift,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([pogo_distance+spread,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-            translate([pogo_distance+spread*2,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
-    translate([pogo_distance+spread*3,0,0])rotate ([90,0,0])cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    translate([-.3,.1,4.2]){
+        
+        translate([shift,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        
+        translate([pogo_distance+spread,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            
+        translate([pogo_distance+spread+spread-.5,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    
+        translate([pogo_distance+spread*3-1,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
 }
 
 //pogos();
+
 
 // pogo receptors 
 
@@ -163,11 +176,11 @@ jig_l=7;
 
 slot_w=.75;
 slot_h=jig_h/2;
-slot_l=jig_l-2;
+slot_l=jig_l;
 
 jigwall_w=slot_w;
 jigwall_h=slot_h;
-jigwall_l=slot_l;
+jigwall_l=jig_l-2;
 
 module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
@@ -232,22 +245,45 @@ module jig(){
 //pogojig();
 **/
 
-  /*
-  //this commented out code is for a small retangular piece with holes the size of pogos. at one time it was thought this piece might help with stabilization but it didn't really pan out. 
+  
   
      module jig2(){
+       
+         module wire(){
+              translate([2,.1,4.2]){
+        
+        translate([shift,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        
+        translate([pogo_distance+spread-1,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+            
+        translate([pogo_distance+spread+spread-2.5,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+    
+        translate([pogo_distance+spread*3-4,0,0])
+        rotate ([90,0,0])
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+}
+
+             }
  
          translate ([0,-10,0])rotate([90,0,0]){difference(){
      cube(size = [pogo_house_x+innie_tolerance,pogo_house_y*.25+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
      
-      translate([0,0,-2])pogos();
+      translate([0,0,-2])wire();
      }
  }
  }
      jig2();
 
  translate([-25,0,0])jig2();
-   */  
+  
+   
+
 
 
 /*********** RELEASE ***********/
@@ -427,7 +463,7 @@ s_p=4; //make room for jig slot
  
  }
 
-translate([40,0,-e_h]){
+translate([40,0,-e_h+.5]){
 difference(){
 //lid
   hull(){
@@ -645,7 +681,7 @@ module enclosure_b(){
  }
 
 
-translate([45,0,-e_h+1]){
+translate([45,0,-e_h+.5]){
 difference(){
 //lid
   hull(){
