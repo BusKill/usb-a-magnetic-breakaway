@@ -171,7 +171,7 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 // wire jigs
 
 jig_w=19.5; //diff=2.5 to add room for slot
-jig_h=2;
+jig_h=2-.5;
 jig_l=7;
 
 slot_w=.75;
@@ -181,6 +181,34 @@ slot_l=jig_l;
 jigwall_w=slot_w;
 jigwall_h=slot_h;
 jigwall_l=jig_l-2;
+
+var_w=1.5;
+var_h=slot_h;
+var_l=jig_l-2;
+
+module var(){
+    translate([spread-.1,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);
+    translate([spread+spread-.7,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);
+     translate([spread+spread+spread-1.2,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);   
+    
+    }
+    var();
+    
+    module var2(){
+        translate([-25,0,0]){
+    translate([spread-.1,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);
+    translate([spread+spread-.7,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);
+     translate([spread+spread+spread-1.2,0,var_h+.8])
+    cube(size=[var_w,var_l,var_h], center=false);   
+    
+    }
+}
+var2();
 
 module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
