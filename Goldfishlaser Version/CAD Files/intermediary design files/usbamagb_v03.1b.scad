@@ -276,25 +276,26 @@ module jig(){
   
   
      module jig2(){
-       
+       wire_d=1.5;
+         spread2=4;
          module wire(){
-              translate([2,.1,4.2]){
+              translate([3,.1,4.2]){
         
         translate([shift,0,0])
         rotate ([90,0,0])
-        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=wire_d/2, r2=wire_d/2, center = true);
         
-        translate([pogo_distance+spread-1,0,0])
+        translate([pogo_distance+spread2-1,0,0])
         rotate ([90,0,0])
-        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=wire_d/2, r2=wire_d/2, center = true);
             
-        translate([pogo_distance+spread+spread-2.5,0,0])
+        translate([pogo_distance+spread2+spread2-2.5,0,0])
         rotate ([90,0,0])
-        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=wire_d/2, r2=wire_d/2, center = true);
     
-        translate([pogo_distance+spread*3-4,0,0])
+        translate([pogo_distance+spread2*3-4,0,0])
         rotate ([90,0,0])
-        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
+        cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=wire_d/2, r2=wire_d/2, center = true);
 }
 
              }
