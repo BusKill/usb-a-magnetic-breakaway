@@ -61,13 +61,13 @@ magnet_tolerance= .2; //to allow room for press fit
 
 
 //USB male parameters 
-u_h = 16; //height
-u_w = 13; //width
+u_h = 14; //height
+u_w = 12; //width
 u_d = 4.7; //depth 
 
 //USB female parameters
 u_f_h = 16; //height
-u_f_w = 14.5; //width
+u_f_w = 14.25; //width
 u_f_d = 5.7; //depth 
 
 
@@ -133,7 +133,7 @@ module pogo_recs(){
 
 //usb male
 module usb(){
-    color("grey",.1)translate([-1,4.5,0])cube(size = [u_h,u_w,u_d],center=false);
+    color("grey",.1)translate([-1,5,0])cube(size = [u_h,u_w,u_d],center=false);
 }
 
 //usb();
@@ -410,12 +410,13 @@ s_p=4; //make room for jig slot
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
-     post_d = 3; //support post for screw hole
+     post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = .5; //lid_thicc<wall_thicc
-     lid_lip = .5; //lid_lip < wall_thicc
-     lid_tol = .5;
+     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_lip = .25; //lid_lip < wall_thicc
+     lid_tol = 1;
      taper=3; //makes backend smaller than front end
+     inset=.75;//brings in posts so they dont end up on the edge of the lid
      
      module posts(x,y,z,h,r){
          
@@ -463,7 +464,7 @@ s_p=4; //make room for jig slot
          r=corner_r);
      }
      //usb
-     translate([-14,-11,2])usb_p(); 
+     translate([-14,-11,2])usb(); 
      //jig slot
       translate([11,0,4.5])cube([js_h,js_w,js_l],true); 
      //translate([12,-8,1])rotate([0,0,90])pogo_recs();  //pogos
@@ -474,8 +475,8 @@ s_p=4; //make room for jig slot
     //support posts
     
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2 , 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 -inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -inset, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc,
          r=post_d/2);
@@ -483,8 +484,8 @@ s_p=4; //make room for jig slot
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 -  post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2 - inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -inset, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc,
          r=hole_d/2);      
@@ -505,8 +506,8 @@ difference(){
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 - inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -inset, 
          z=e_h - lid_thicc, 
          h=wall_thicc - lid_thicc,
          r=hole_d/2);     
@@ -520,7 +521,7 @@ difference(){
 module make_enclosure_r(){
 color("red",.9)translate([40,-20,0]) rotate([0,0,90]) enclosure_r();
  //add logo
-color("black") linear_extrude(2)translate([48,14.25,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
+color("black") linear_extrude(2)translate([48,13,0])scale(1.5)rotate([0,0,90])import("Bus.svg"); //option where logo is split
  //color("black")translate([45,11,0])scale(.8)rotate([0,0,90])linear_extrude(2)import("buskill_wordsonly.svg"); //option where logo is not split
 }
 //make_enclosure_r();
@@ -638,11 +639,12 @@ module enclosure_b(){
  //parameters
      corner_r = .5; //higher is more rounded
      wall_thicc = 1.5; 
-     post_d = 3; //support post for screw hole
+     post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = .5; //lid_thicc<wall_thicc
+     lid_thicc = 1; //lid_thicc<wall_thicc
      lid_lip = .5; //lid_lip < wall_thicc
-     lid_tol = .5;
+     lid_tol = 1;
+    inset=.75;
     taper=2.5;
      
      module posts(x,y,z,h,r){
@@ -702,8 +704,8 @@ module enclosure_b(){
  difference(){
     //support posts
      posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 -inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 - inset, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc,
          r=post_d/2);
@@ -711,8 +713,8 @@ module enclosure_b(){
      
     //screw holes    
      posts(
-     x=e_w/2 - wall_thicc/2 -  post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 -  post_d/2 - inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -inset, 
          z=wall_thicc, 
          h=e_h - wall_thicc - lid_thicc,
          r=hole_d/2);    
@@ -733,8 +735,8 @@ difference(){
      
      //holes in lid
  posts(
-     x=e_w/2 - wall_thicc/2 - post_d/2, 
-         y=e_l/2 - wall_thicc/2 - post_d/2, 
+     x=e_w/2 - wall_thicc/2 - post_d/2 - inset, 
+         y=e_l/2 - wall_thicc/2 - post_d/2 -inset, 
          z=e_h - lid_thicc, 
          h=wall_thicc - lid_thicc,
          r=hole_d/2);     
