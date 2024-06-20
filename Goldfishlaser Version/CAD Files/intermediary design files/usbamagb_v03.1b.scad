@@ -537,7 +537,7 @@ i_z = 10-1.75; //base length diff=-2
 i_y = 2.5; //base height diff=.3
 
 b_extrusion_x=4.75;//extrusion x
-b_extrusion_y=1.25; //extrusion y
+b_extrusion_y=1.75; //extrusion y
 b_extrusion_z=8;//extrusion z
 
 
@@ -582,7 +582,7 @@ innie_tolerance=.5;
      cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
      
      translate([55.5,-2.6,0])pogo_recs(); //smaller than pogos
-     translate([49.5,17.6,0])magnet();
+     translate([49.5,17.6+.25,0])magnet();
     // translate([49.5,17.6,0])magnet();
      }    
       
