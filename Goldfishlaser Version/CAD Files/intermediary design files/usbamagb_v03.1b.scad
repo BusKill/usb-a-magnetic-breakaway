@@ -649,7 +649,7 @@ module enclosure_b(){
      
     $fn=15;
   //dimensions for enclosure_b
-  e_w=30;
+  e_w=26;
   e_l=28;  
   e_h=9;   
      
