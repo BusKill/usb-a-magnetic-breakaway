@@ -322,20 +322,36 @@ module jig(){
 //variables
 i_l_h =28; //width
 i_l_w = 10; //height 
-i_l_d = 3; //length
+i_l_d = 3.5; //length
 
 r_extrusion_x=5;//extrusion x for magnet
 r_extrusion_y=.1; //extrusion y for magnet
 r_extrusion_z=8;//extrusion z for magnet
+ 
+ module stopper(){
+ stopper_x=i_l_h;
+ stopper_y=1;
+ stopper_z=2;
 
+color("blue")
+ translate([i_l_h-1.5,-5,i_l_d-1])
+ cube(size = [stopper_x,stopper_y,stopper_z], center=false); //top slot
+     
+ color("blue")
+ translate([i_l_h-1.5,i_l_w-6,i_l_d-1])     
+ cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
+ }
+ 
+ stopper();
+ 
 x=.75;
 y=.5;
 
 /** version with cube magnets **/
 
  module release_void(){
-translate([30+x,y,0])pogo_recs();
-translate([24.5,17.25,0])magnet();
+translate([30+x,y-2,0])pogo_recs();
+translate([24.5,16.5,0])magnet();
 }
 //release_void();   
 
@@ -376,7 +392,7 @@ module make_r_face(){
    
 }
 
-//  translate([0,5.75,3]) rotate([90,0,0])translate([shiftxx,0,0])release_void();
+ // translate([0,5.75,3]) rotate([90,0,0])translate([shiftxx,0,0])release_void();
 
 }        
 // make_r_face();
@@ -409,10 +425,10 @@ s_p=4; //make room for jig slot
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 1.5; 
+     wall_thicc = 1.25; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_thicc = .5; //lid_thicc<wall_thicc
      lid_lip = .25; //lid_lip < wall_thicc
      lid_tol = 1;
      taper=3; //makes backend smaller than front end
@@ -638,10 +654,10 @@ module enclosure_b(){
      
  //parameters
      corner_r = .5; //higher is more rounded
-     wall_thicc = 1.5; 
+     wall_thicc = 1.25; 
      post_d = 2.5; //support post for screw hole
      hole_d= 1.5; //hole for screws
-     lid_thicc = 1; //lid_thicc<wall_thicc
+     lid_thicc = .5; //lid_thicc<wall_thicc
      lid_lip = .5; //lid_lip < wall_thicc
      lid_tol = 1;
     inset=.75;
