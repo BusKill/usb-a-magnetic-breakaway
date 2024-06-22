@@ -322,7 +322,7 @@ module jig(){
 //variables
 i_l_h =28; //width
 i_l_w = 10; //height 
-i_l_d = 3.5; //length
+i_l_d = 3.75; //length
 
 r_extrusion_x=5;//extrusion x for magnet
 r_extrusion_y=.1; //extrusion y for magnet
@@ -331,14 +331,16 @@ r_extrusion_z=8;//extrusion z for magnet
  module stopper(){
  stopper_x=i_l_h;
  stopper_y=1;
- stopper_z=2;
+ stopper_z=6;
+     
+     level=3.5;
 
 color("blue")
- translate([i_l_h-1.5,-5,i_l_d-1])
+ translate([i_l_h-1.5,-6,i_l_d-level])
  cube(size = [stopper_x,stopper_y,stopper_z], center=false); //top slot
      
  color("blue")
- translate([i_l_h-1.5,i_l_w-6,i_l_d-1])     
+ translate([i_l_h-1.5,i_l_w-6,i_l_d-level])     
  cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
  }
  
@@ -386,7 +388,7 @@ block_distance=25;
   //release_face();
         
 module make_r_face(){
- translate([0,4,3]) rotate([90,0,0])difference(){
+ translate([0,4,4]) rotate([90,0,0])difference(){
       release_face();
     translate([shiftxx,0,0])release_void();
    
@@ -578,7 +580,7 @@ innie_tolerance=.5;
            translate([face_distance,0,.75])
             cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false); //rail2
             
-            translate([face_distance,7,.75])
+            translate([face_distance,6.5,.75])
             cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false); //rail 1
         } 
         
