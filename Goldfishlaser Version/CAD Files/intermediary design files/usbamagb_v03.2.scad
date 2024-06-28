@@ -344,11 +344,11 @@ color("blue")
  cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
 
 color("blue")
- translate([i_l_h+32.5,-5,i_l_d-level])
+ translate([i_l_h+32.25,-5,i_l_d-level])
  cube(size = [1,3,stopper_z], center=false); //right side slot     
      
 color("blue")
- translate([i_l_h+61.5,2,i_l_d-level])
+ translate([i_l_h+61.75,2,i_l_d-level])
  cube(size = [1,3,stopper_z], center=false); //left side slot         
      
  }
@@ -387,8 +387,8 @@ block_distance=25;
         module release_face(){
     color("blue",.55)
  rotate([90,0,0]){
-            translate([block_distance+1.5,0-1,0]){ //diff=-1 for switch
-                cube(size = [i_l_h, i_l_w, i_l_d], center = false);
+            translate([block_distance+1.25,0-1,0]){ //diff=-1 for switch
+                cube(size = [i_l_h+1, i_l_w, i_l_d], center = false);
             }
         } 
     color("blue",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y-.5,pogo_house_z], center=false);
