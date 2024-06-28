@@ -329,19 +329,28 @@ r_extrusion_y=.1; //extrusion y for magnet
 r_extrusion_z=8;//extrusion z for magnet
  
  module stopper(){
- stopper_x=i_l_h;
+ stopper_x=i_l_h/3;
  stopper_y=1;
  stopper_z=6;
      
-     level=3.5;
+     level=3.75;
 
 color("blue")
- translate([i_l_h-1.5,-6,i_l_d-level])
+ translate([i_l_h+39,-6,i_l_d-level])
  cube(size = [stopper_x,stopper_y,stopper_z], center=false); //top slot
      
  color("blue")
- translate([i_l_h-1.5,i_l_w-6,i_l_d-level])     
+ translate([i_l_h+46.5,i_l_w-6,i_l_d-level])     
  cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
+
+color("blue")
+ translate([i_l_h+32.5,-5,i_l_d-level])
+ cube(size = [1,3,stopper_z], center=false); //right side slot     
+     
+color("blue")
+ translate([i_l_h+61.5,2,i_l_d-level])
+ cube(size = [1,3,stopper_z], center=false); //left side slot         
+     
  }
  
  stopper();
@@ -388,7 +397,7 @@ block_distance=25;
   //release_face();
         
 module make_r_face(){
- translate([0,4,4]) rotate([90,0,0])difference(){
+ translate([35,4,3.75]) rotate([90,0,0])difference(){
       release_face();
     translate([shiftxx,0,0])release_void();
    
@@ -622,7 +631,7 @@ innie_tolerance=.5;
      shiftxx=1.5;
      shiftyy=-1.45;
  module make_b_face(){
- translate([10,5.75,4]) rotate([90,0,0])
+ translate([-25,5.75,4.25]) rotate([90,0,0])
      difference(){
  breakaway();
  translate([shiftxx,shiftyy,0])breakaway_void();
@@ -779,9 +788,9 @@ color("black") translate([80,2.5,.5])linear_extrude(2)rotate([0,0,90])scale(1.5)
  
 /** all **/
 module make_all(){
- make_r_face();
+  make_r_face();
  make_enclosure_r();  
- translate([0,0,.3])make_b_face(); //translate to accomodate change for pins
+ translate([0,0,0])make_b_face(); //translate to accomodate change for pins
  make_enclosure_b();
  jig();  
  translate ([-25,0,0])jig();   
