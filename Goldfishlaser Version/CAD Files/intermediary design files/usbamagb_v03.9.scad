@@ -187,11 +187,11 @@ var_h=slot_h;
 var_l=jig_l-2;
 
 module var(){
-    translate([spread-.1,0,var_h+.8])
+    translate([spread-.1,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-    translate([spread+spread-.7,0,var_h+.8])
+    translate([spread+spread-.7,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-     translate([spread+spread+spread-1.2,0,var_h+.8])
+     translate([spread+spread+spread-1.2,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);   
     
     }
@@ -199,11 +199,11 @@ module var(){
     
     module var2(){
         translate([-25,0,0]){
-    translate([spread-.1,0,var_h+.8])
+    translate([spread-.1,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-    translate([spread+spread-.7,0,var_h+.8])
+    translate([spread+spread-.7,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-     translate([spread+spread+spread-1.2,0,var_h+.8])
+     translate([spread+spread+spread-1.2,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);   
     
     }
@@ -216,22 +216,22 @@ module jigwall(){translate([0,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jig
 
 module jig(){
  j_d=20; //distance between jigs
-    translate([0,0,.8])slot();
-        translate([jig_w-.75,0,.8])slot();
+    translate([0,0,.7])slot();
+        translate([jig_w-.75,0,.7])slot();
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([1.5,3.5,-2])pogos();
+        translate([1.5,3.5,-2.25])pogos();
     } //diff 1.5 to center 
     
     translate([0,j_d,0])
   
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([1.5,3.5,-2])pogos();
+        translate([1.5,3.5,-2.25])pogos();
         ;
     } 
-    translate([.75,j_d,.8])jigwall();
-        translate([jig_w-1.5,j_d,.8])jigwall();
+    translate([.75,j_d,.6])jigwall();
+        translate([jig_w-1.5,j_d,.6])jigwall();
    
 }
 //jig();
