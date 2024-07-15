@@ -195,7 +195,7 @@ module var(){
     cube(size=[var_w,var_l,var_h], center=false);   
     
     }
-    var();
+ //   var();
     
     module var2(){
         translate([-25,0,0]){
@@ -208,7 +208,7 @@ module var(){
     
     }
 }
-var2();
+//var2();
 
 module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
@@ -232,7 +232,9 @@ module jig(){
     } 
     translate([.75,j_d,.6])jigwall();
         translate([jig_w-1.5,j_d,.6])jigwall();
-   
+ 
+  var();
+  
 }
 //jig();
 
@@ -307,9 +309,9 @@ module jig(){
      }
  }
  }
-     jig2();
+     //jig2();
 
- translate([-25,0,0])jig2();
+// translate([-25,0,0])jig2();
   
    
 
@@ -353,7 +355,7 @@ color("blue")
      
  }
  
- stopper();
+ //stopper();
  
 x=.75;
 y=.5;
@@ -400,13 +402,13 @@ module make_r_face(){
  translate([35,4,3.75]) rotate([90,0,0])difference(){
       release_face();
     translate([shiftxx,0,0])release_void();
-   
+  
 }
-
+stopper();
  // translate([0,5.75,3]) rotate([90,0,0])translate([shiftxx,0,0])release_void();
 
 }        
-// make_r_face();
+ //make_r_face();
 
 module make_r_face_m(){
  translate([0,5.75,3]) rotate([90,0,0])difference(){
@@ -793,6 +795,7 @@ module make_all(){
  translate([0,0,0])make_b_face(); //translate to accomodate change for pins
  make_enclosure_b();
  jig();  
+    jig2(); translate([-25,0,0])jig2();
  translate ([-25,0,0])jig();   
 } 
 
@@ -802,7 +805,8 @@ make_all();
 module only_r()
 {
     translate([0,0,0])make_enclosure_r();
-   translate([0,0,0]) jig();
+    make_b_face();
+
     }
 
 //only_r();
@@ -812,7 +816,8 @@ module only_r()
 module only_b()
 {
     translate([0,0,0])make_enclosure_b();
-   translate([0,0,0]) jig();
+    make_r_face();
+
     }
 //only_b();    
  
@@ -822,6 +827,8 @@ module only_j()
 {
     jig();
     translate ([-25,0,0])jig();
+    jig2();
+    translate([-25,0,0])jig2();
     }
 //only_j();    
 
