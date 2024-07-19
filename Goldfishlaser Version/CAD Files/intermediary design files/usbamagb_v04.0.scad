@@ -105,7 +105,7 @@ pogo_house_pos_z= 2.25;
 //pogo house 2 is the admission on the front of the release face. the breakaway has a corresponding extrusion allowing for mating
 
  pogo_house2_pos_x= pogo_house_pos_x+23.5;
- pogo_house2_pos_y= pogo_house_pos_y-r_extrusion_y-.5;
+ pogo_house2_pos_y= pogo_house_pos_y-r_extrusion_y-.25;
  pogo_house2_pos_z= pogo_house_pos_z;  
 
 /*********** HARDWARE ***********/
@@ -400,6 +400,7 @@ i_y = 2.5; //base height diff=.3
      shiftxx=1.5;
      shiftyy=-1.45;
  module make_r_face(){
+    
  translate([-25,5.75,4.3]) rotate([90,0,0])
      difference(){
  releasef();
@@ -407,9 +408,8 @@ i_y = 2.5; //base height diff=.3
  }    
  }
  
- //translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])release_void();
-// make_r_face();
- 
+ //make_r_face();
+    
 
  
 // RELEASE ENCLOSURE
