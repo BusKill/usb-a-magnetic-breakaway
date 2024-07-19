@@ -194,7 +194,7 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 jig_w=17; //diff=2.5 to add room for slot
 jig_h=2-.5;
-jig_l=7;
+jig_l=6.25;
 
 slot_w=.75;
 slot_h=jig_h/2;
@@ -234,7 +234,7 @@ module var(){
 
 module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
-module jigwall(){translate([0,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jigwall_h], center=false);}
+module jigwall(){translate([-.25,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jigwall_h], center=false);}
 
 module jig(){
  j_d=20; //distance between jigs
@@ -242,21 +242,21 @@ module jig(){
         translate([jig_w-.75,0,.7])slot();
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([1.5,3.5,-2.25])pogos();
+        translate([1.5,3,-2.25])pogos();
     } //diff 1.5 to center 
     
     translate([0,j_d,0])
   
     difference(){
         cube(size = [jig_w,jig_l,jig_h],center=false);
-        translate([1.5,3.5,-2.25])pogos();
+        translate([1.5,3,-2.25])pogos();
         ;
     } 
-    translate([.75,j_d,.6])jigwall();
+    translate([1.25,j_d,.6])jigwall();
         translate([jig_w-1.5,j_d,.6])jigwall();
  
   var();
-  
+
 }
 //jig();
 
