@@ -234,7 +234,7 @@ module var(){
 
 module slot(){translate([0,0,slot_h])cube(size=[slot_w,slot_l,slot_h], center=false);}
 
-module jigwall(){translate([-.25,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jigwall_h], center=false);}
+module jigwall(){translate([0,0,jigwall_h+.1])cube(size=[jigwall_w,jigwall_l,jigwall_h], center=false);} //change x to remove snap
 
 module jig(){
  j_d=20; //distance between jigs
@@ -252,7 +252,7 @@ module jig(){
         translate([1.5,3,-2.25])pogos();
         ;
     } 
-    translate([1.25,j_d,.6])jigwall();
+    translate([.75,j_d,.6])jigwall(); //change x to remove snap
         translate([jig_w-1.5,j_d,.6])jigwall();
  
   var();
