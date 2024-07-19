@@ -59,6 +59,11 @@ magnet_distance=20; //distance between magnets
 magnet_size=3.175; // for 1/8" cube magnet
 magnet_tolerance= .2; //to allow room for press fit
 
+//r extrusion houses magnets on the release face
+r_extrusion_x=4.75;//extrusion x
+r_extrusion_y=1.75; //extrusion y
+r_extrusion_z=8;//extrusion z
+
 
 //USB male parameters 
 u_h = 14; //height
@@ -89,6 +94,19 @@ js_w=17.75;//
 js_h=8;
 js_l=4.5;
 
+//pogo house is the extrusion on the front of the breakaway face. the release face has a coresponding admission allowing for mating.
+pogo_house_x = 15; //this is x
+pogo_house_y = 1.25; // this is z
+pogo_house_z =4; // this is y
+pogo_house_pos_x= 31.75;
+pogo_house_pos_y= 0;
+pogo_house_pos_z= 2.25;
+
+//pogo house 2 is the admission on the front of the release face. the breakaway has a corresponding extrusion allowing for mating
+
+ pogo_house2_pos_x= pogo_house_pos_x+23.5;
+ pogo_house2_pos_y= pogo_house_pos_y-r_extrusion_y-.5;
+ pogo_house2_pos_z= pogo_house_pos_z;  
 
 /*********** HARDWARE ***********/
 
@@ -99,22 +117,22 @@ module pogos(){
         
         translate([shift,0,0])
         rotate ([90,0,0])
-        scale(.9)
+        scale(.85)
         cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
         
         translate([pogo_distance+spread,0,0])
         rotate ([90,0,0])
-        scale(.9)
+        scale(.85)
         cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
             
         translate([pogo_distance+spread+spread-.5,0,0])
         rotate ([90,0,0])
-        scale(.9)
+        scale(.85)
         cylinder($fn = 30, $fa = 30, $fs = 2, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
     
         translate([pogo_distance+spread*3-1,0,0])
         rotate ([90,0,0])
-        scale(.9)
+        scale(.85)
         cylinder($fn = 30, $fa = 30, $fs = 1.8, h=pogo_length, r1=pogo_diameter/2, r2=pogo_diameter/2, center = true);
 }
 }
@@ -174,7 +192,7 @@ color("grey") rotate ([90,0,0])translate([magnet_position_x,magnet_position_y,ma
 
 // wire jigs
 
-jig_w=19.5; //diff=2.5 to add room for slot
+jig_w=17; //diff=2.5 to add room for slot
 jig_h=2-.5;
 jig_l=7;
 
@@ -186,16 +204,16 @@ jigwall_w=slot_w;
 jigwall_h=slot_h;
 jigwall_l=jig_l-2;
 
-var_w=1.5;
+var_w=1.25;
 var_h=slot_h;
 var_l=jig_l-2;
 
 module var(){
-    translate([spread-.1,0,var_h+.7])
+    translate([spread+.4,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-    translate([spread+spread-.7,0,var_h+.7])
+    translate([spread+spread-.7+.5,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);
-     translate([spread+spread+spread-1.2,0,var_h+.7])
+     translate([spread+spread+spread-1.2+.5,0,var_h+.7])
     cube(size=[var_w,var_l,var_h], center=false);   
     
     }
@@ -279,7 +297,7 @@ module jig(){
 //pogojig();
 **/
 
-  
+/**
   
      module jig2(){
        wire_d=2.25;
@@ -313,6 +331,7 @@ module jig(){
      }
  }
  }
+**/ 
      //jig2();
 
 // translate([-25,0,0])jig2();
@@ -323,107 +342,75 @@ module jig(){
 
 /*********** RELEASE ***********/
 
-//RELEASE FACE (Actually breakaway face now)
-
-//variables
-i_l_h =25.25; //width
-i_l_w = 10; //height 
-i_l_d = 3.75; //length
-
-r_extrusion_x=5;//extrusion x for magnet
-r_extrusion_y=.1; //extrusion y for magnet
-r_extrusion_z=8;//extrusion z for magnet
+ //RELEASE FACE
  
- module stopper(){
- stopper_x=i_l_h/3;
- stopper_y=1;
- stopper_z=8;
-     
-     level=3.75;
+ //variables
 
-color("blue")
- translate([i_l_h+41.25,-6,i_l_d-level])
- cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
-     
- color("blue")
- translate([i_l_h+48,i_l_w-6,i_l_d-level])     
- cube(size = [stopper_x,stopper_y,stopper_z], center=false); //top slot
 
-color("blue")
- translate([i_l_h+35,-5,i_l_d-level])
- cube(size = [1,3,stopper_z], center=false); //left side slot     
+
+innie_tolerance=.5;         
      
-color("blue")
- translate([i_l_h+62,2,i_l_d-level])
- cube(size = [1,3,stopper_z], center=false); //right side slot         
+ face_distance=26.5;  //distance from release face
+
+        module releasef(){
+ i_x = i_l_h; //base width
+i_z = 10-1.75; //base length diff=-2
+i_y = 2.5; //base height diff=.3           
+    color("red",.55)
+ translate([25,.2,0])
+            rotate([90,0,0]){
+            translate([face_distance,0,2]){ // +1 to switch faces
+                cube(size = [i_x, i_z, i_y], center = false);
+
+            }
+                           translate([face_distance,0,2]) 
+            rotate([-90,0,0]) 
+            cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);   
+        
+            translate([face_distance+magnet_distance+.25,0,2])rotate([-90,0,0])
+            cube(size = [r_extrusion_x, r_extrusion_y, r_extrusion_z], center = false);
+            
+           translate([face_distance,0,.75])
+            cube(size = [i_x, r_extrusion_y, r_extrusion_y], center = false); //rail2
+            
+            translate([face_distance,6.5,.75])
+            cube(size = [i_x, r_extrusion_y, r_extrusion_y], center = false); //rail 1
+        } 
+        
+        }   
+
+//releasef();
+    
+
+        
+ module release_void(){
      
+     translate([pogo_house2_pos_x-(innie_tolerance),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance)])
+     cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
+     
+     translate([55.5,-2.6,0])pogos(); //bigger than pogo 
+     translate([49.5,17.6+.25,0])magnet();
+    // translate([49.5,17.6,0])magnet();
+     }    
+      
+//release_void(); 
+
+       
+ 
+     shiftxx=1.5;
+     shiftyy=-1.45;
+ module make_r_face(){
+ translate([-25,5.75,4.3]) rotate([90,0,0])
+     difference(){
+ releasef();
+ translate([shiftxx,shiftyy,0])release_void();
+ }    
  }
  
- //stopper();
+ //translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])release_void();
+// make_r_face();
  
-x=.75;
-y=.5;
 
-/** version with cube magnets **/
-
- module release_void(){
-translate([30+x,y-2,0])pogo_recs();
-translate([24.5,16.5,0])magnet();
-}
-//release_void();   
-
-/** version with disc magnets **/
- module release_void_m(){
-translate([30+x,y,0])pogo_recs();
-translate([24.5,17+1,0])disc_magnet();
-}
-//release_void_m();   
-
-
-//pogo house is the extrusion on the front of the release face. the breakaway face has a coresponding admission allowing for mating.
-pogo_house_x = 15;
-pogo_house_y = 1.5;
-pogo_house_z =4;
-pogo_house_pos_x= 31.75;
-pogo_house_pos_y= 0;
-pogo_house_pos_z= 2.25;
-
-
-block_distance=25;    
-        module release_face(){
-    color("blue",.55)
- rotate([90,0,0]){
-            translate([block_distance+1.25,0-1,0]){ //diff=-1 for switch
-                cube(size = [i_l_h+1, i_l_w, i_l_d], center = false);
-            }
-        } 
-    color("blue",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y-.5,pogo_house_z], center=false);
-                           
-        } 
-  //release_face();
-        
-module make_r_face(){
- translate([35,4,3.75]) rotate([90,0,0])difference(){
-      release_face();
-    translate([shiftxx,0,0])release_void();
-  
-}
-stopper();
- // translate([0,5.75,3]) rotate([90,0,0])translate([shiftxx,0,0])release_void();
-
-}        
- //make_r_face();
-
-module make_r_face_m(){
- translate([0,5.75,3]) rotate([90,0,0])difference(){
-      release_face();
-    translate([shiftxx,0,0])release_void_m();
-   
-}
-
-} 
-
-//make_r_face_m();
  
 // RELEASE ENCLOSURE
 
@@ -434,7 +421,7 @@ module make_r_face_m(){
     $fn=15;
   //dimensions for enclosure_r
   e_w=24;
-  e_l=28;  
+  e_l=25;  
   e_h=8;   
      
 s_p=4; //make room for jig slot
@@ -448,7 +435,7 @@ s_p=4; //make room for jig slot
      lid_thicc = .5; //lid_thicc<wall_thicc
      lid_lip = .25; //lid_lip < wall_thicc
      lid_tol = 1;
-     taper=3; //makes backend smaller than front end
+     taper=1; //makes backend smaller than front end
      inset=.75;//brings in posts so they dont end up on the edge of the lid
      
      module posts(x,y,z,h,r){
@@ -561,99 +548,96 @@ color("black") linear_extrude(2)translate([48,13,0])scale(1.5)rotate([0,0,90])im
 
 
 /*********** BREAKAWAY ***********/
-
- //BREAKAWAY FACE (Actually Release face now)
  
- //variables
-i_x = i_l_h; //base width
-i_z = 10-1.75; //base length diff=-2
-i_y = 2.5; //base height diff=.3
 
-b_extrusion_x=4.75;//extrusion x
-b_extrusion_y=1.75; //extrusion y
-b_extrusion_z=8;//extrusion z
+//BREAKAWAY FACE
 
+//variables
+i_l_h =25.25; //width
+i_l_w = 10; //height 
+i_l_d = 3.75; //length
 
-innie_tolerance=.5;         
+b_extrusion_x=5;//extrusion x for magnet
+b_extrusion_y=.1; //extrusion y for magnet
+b_extrusion_z=8;//extrusion z for magnet
+ 
+ module stopper(){
+ stopper_x=i_l_h/3;
+ stopper_y=1;
+ stopper_z=8;
      
- face_distance=26.5;  //distance from release face
-        module breakaway(){
-    color("red",.55)
- translate([25,.2,0])
-            rotate([90,0,0]){
-            translate([face_distance,0,2]){ // +1 to switch faces
-                cube(size = [i_x, i_z, i_y], center = false);
+     level=3.75;
 
-            }
-                           translate([face_distance,0,2]) 
-            rotate([-90,0,0]) 
-            cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);   
-        
-            translate([face_distance+magnet_distance+.25,0,2])rotate([-90,0,0])
-            cube(size = [b_extrusion_x, b_extrusion_y, b_extrusion_z], center = false);
-            
-           translate([face_distance,0,.75])
-            cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false); //rail2
-            
-            translate([face_distance,6.5,.75])
-            cube(size = [i_x, b_extrusion_y, b_extrusion_y], center = false); //rail 1
-        } 
-        
-        }   
-
-//breakaway();
+color("blue")
+ translate([i_l_h+41.25,-6,i_l_d-level])
+ cube(size = [stopper_x,stopper_y,stopper_z], center=false); //bottom slot
      
- pogo_house2_pos_x= pogo_house_pos_x+23.5;
- pogo_house2_pos_y= pogo_house_pos_y-b_extrusion_y-.5;
- pogo_house2_pos_z= pogo_house_pos_z;  
+ color("blue")
+ translate([i_l_h+48,i_l_w-6,i_l_d-level])     
+ cube(size = [stopper_x,stopper_y,stopper_z], center=false); //top slot
+
+color("blue")
+ translate([i_l_h+35,-5,i_l_d-level])
+ cube(size = [1,3,stopper_z], center=false); //left side slot     
+     
+color("blue")
+ translate([i_l_h+62,2,i_l_d-level])
+ cube(size = [1,3,stopper_z], center=false); //right side slot         
+     
+ }
+ 
+ //stopper();
+ 
+x=.75;
+y=.5;
 
 /** version with cube magnets **/
-        
- module breakaway_void(){
-     
-     translate([pogo_house2_pos_x-(innie_tolerance),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance)])
-     cube(size = [pogo_house_x+innie_tolerance+.25,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance+.5], center=false);
-     
-     translate([55.5,-2.6,0])pogos(); //bigger than pogo 
-     translate([49.5,17.6+.25,0])magnet();
-    // translate([49.5,17.6,0])magnet();
-     }    
-      
-//breakaway_void(); 
 
-/**version with disc magnets **/
-     
- module breakaway_void_m(){
-     translate([pogo_house2_pos_x-(innie_tolerance*.5),pogo_house2_pos_y,pogo_house2_pos_z-(innie_tolerance*.5)])cube(size = [pogo_house_x+innie_tolerance,pogo_house_y+innie_tolerance,pogo_house_z+innie_tolerance], center=false);
-     
-     translate([55.5,-2.6,0])pogos(); //smaller than pogos
-     translate([49.5,18.5,0])disc_magnet();
-     translate([49.5,18,0])disc_magnet();
-     }    
+ module breakaway_void(){
+translate([30+x,y-2,0])pogo_recs();
+translate([24.5,16.5,0])magnet();
+}
+//breakaway_void();   
+
+
+module breakaway_face(){
+
+
+
+block_distance=25;    
         
-//breakaway_void_m();      
-       
- 
-     shiftxx=1.5;
-     shiftyy=-1.45;
- module make_b_face(){
- translate([-25,5.75,4.25]) rotate([90,0,0])
-     difference(){
- breakaway();
- translate([shiftxx,shiftyy,0])breakaway_void();
- }    
- }
- 
- //translate([10,5.75,4]) rotate([90,0,0]) translate([shiftxx,shiftyy,0])breakaway_void();
-// make_b_face();
- 
- module make_b_face_m(){
- translate([10,5.75,3.5]) rotate([90,0,0])
-     difference(){
- breakaway();
- translate([shiftxx,shiftyy,0])breakaway_void_m();
- }    
- }
+    color("blue",.55)
+ rotate([90,0,0]){
+            translate([block_distance+1.25,0-1,0]){ //diff=-1 for switch
+                cube(size = [i_l_h+1, i_l_w, i_l_d], center = false);
+            }
+        } 
+    color("blue",.55)translate([pogo_house_pos_x,pogo_house_pos_y,pogo_house_pos_z])cube(size = [pogo_house_x,pogo_house_y-.5,pogo_house_z], center=false);
+                           
+        } 
+  //breakaway_face();
+        
+module make_b_face(){
+ translate([35,4,3.75]) rotate([90,0,0])difference(){
+      breakaway_face();
+    translate([shiftxx,0,0])breakaway_void();
+  
+}
+stopper();
+ // translate([0,5.75,3]) rotate([90,0,0])translate([shiftxx,0,0])breakaway_void();
+
+}        
+ //make_b_face();
+
+module make_b_face_m(){
+ translate([0,5.75,3]) rotate([90,0,0])difference(){
+      breakaway_face();
+    translate([shiftxx,0,0])breakaway_void_m();
+   
+}
+
+} 
+
 //make_b_face_m();
 
 // BREAKAWAY ENCLOSURE
@@ -665,7 +649,7 @@ module enclosure_b(){
     $fn=15;
   //dimensions for enclosure_b
   e_w=26;
-  e_l=28;  
+  e_l=26;  
   e_h=9;   
      
      
@@ -678,7 +662,7 @@ module enclosure_b(){
      lid_lip = .5; //lid_lip < wall_thicc
      lid_tol = 1;
     inset=.75;
-    taper=2.5;
+    taper=1;
      
      module posts(x,y,z,h,r){
          
@@ -783,7 +767,7 @@ module make_enclosure_b(){
 color("blue",.9)translate([75,-20,0]) rotate([0,0,90]) enclosure_b();
 color("black") translate([80,2.5,.5])linear_extrude(2)rotate([0,0,90])scale(1.5)import("kill.svg"); //for use with split logo option
  
-// translate([shiftxx+10,shiftyy,0])breakaway_void();
+
 }
 
 //make_enclosure_b();
@@ -794,12 +778,11 @@ color("black") translate([80,2.5,.5])linear_extrude(2)rotate([0,0,90])scale(1.5)
  
 /** all **/
 module make_all(){
-  make_r_face();
+ translate([0,4,0]) make_b_face();
  make_enclosure_r();  
- translate([0,0,0])make_b_face(); //translate to accomodate change for pins
+ make_r_face(); 
  make_enclosure_b();
  jig();  
-    jig2(); translate([-25,0,0])jig2();
  translate ([-25,0,0])jig();   
 } 
 
@@ -809,7 +792,7 @@ make_all();
 module only_r()
 {
     translate([0,0,0])make_enclosure_r();
-    make_b_face();
+    make_r_face();
 
     }
 
@@ -820,7 +803,7 @@ module only_r()
 module only_b()
 {
     translate([0,0,0])make_enclosure_b();
-    make_r_face();
+    make_b_face();
 
     }
 //only_b();    
@@ -839,21 +822,14 @@ module only_j()
 /** only release face **/
     
 module only_r_f(){
-make_r_face();
+ translate([0,0,0]) make_r_face();
 }
 //only_r_f();
 
 /** only breakaway face **/
 
 module only_b_f(){
-   translate([0,0,0]) make_b_face();
+    make_b_face();
+  
 }
-//make_b_face();
-
-/** disc version of faces*/
-
-module make_disc_version(){
-   make_r_face_m();  
-    make_b_face_m();
-}
-//make_disc_version();
+//only_b_f();
