@@ -96,7 +96,7 @@ js_l=4.5;
 
 //pogo house is the extrusion on the front of the breakaway face. the release face has a coresponding admission allowing for mating.
 pogo_house_x = 15; //this is x
-pogo_house_y = 1.25; // this is z
+pogo_house_y = 2; // this is z
 pogo_house_z =4; // this is y
 pogo_house_pos_x= 31.75;
 pogo_house_pos_y= 0;
