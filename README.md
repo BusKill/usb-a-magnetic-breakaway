@@ -16,7 +16,10 @@ If you create your own version, please create a folder and add your assets to th
 
 ##  What's New?
 
-* Updates to goldfishlaser Version: She is currently filming Part 2 ofthe assembly instructions and working on the final written documentation. Part 1 Video Assembly Instructions: https://youtu.be/HxwEmIUqQ7w?si=xajbAuSA-TxbAlxz
+Updates to goldfishlaser Version:
+* Recommend using 4.0 - has latest changes with a new type of pogo receptor
+* If continuging to use 3.9 be aware that there are a few issues with it that will need your attention.
+* I'm giving a talk at DEF CON! Read about it here: https://www.buskill.in/defcon32/
 
 
 ## What's in this Repo?
