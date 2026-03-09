@@ -1,11 +1,11 @@
 ################################################################################
 # File:    .github/workflows/unicode_warn.yml
-# Version: 0.1
+# Version: 0.2
 # Purpose: Detects Unicode in PRs and comments the results of findings in PR
 #           * https://tech.michaelaltfield.net/bidi-unicode-github-defense/
 # Authors: Michael Altfield <michael@michaelaltfield.net>
 # Created: 2021-11-20
-# Updated: 2021-11-20
+# Updated: 2026-03-09
 ################################################################################
 name: malicious_sanity_checks
  
@@ -18,6 +18,10 @@ jobs:
  
     runs-on: ubuntu-latest
     container: debian:bullseye-slim
+
+    permissions:
+      issues: write
+      pull-requests: write
  
     steps:
  
